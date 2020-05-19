@@ -3,7 +3,6 @@ class AAcategories:
     # Initializer / Instance Attributes
     def __init__(self):
         self.categories = {
-            'Proline' : set(["P"]) ,
             'Negative' : set(["D","E"]) ,
             'Positive' : set(["R","K"]) ,
             'Aliphatic' : set(["I","V","L"]) ,
@@ -19,14 +18,14 @@ class AAcategories:
         """This function returns the smallest category in which the set is included"""
         if len(ens) == 1 :
             return(print("The class contains only one amino acid : ",list(ens)[0]))
-        List = ['Proline', 'Negative', 'Positive', 'Aliphatic', 'Tiny', 'Aromatic', 'Charged', 'Small', 'Polar','Hydrophobic']
+        List = ['Negative', 'Positive', 'Aliphatic', 'Tiny', 'Aromatic', 'Charged', 'Small', 'Polar','Hydrophobic']
         for k in range(len(self.categories)):
             if ens.issubset(self.categories[List[k]]):
                 return(print("The set is contained in the category : ",List[k]))
         return(print("The set is not contained in any of the categories"))
 
 
-ens = {"S","V"}
+ens = {"P"}
 objet = AAcategories()
 objet.find_category(ens)
 
