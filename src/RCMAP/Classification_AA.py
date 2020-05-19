@@ -16,6 +16,8 @@ class AAcategories:
 
     def find_category(self,ens):
         """This function returns the smallest category in which the set is included"""
+        if "-" in ens :
+            ens.remove("-")
         if len(ens) == 1 :
             return(print(ens))
         List = ['Negative', 'Positive', 'Aliphatic', 'Tiny', 'Aromatic', 'Charged', 'Small', 'Polar','Hydrophobic']
@@ -25,7 +27,7 @@ class AAcategories:
         return(print(set(["I","V","L","F", "Y", "W", "H","M","K","T","G","A","C","P","S","N","D","E","Q","R"])))
 
 
-ens = {"P"}
+ens = {"G","-","C"}
 objet = AAcategories()
 objet.find_category(ens)
 
