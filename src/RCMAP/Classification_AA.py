@@ -27,7 +27,15 @@ class AAcategories:
                 return(self.categories[List[k]])
         return(set("IVLFYWHMKTGACPSNDEQR"))
 
+    def compatibility(self,AA,category):
+        if AA < category:
+            return category
+        return AA
+
 
 ens = {"-","-","K","D"}
+AA = {"E"}
+category = set("DEKRH")
 objet = AAcategories()
-print(objet.find_category(ens))
+#print(objet.find_category(ens))
+print(objet.compatibility(AA,category))
