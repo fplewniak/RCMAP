@@ -10,55 +10,38 @@ class MyTestCase(unittest.TestCase):
 
 
     def test_find_category1(self):
-        ens = {"A"}
-        assert AAcategories().find_category(ens) == {"A"}
+        assert AAcategories().find_category({"A"}) == {"A"}
 
     def test_find_category2(self):
-        ens = {}
-        assert AAcategories().find_category(ens) == {}
+        assert AAcategories().find_category({}) == {}
 
     def test_find_category3(self):
-        ens = {"I","V","A","R"}
-        assert AAcategories().find_category(ens) == set("IVLFYWHMKTGACPSNDEQR")
+        assert AAcategories().find_category({"I","V","A","R"}) == set("IVLFYWHMKTGACPSNDEQR")
 
     def test_find_category4(self):
-        ens = {"-","-"}
-        assert AAcategories().find_category(ens) == set()
+        assert AAcategories().find_category({"-","-"}) == set()
 
     def test_find_category5(self):
-        ens = {"R","H"}
-        assert AAcategories().find_category(ens) == {"R","K","H"}
+        assert AAcategories().find_category({"R","H"}) == {"R","K","H"}
 
     def test_find_category6(self):
-        ens = {"B"}
-        assert AAcategories().find_category(ens) == set("ASCGPNDTV")
+        assert AAcategories().find_category({"B"}) == set("ASCGPNDTV")
 
     def test_find_category7(self):
-        ens = {"Z"}
-        assert AAcategories().find_category(ens) == set("DEKRHQNSCTYW")
+        assert AAcategories().find_category({"Z"}) == set("DEKRHQNSCTYW")
 
 
     def test_compatibility(self):
-        AA= {"B"}
-        category = set("ASCGPNDTV")
-        assert AAcategories().compatibility(AA,category) == True
+        assert AAcategories().compatibility({"B"},set("ASCGPNDTV")) == True
 
     def test_compatibility1(self):
-        AA= {"Z"}
-        category = set("DEKRHQNSCTYW")
-        assert AAcategories().compatibility(AA,category) == True
+        assert AAcategories().compatibility({"Z"},set("DEKRHQNSCTYW")) == True
 
     def test_compatibility2(self):
-        AA = {"-"}
-        category = set("IVL")
-        assert AAcategories().compatibility(AA, category) == False
+        assert AAcategories().compatibility({"-"}, set("IVL")) == False
 
     def test_compatibility3(self):
-         AA = {"G"}
-         category = set("ASCGPNDTV")
-         assert AAcategories().compatibility(AA, category) == True
+         assert AAcategories().compatibility({"G"}, set("ASCGPNDTV")) == True
 
     def test_compatibility3(self):
-         AA = {"G"}
-         category = set("RKH")
-         assert AAcategories().compatibility(AA, category) == False
+         assert AAcategories().compatibility({"G"}, set("RKH")) == False
