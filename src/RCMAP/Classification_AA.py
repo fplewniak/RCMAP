@@ -18,6 +18,14 @@ class AAcategories:
         """This function returns the smallest category in which the set is included"""
         if "-" in ens :
             ens.remove("-")
+        if "B" in ens :
+            ens.remove("B")
+            ens.add("D")
+            ens.add("N")
+        if "Z" in ens :
+            ens.remove("Z")
+            ens.add("Q")
+            ens.add("E")
         if len(ens) <= 1 :
             return(ens)
         List = self.sort_categories()
@@ -27,14 +35,20 @@ class AAcategories:
         return(set("IVLFYWHMKTGACPSNDEQR"))
 
     def compatibility(self,AA,category):
+        if "B" in AA :
+            AA = {"D","N"}
+        if "Z" in AA :
+            AA = {"Q","E"}
+        if "-" in AA :
+            return False
         if AA < category:
             return True
         return False
 
 
-ens = {"-","-","K","D"}
+ens = {"B","Z"}
 AA = {"F"}
-category = set("DEKRH")
+category = {"D","E","K","R","H"}
 objet = AAcategories()
-#print(objet.find_category(ens))
+print(objet.find_category(ens))
 print(objet.compatibility(AA,category))
