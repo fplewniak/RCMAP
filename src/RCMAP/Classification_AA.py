@@ -1,4 +1,3 @@
-from collections import OrderedDict
 class AAcategories:
 
     # Initializer / Instance Attributes
@@ -29,12 +28,12 @@ class AAcategories:
 
     def compatibility(self,AA,category):
         if AA < category:
-            return category
-        return AA
+            return True
+        return False
 
 
 ens = {"-","-","K","D"}
-AA = {"E"}
+AA = {"F"}
 category = set("DEKRH")
 objet = AAcategories()
 #print(objet.find_category(ens))
