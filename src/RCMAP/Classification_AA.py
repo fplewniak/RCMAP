@@ -4,7 +4,7 @@ class AAcategories:
     def __init__(self):
         self.categories = {
             'Negative' : set("DE") ,'Polar' : set("DEKRHQNSCTYW"),'Tiny' : set("ASCG") ,
-            'Positive' : set("RK") ,
+            'Positive' : set("RKH") ,
             'Aliphatic' : set("IVL") ,
             'Aromatic' : set("FYWH"),
             'Charged' : set("DEKRH"),
