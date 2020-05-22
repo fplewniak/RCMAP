@@ -1,6 +1,6 @@
 from Bio import AlignIO
 
-alignment = AlignIO.read("tests\data\ArsM_aln.faa", "fasta")
+alignment = AlignIO.read("data/ArsM_aln.faa", "fasta")
 print(alignment)
 
 for record in alignment:
