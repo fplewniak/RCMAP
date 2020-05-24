@@ -4,12 +4,13 @@ from RCMAP.Classification_AA import AAcategories
 
 class Read_sequences:
 
-    def __init__(self,n=6):
+    def __init__(self,n=6, data = "data/ArsM_aln.faa" ):
         """Save the number of reference sequences"""
         self.n= n
+        self.data = data
 
     def reference_sequences(self):
-        self.alignment = AlignIO.read("ArsM_aln.faa", "fasta")
+        self.alignment = AlignIO.read(self.data, "fasta")
         self.ref_sequences = self.alignment[0:self.n]
         return (self.ref_sequences)
 
