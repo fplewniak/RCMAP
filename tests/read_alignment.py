@@ -1,5 +1,6 @@
 from Bio import AlignIO
 
+from RCMAP.Classification_AA import AAcategories
 
 class Read_sequences:
 
@@ -11,21 +12,23 @@ class Read_sequences:
         self.alignment = AlignIO.read("ArsM_aln.faa", "fasta")
         self.ref_sequences = self.alignment[0:self.n]
         return (self.ref_sequences)
-        return len(self.ref_sequences[0])
 
-    def create_set(self):
-        self.List_set =[]
+    def create_set_AA(self):
+        self.List_AA =[]
         for i in range (len(self.ref_sequences[0])):
             set_AA = set()
             for k in range (self.n):
                 set_AA.add(self.alignment[k][i])
-            self.List_set.append(set_AA)
+            self.List_AA.append(set_AA)
+        return self.List_AA
+
+    def create_set_categories(self):
+        self.List_set = []
+        for k in range (len(self.List_AA)):
+            self.List_set.append(AAcategories().find_category(self.List_AA[k]))
         return self.List_set
-
-
-
-
 
 objet = Read_sequences()
 print(objet.reference_sequences())
-print(objet.create_set())
+print(objet.create_set_AA())
+print(objet.create_set_categories())
