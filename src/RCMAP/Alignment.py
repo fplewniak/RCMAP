@@ -1,13 +1,14 @@
 from Bio import AlignIO
+from Bio import SeqIO
 
 from RCMAP.Classification_AA import AAcategories
 
 file = "ArsM_aln.faa"  #Definition du fichier
 
-def read_alignments(file,seqs_to_evaluate=["Q968Z2","WP_045226361"]):
+def read_alignments(file, seqs_to_evaluate=["Q968Z2","WP_045226361"]):
     alignment = AlignIO.read(file, "fasta")
-    seqeval = alignment[record.id == "Q968Z2"or "WP_045226361"]
-    return seqeval
+    seqeval = (s.seq for s in alignment if s.id == "Q968Z2" or s.id == "WP_045226361")
+    return (seqeval)
 
 #def get_cat_at_pos(seqref,pos):
     #lire set(aa) à la position dans chaque séquence de seqref
