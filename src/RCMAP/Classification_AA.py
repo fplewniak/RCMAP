@@ -50,5 +50,5 @@ ens = {"B","Z"}
 AA = {"F"}
 category = {"D","E","K","R","H"}
 objet = AAcategories()
-print(objet.find_category(ens))
-print(objet.compatibility(AA,category))
+#print(objet.find_category(ens))
+#print(objet.compatibility(AA,category))
