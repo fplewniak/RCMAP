@@ -3,15 +3,21 @@ from Bio.Align import MultipleSeqAlignment
 
 from RCMAP.Classification_AA import AAcategories
 
-file ="ArsM_aln.faa"
-seqs_to_evaluate = ["WP_045226361.1", "Q969Z2"]
+
 class Alignments :
 
-    def read_alignments(self,file, seqs_to_evaluate):
+    def __init__(self, file ="ArsM_aln.faa", seqs_to_evaluate =["WP_045226361.1", "Q969Z2"]):
+        self.file = file
+        self.seqs_to_evaluate = seqs_to_evaluate
         alignment = AlignIO.read(file, "fasta")
         self.seqeval = MultipleSeqAlignment([s for s in alignment if s.id in seqs_to_evaluate])
         self.seqrefs = MultipleSeqAlignment([s for s in alignment if s.id not in seqs_to_evaluate])
-        return self.seqrefs, self.seqeval
+
+ #   def read_alignments(self,file, seqs_to_evaluate):
+ #       alignment = AlignIO.read(file, "fasta")
+ #       self.seqeval = MultipleSeqAlignment([s for s in alignment if s.id in seqs_to_evaluate])
+ #       self.seqrefs = MultipleSeqAlignment([s for s in alignment if s.id not in seqs_to_evaluate])
+ #       return self.seqrefs, self.seqeval
 
     def get_cat_at_pos(self, pos):
         AA_at_pos = set()
@@ -23,5 +29,5 @@ class Alignments :
         #return [get_cat_at_pos(seqref,pos) for pos in range(debut,fin)]
 
 object = Alignments()
-print(object.read_alignments(file,seqs_to_evaluate))
+#print(object.read_alignments(file,seqs_to_evaluate))
 print(object.get_cat_at_pos(3))

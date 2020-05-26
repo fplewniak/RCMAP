@@ -10,9 +10,9 @@ class Read_sequences:
         self.data = data
 
     def reference_sequences(self):
-        self.alignment = AlignIO.read(self.data, "fasta")
+        self.alignment = AlignIO.read(data, "fasta")
         self.ref_sequences = self.alignment[0:self.n]
-        return (self.ref_sequences)
+        return self.ref_sequences
 
     def create_set_AA(self):
         self.List_AA =[]
@@ -30,6 +30,6 @@ class Read_sequences:
         return self.List_set
 
 objet = Read_sequences()
-print(objet.reference_sequences())
-print(objet.create_set_AA())
-print(objet.create_set_categories())
+#print(objet.reference_sequences())
+#print(objet.create_set_AA())
+#print(objet.create_set_categories())
