@@ -28,18 +28,18 @@ class Alignments :
 
     def get_cat_in_range(self,pos1=None,pos2=None):
         """
-        :param pos1: start position
-        :param pos2: end position
+        :param pos1: start position #from 1 until end
+        :param pos2: end position #from 1 until end
         :return: list of the categories of amino acid at every position between pos1 and pos2
         """
         if pos1 == None :
-            pos1=0
+            pos1=1
         if pos2 == None :
-            pos2=len(self.seqrefs[0])-1
+            pos2=len(self.seqrefs[0])
         if pos1 > len(self.seqrefs[0]) or pos2 > len(self.seqrefs[0]):
             return "Error"
         cat_in_range = []
-        for pos in range(pos1, pos2+1):
+        for pos in range(pos1-1, pos2):
             cat_in_range.append(self.get_cat_at_pos(pos))
         return cat_in_range
 

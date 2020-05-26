@@ -15,13 +15,13 @@ class MyTestCase(unittest.TestCase):
         assert Alignments("ArsM_aln.faa",["WP_045226361.1", "Q969Z2"]).get_cat_at_pos(3) == {'T'}
 
     def test_get_cat_in_range1(self):
-        assert Alignments("ArsM_aln_part.faa",["WP_045226361.1", "Q969Z2"]).get_cat_in_range(1,3) == [{"I","V","L","F","Y","W","H","M","K","T","G","A","C","P","S","N","D","E","Q","R"},{"D","E","K","R","H"},{"T"}]
+        assert Alignments("ArsM_aln_part.faa",["WP_045226361.1", "Q969Z2"]).get_cat_in_range(1,3) == [{"M"},{"I","V","L","F","Y","W","H","M","K","T","G","A","C","P","S","N","D","E","Q","R"},{"D","E","K","R","H"}]
 
     def test_get_cat_in_range2(self):
-        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range(None, 2) == [{"M"},{"I","V","L","F","Y","W","H","M","K","T","G","A","C","P","S","N","D","E","Q","R"},{"D","E","K","R","H"}]
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range(None, 2) == [{"M"},{"I","V","L","F","Y","W","H","M","K","T","G","A","C","P","S","N","D","E","Q","R"}]
 
     def test_get_cat_in_range3(self):
-        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range(4, None) == [{"P"},{"S"},{"T"},{"T"},{"A"}]
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range(4, None) == [{"T"},{"P"},{"S"},{"T"},{"T"},{"A"}]
 
     def test_get_cat_in_range4(self):
         assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range(0, 10) == "Error"
