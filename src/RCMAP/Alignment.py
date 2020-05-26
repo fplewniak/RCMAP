@@ -35,7 +35,7 @@ class Alignments :
         if pos1 == None :
             pos1=0
         if pos2 == None :
-            pos2=len(self.seqrefs[0])
+            pos2=len(self.seqrefs[0])-1
         if pos1 > len(self.seqrefs[0]) or pos2 > len(self.seqrefs[0]):
             return "Error"
         cat_in_range = []
