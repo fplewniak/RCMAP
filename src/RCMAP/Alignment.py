@@ -6,7 +6,7 @@ from RCMAP.Classification_AA import AAcategories
 
 class Alignments :
 
-    def __init__(self, file ="ArsM_aln.faa", seqs_to_evaluate =["WP_045226361.1", "Q969Z2"]):
+    def __init__(self, file, seqs_to_evaluate):
         self.file = file
         self.seqs_to_evaluate = seqs_to_evaluate
         alignment = AlignIO.read(file, "fasta")
@@ -25,6 +25,6 @@ class Alignments :
     #def get_cat_in_range(seqref,debut=None,fin=None):
         #return [get_cat_at_pos(seqref,pos) for pos in range(debut,fin)]
 
-object = Alignments()
+object = Alignments("ArsM_aln.faa",["WP_045226361.1", "Q969Z2"])
 #print(object.read_alignments(file,seqs_to_evaluate))
 print(object.get_cat_at_pos(3))
