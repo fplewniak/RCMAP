@@ -1,16 +1,17 @@
 >gb|ACN39191.1
-MP--------------
+MP-------
 >ref|XP_005539091.1
-MP--------------
+MP-------
 >gb|PXF49941.1
-MHKTPSTTAERSHLIE
+MHKTPSTTA
 >gb|OSX76803.1
-MD--------------
+MD-------
 >emb|SMG66974.1
-MS-----------LLG
+MS-------
 >ref|XP_005706547.1
-MGD---------FLFQ
+MGD------
+
 >WP_045226361.1 methyltransferase domain-containing protein [Methyloterricola oryzae]
-----------------
+---------
 >Q969Z2 Q969Z2_HUMAN SAM-dependent methyltransferase OS=Homo sapiens OX=9606 PE=2 SV=1
-MA-----------LTE
+MA-------
