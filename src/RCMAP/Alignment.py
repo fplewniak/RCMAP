@@ -13,11 +13,8 @@ class Alignments :
         self.seqeval = MultipleSeqAlignment([s for s in alignment if s.id in seqs_to_evaluate])
         self.seqrefs = MultipleSeqAlignment([s for s in alignment if s.id not in seqs_to_evaluate])
 
- #   def read_alignments(self,file, seqs_to_evaluate):
- #       alignment = AlignIO.read(file, "fasta")
- #       self.seqeval = MultipleSeqAlignment([s for s in alignment if s.id in seqs_to_evaluate])
- #       self.seqrefs = MultipleSeqAlignment([s for s in alignment if s.id not in seqs_to_evaluate])
- #       return self.seqrefs, self.seqeval
+    def read_alignments(self):
+        return self.seqrefs, self.seqeval
 
     def get_cat_at_pos(self, pos):
         AA_at_pos = set()
