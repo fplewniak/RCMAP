@@ -25,3 +25,18 @@ class MyTestCase(unittest.TestCase):
 
     def test_get_cat_in_range4(self):
         assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range(0, 10) == "Error"
+
+    def test_get_cat_in_range_bis(self,interval):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range_bis([0]) == [{'M'}]
+
+    def test_get_cat_in_range_bis1(self,interval):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range_bis([2,4]) == [{"I","V","L","F","Y","W","H","M","K","T","G","A","C","P","S","N","D","E","Q","R"},{"D","E","K","R","H"},{'T'}]
+
+    def test_get_cat_in_range_bis2(self,interval):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range_bis([None,3]) == [{"M"},{"I","V","L","F","Y","W","H","M","K","T","G","A","C","P","S","N","D","E","Q","R"},{"D","E","K","R","H"}]
+
+    def test_get_cat_in_range_bis3(self,interval):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range_bis([3,None]) == [{"D","E","K","R","H"},{"T"},{"P"},{"S"},{"T"},{"T"},{"A"}]
+
+    def test_get_cat_in_range_bis4(self,interval):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range_bis([[0],[2,4],[None,3],[3,None]]) == [{'M'},[{"I","V","L","F","Y","W","H","M","K","T","G","A","C","P","S","N","D","E","Q","R"},{"D","E","K","R","H"},{'T'}],[{"M"},{"I","V","L","F","Y","W","H","M","K","T","G","A","C","P","S","N","D","E","Q","R"},{"D","E","K","R","H"}],[{"D","E","K","R","H"},{"T"},{"P"},{"S"},{"T"},{"T"},{"A"}]]
