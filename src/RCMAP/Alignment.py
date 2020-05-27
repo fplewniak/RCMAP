@@ -44,33 +44,36 @@ class Alignments :
 #            cat_in_range.append(self.get_cat_at_pos(pos))
 #        return cat_in_range
 
-    def get_cat_in_range_bis(self, position):
-        cat_in_range_bis = []
-        if len(position) == 1 :
-            cat_in_range_bis.append(self.get_cat_at_pos(position[0]))
-        else:
-            if position[0] == None:
-                position[0]=1
-            if position[1] == None :
-                position[1]=len(self.seqrefs[0])
-            if position[0] > len(self.seqrefs[0]) or position[1] > len(self.seqrefs[0]):
-                return "Error"
-            for pos in range(position[0]-1,position[1]):
-                cat_in_range_bis.append(self.get_cat_at_pos(pos))
-        return cat_in_range_bis
-
-    def get_cat_in_range(self,interval):
-        get_cat_in_range =[]
-        if len(interval)==1:
-            get_cat_in_range.append(self.get_cat_at_pos(interval[0]))
-        else :
-            for i in range(len(interval)):
-                get_cat_in_range.append(self.get_cat_in_range_bis(interval[i]))
-        return get_cat_in_range
+    def get_positions_list(self,positions):
+        """
+        :param positions:  #like ['3:10', '8:25' ,'32', '45:']
+        :return: #like [[3,10], [8,25], [32], [45,None]]
+        """
+        positions_list =[]
+        for k in range(len(positions)):
+            l=[]
+            if ':' in positions[k] :
+                r=positions[k].rpartition(':')
+                if r[0] != '':
+                    l.append(int(r[0]))
+                else :
+                    l.append(None)
+                if r[2] != '':
+                    l.append(int(r[2]))
+                else :
+                    l.append(None)
+                positions_list.append(l)
+            else :
+                positions_list.append([int(positions[k])])
+        return positions_list
 
 
 object = Alignments("ArsM_aln.faa",["WP_045226361.1", "Q969Z2"])
 #print(object.get_alignments(file,seqs_to_evaluate))
 #print(object.get_cat_at_pos(2))
 #print(object.get_cat_in_range(None,None))
-print(object.get_cat_in_range([0,3]))
+print(object.get_positions_list(["0:3",":3","2:",":","2"]))
+
+
+
+
