@@ -27,29 +27,30 @@ class Alignments :
         return (AAcategories().find_category(AA_at_pos))
 
 
-#    def get_cat_in_range(self,pos1=None,pos2=None):
-#        """
-#        :param pos1: start position #from 1 until end
-#        :param pos2: end position #from 1 until end
-#        :return: list of the categories of amino acid at every position between pos1 and pos2
-#        """
-#        if pos1 == None :
-#            pos1=1
-#        if pos2 == None :
-#            pos2=len(self.seqrefs[0])
-#        if pos1 > len(self.seqrefs[0]) or pos2 > len(self.seqrefs[0]):
-#            return "Error"
-#        cat_in_range = []
-#        for pos in range(pos1-1, pos2):
-#            cat_in_range.append(self.get_cat_at_pos(pos))
-#        return cat_in_range
+    def get_cat_in_range(self):
+        """
+        :param pos1: start position #from 1 until end
+        :param pos2: end position #from 1 until end
+        :return: list of the categories of amino acid at every position between pos1 and pos2
+        """
+        cat_in_range = []
+        for k in range(len(self.get_positions_list(positions))):
+            if self.get_positions_list(positions)[k][0] == None :
+                self.get_positions_list(positions)[k][0] = 0
+            if self.get_positions_list(positions)[k][1] == None :
+                self.get_positions_list(positions)[k][1] = len(self.seqrefs)
+            l =[]
+            for i in range(self.get_positions_list(positions)[k][0],self.get_positions_list(positions)[k][1]):
+                l.append(self.get_cat_at_pos(i))
+            cat_in_range.append(l)
+        return cat_in_range
 
     def get_positions_list(self,positions):
         """
         :param positions:  #like ['3:10', '8:25' ,'32', '45:']
         :return: #like [[3,10], [8,25], [32], [45,None]]
         """
-        positions_list =[]
+        positions_list = []
         for k in range(len(positions)):
             l=[]
             if ':' in positions[k] :
@@ -72,8 +73,9 @@ object = Alignments("ArsM_aln.faa",["WP_045226361.1", "Q969Z2"])
 #print(object.get_alignments(file,seqs_to_evaluate))
 #print(object.get_cat_at_pos(2))
 #print(object.get_cat_in_range(None,None))
-print(object.get_positions_list(["0:3",":3","2:",":","2"]))
-
+positions =["0:3",":3","2:",":"]
+print(object. get_positions_list(positions))
+print(object.get_cat_in_range())
 
 
 
