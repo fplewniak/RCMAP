@@ -24,9 +24,9 @@ class Alignments :
         AA_at_pos = set()
         for k in range(len(self.seqrefs)) :
             AA_at_pos.add(self.seqrefs[k][pos - 1])
-        return (AAcategories().find_category(AA_at_pos))
+        return AAcategories().find_category(AA_at_pos)
 
-    def get_aa_at_pos_in_seqeval(self, pos, name_seqeval):
+    def get_aa_at_pos_in_seqeval(self, name_seqeval,pos):
         """
         :param pos: position of the amino acid in seqeval
         :return:
@@ -37,14 +37,14 @@ class Alignments :
                 AA_at_pos_in_seqeval = set(s[pos-1])
         return AA_at_pos_in_seqeval
 
-    def get_aa_in_range_in_seqeval(self,pos1=None,pos2=None,name_seqeval):
+    def get_aa_in_range_in_seqeval(self,name_seqeval,pos1=None,pos2=None):
         """
         :param pos1: start position #from 1 until end
         :param name_seqeval : name of the evaluated sequence
         :param pos2: end position #from 1 until end
         :return: list of amino acid at every position between pos1 and pos2 in seqeval
         """
-        for s in range(self.seqeval):
+        for s in self.seqeval:
             if s.id == name_seqeval:
                 seqeval = s.seq
         if pos1 == None :
@@ -55,7 +55,7 @@ class Alignments :
         #    return "Error"
         aa_in_range = []
         for pos in range(pos1, pos2 + 1):
-            aa_in_range.append(self.get_aa_at_pos_in_seqeval(pos,name_seqeval))
+            aa_in_range.append(self.get_aa_at_pos_in_seqeval(name_seqeval,pos))
         return aa_in_range
 
     def get_cat_in_range(self,pos1=None,pos2=None):
@@ -83,11 +83,23 @@ class Alignments :
         list_of_categories =[]
         for r in range(len(positions_list)):
             if len(positions_list[r]) == 1:
-                list_of_categories.append(self.get_cat_at_pos(positions_list[r][0]))
+                list_of_categories.append([self.get_cat_at_pos(positions_list[r][0])])
             else :
                 list_of_categories.append(self.get_cat_in_range(positions_list[r][0],positions_list[r][1]))
         return list_of_categories
 
+    def get_aa_list_in_seqeval(self,name_seqeval,positions_list) :
+        """
+        :param positions_list: list of the intervals of positions
+        :return: list of the categories associated so the intervals of positions
+        """
+        aa_list_in_seqeval =[]
+        for r in range(len(positions_list)):
+            if len(positions_list[r]) == 1:
+                aa_list_in_seqeval.append([self.get_aa_at_pos_in_seqeval(name_seqeval,positions_list[r][0])])
+            else :
+                aa_list_in_seqeval.append(self.get_aa_in_range_in_seqeval(name_seqeval,positions_list[r][0],positions_list[r][1]))
+        return aa_list_in_seqeval
 
 object = Alignments("ArsM_aln.faa",["WP_045226361.1", "Q969Z2"])
 #print(object.get_alignments(file,seqs_to_evaluate))
