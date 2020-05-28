@@ -45,7 +45,31 @@ class Alignments :
             cat_in_range.append(l)
         return cat_in_range
 
-#object = Alignments("ArsM_aln.faa",["WP_045226361.1", "Q969Z2"])
+    def get_positions_list(self,positions):
+        """
+        :param positions:  #like ['3:10', '8:25' ,'32', '45:']
+        :return: #like [[3,10], [8,25], [32], [45,None]]
+        """
+        positions_list = []
+        for k in range(len(positions)):
+            l=[]
+            if ':' in positions[k] :
+                r=positions[k].rpartition(':')
+                if r[0] != '':
+                    l.append(int(r[0]))
+                else :
+                    l.append(None)
+                if r[2] != '':
+                    l.append(int(r[2]))
+                else :
+                    l.append(None)
+                positions_list.append(l)
+            else :
+                positions_list.append([int(positions[k])])
+        return positions_list
+
+
+object = Alignments("ArsM_aln.faa",["WP_045226361.1", "Q969Z2"])
 #print(object.get_alignments(file,seqs_to_evaluate))
 #print(object.get_cat_at_pos(2))
 #print(object.get_cat_in_range(None,None))
