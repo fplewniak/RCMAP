@@ -24,5 +24,14 @@ class MyTestCase(unittest.TestCase):
     def test_get_cat_in_range3(self):
         assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range(4, None) == [{"T"},{"P"},{"S"},{"T"},{"T"},{"A"}]
 
-    def test_get_cat_in_range4(self):
-        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range(0, 10) == "Error"
+    #def test_get_cat_in_range4(self):
+    #    assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range(0, 10) == "Error"
+
+    def test_get_positions_list(self):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_positions_list(['3:10','8:25']) == [[3,10],[8,25]]
+
+    def test_get_positions_list(self):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_positions_list([':25' ,'32', '45:']) == [[None,25], [32], [45,None]]
+
+    def test_get_category_list(self):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_category_list([[1,2],[None,3]]) == [[{"M"},{"I","V","L","F","Y","W","H","M","K","T","G","A","C","P","S","N","D","E","Q","R"}],[{"M"},{"I","V","L","F","Y","W","H","M","K","T","G","A","C","P","S","N","D","E","Q","R"},{"D","E","K","R","H"}]]

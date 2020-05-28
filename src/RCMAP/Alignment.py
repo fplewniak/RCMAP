@@ -36,44 +36,30 @@ class Alignments :
             pos1=1
         if pos2 == None :
             pos2=len(self.seqrefs[0])
-        if pos1 > len(self.seqrefs[0]) or pos2 > len(self.seqrefs[0]):
-            return "Error"
+        #if pos1 > len(self.seqrefs[0]) or pos2 > len(self.seqrefs[0]):
+        #    return "Error"
         cat_in_range = []
         for pos in range(pos1, pos2 + 1):
             cat_in_range.append(self.get_cat_at_pos(pos))
         return cat_in_range
 
-    def get_positions_list(self,positions):
-        """
-        :param positions:  #like ['3:10', '8:25' ,'32', '45:']
-        :return: #like [[3,10], [8,25], [32], [45,None]]
-        """
-        positions_list = []
-        for k in range(len(positions)):
-            l=[]
-            if ':' in positions[k] :
-                r=positions[k].rpartition(':')
-                if r[0] != '':
-                    l.append(int(r[0]))
-                else :
-                    l.append(None)
-                if r[2] != '':
-                    l.append(int(r[2]))
-                else :
-                    l.append(None)
-                positions_list.append(l)
+    def get_category_list(self,positions_list):
+        list_of_categories =[]
+        for r in range(len(positions_list)):
+            if len(positions_list[r]) == 1:
+                list_of_categories.append(self.get_cat_at_pos(positions_list[r][0])
             else :
-                positions_list.append([int(positions[k])])
-        return positions_list
+                list_of_categories.append(self.get_cat_in_range(positions_list[r][0],positions_list[r][1]))
+        return list_of_categories
 
 
 object = Alignments("ArsM_aln.faa",["WP_045226361.1", "Q969Z2"])
 #print(object.get_alignments(file,seqs_to_evaluate))
 #print(object.get_cat_at_pos(2))
 #print(object.get_cat_in_range(None,None))
-positions =["0:3",":3","2:",":"]
-print(object. get_positions_list(positions))
-print(object.get_cat_in_range())
+#positions =["0:3",":3","2:",":"]
+#print(object. get_positions_list(positions))
+#print(object.get_cat_in_range())
 
 
 

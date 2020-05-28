@@ -1,3 +1,5 @@
+
+
 def get_positions_list(positions):
     """
     :param positions:  #like ['3:10', '8:25' ,'32', '45:']
@@ -20,3 +22,4 @@ def get_positions_list(positions):
         else:
             positions_list.append([int(positions[k])])
     return positions_list
+
