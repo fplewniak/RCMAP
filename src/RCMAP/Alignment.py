@@ -23,7 +23,7 @@ class Alignments :
         """
         AA_at_pos = set()
         for k in range(len(self.seqrefs)) :
-            AA_at_pos.add(self.seqrefs[k][pos])
+            AA_at_pos.add(self.seqrefs[k][pos - 1])
         return (AAcategories().find_category(AA_at_pos))
 
     def get_cat_in_range(self,pos1=None,pos2=None):
@@ -39,7 +39,7 @@ class Alignments :
         if pos1 > len(self.seqrefs[0]) or pos2 > len(self.seqrefs[0]):
             return "Error"
         cat_in_range = []
-        for pos in range(pos1-1, pos2):
+        for pos in range(pos1, pos2 + 1):
             cat_in_range.append(self.get_cat_at_pos(pos))
         return cat_in_range
 
