@@ -1,4 +1,4 @@
-
+from RCMAP.Alignment import Alignments
 
 def get_positions_list(positions):
     """
