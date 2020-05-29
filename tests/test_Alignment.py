@@ -11,6 +11,14 @@ class MyTestCase(unittest.TestCase):
                                           "emb|SMG66974.1", "ref|XP_005706547.1"]
         assert [s.id for s in seqeval] == ["WP_045226361.1", "Q969Z2"]
 
+    def test_count_aa_ref(self):
+        assert Alignments("ArsM_aln_part1.faa",["WP_045226361.1", "Q969Z2"]).count_aa_ref() == [{"A":0,"R":0,"N":0,"D":0,"B":0,"C":0,"E":0,"Q":0,"Z":0,"G":0,"H":0,"I":0,"L":0,"K":0,"M":6,"F":0,"P":0,"S":0,"T":0,"W":0,"Y":0,"V":0,"-":0},
+                                                                                         {"A":0,"R":0,"N":0,"D":1,"B":0,"C":0,"E":0,"Q":0,"Z":0,"G":1,"H":1,"I":0,"L":0,"K":0,"M":0,"F":0,"P":2,"S":1,"T":0,"W":0,"Y":0,"V":0,"-":0},
+                                                                                         {"A":0,"R":0,"N":0,"D":1,"B":0,"C":0,"E":0,"Q":0,"Z":0,"G":0,"H":0,"I":0,"L":0,"K":1,"M":0,"F":0,"P":0,"S":0,"T":0,"W":0,"Y":0,"V":0,"-":4}]
+
+    def test_determine_ref_categories(self):
+        assert Alignments("ArsM_aln_part1.faa",["WP_045226361.1", "Q969Z2"]).determine_ref_categories() == [{'M'}, set("IVLFYWHMKTGACPSNDEQR"), set("DEKRH")]
+
     def test_get_cat_at_pos(self):
         assert Alignments("ArsM_aln.faa",["WP_045226361.1", "Q969Z2"]).get_cat_at_pos(4) == {'T'}
 

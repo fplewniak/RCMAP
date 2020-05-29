@@ -12,6 +12,27 @@ class Alignments :
         alignment = AlignIO.read(file, "fasta")
         self.seqeval = MultipleSeqAlignment([s for s in alignment if s.id in seqs_to_evaluate])
         self.seqrefs = MultipleSeqAlignment([s for s in alignment if s.id not in seqs_to_evaluate])
+        self.aa_ref_counts = self.count_aa_ref()
+        self.list_of_categories = self.determine_ref_categories()
+
+    def count_aa_ref(self):
+        """
+        :return: the count of amino acids at every position in all reference sequences
+        """
+        self.aa_ref_counts = [{"A":0,"R":0,"N":0,"D":0,"B":0,"C":0,"E":0,"Q":0,"Z":0,"G":0,"H":0,
+                        "I":0,"L":0,"K":0,"M":0,"F":0,"P":0,"S":0,"T":0,"W":0,"Y":0,"V":0,"-":0} for sub in range(len(self.seqrefs[0]))]
+        for s in self.seqrefs :
+            for pos in range(len(self.seqrefs[0])):
+                self.aa_ref_counts[pos][self.get_aa_at_pos(pos+1)]
+        return self.aa_ref_counts
+
+    def determine_ref_categories(self):
+        """
+        :return: the list of categories of amino acids at every position in seqrefs
+        """
+        self.list_of_categories = [set() for sub in range(len(self.seqrefs[0]))]
+        for pos in range(len(self.aa_ref_counts)):
+            self.list_of_categories[pos] = AAcategories().find_category({AA for AA in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][AA] >0})
 
     def get_alignments(self):
         return self.seqrefs, self.seqeval
@@ -101,13 +122,7 @@ class Alignments :
                 aa_list_in_seqeval.append(self.get_aa_in_range_in_seqeval(name_seqeval,positions_list[r][0],positions_list[r][1]))
         return aa_list_in_seqeval
 
-object = Alignments("ArsM_aln.faa",["WP_045226361.1", "Q969Z2"])
-#print(object.get_alignments(file,seqs_to_evaluate))
-#print(object.get_cat_at_pos(2))
-#print(object.get_cat_in_range(None,None))
-#positions =["0:3",":3","2:",":"]
-#print(object. get_positions_list(positions))
-#print(object.get_cat_in_range())
+
 
 
 
