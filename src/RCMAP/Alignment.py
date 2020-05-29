@@ -23,7 +23,7 @@ class Alignments :
                         "I":0,"L":0,"K":0,"M":0,"F":0,"P":0,"S":0,"T":0,"W":0,"Y":0,"V":0,"-":0} for sub in range(len(self.seqrefs[0]))]
         for s in self.seqrefs :
             for pos in range(len(self.seqrefs[0])):
-                self.aa_ref_counts[pos][self.get_aa_at_pos(s.id,pos)]+=1
+                self.aa_ref_counts[pos][self.get_aa_at_pos(s.id,pos+1)]+=1
         return self.aa_ref_counts
 
     def determine_ref_categories(self):
@@ -37,6 +37,16 @@ class Alignments :
 
     def get_alignments(self):
         return self.seqrefs, self.seqeval
+
+    def get_cat_at_pos(self, pos):
+        """
+        :param pos: position of the amino acid in seqrefs
+        :return:
+        """
+        AA_at_pos = set()
+        for k in range(len(self.seqrefs)) :
+            AA_at_pos.add(self.seqrefs[k][pos - 1])
+        return AAcategories().find_category(AA_at_pos)
 
     def get_aa_at_pos(self,name_seq, pos):
         """
