@@ -84,6 +84,7 @@ class MyTestCase(unittest.TestCase):
                                                                                    "Q", "R"},
                                                                                   {"D", "E", "K",
                                                                                    "R", "H"}]]
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_category_list([[1]]) == [[{"A"}]]
 
     def test_get_aa_list(self):
         assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_list(

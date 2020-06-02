@@ -41,7 +41,7 @@ class AAcategories:
             AA = {"Q","E"}
         if "-" in AA :
             return False
-        if AA < category:
+        if AA <= category:
             return True
         return False
 

@@ -98,7 +98,7 @@ class Alignments:
         list_of_categories = []
         for pos in range(len(positions_list)):
             if len(positions_list[pos]) == 1:
-                list_of_categories.append(self.determine_ref_categories()[pos - 1])
+                list_of_categories.append([self.determine_ref_categories()[pos - 1]])
             else:
                 list_of_categories.append(
                     self.get_cat_in_range(positions_list[pos][0], positions_list[pos][1]))
@@ -114,7 +114,7 @@ class Alignments:
         for r in range(len(positions_list)):
             if len(positions_list[r]) == 1:
                 list_of_aa.append(
-                    [self.get_aa_at_pos(positions_list[r][0], name_seq)])
+                    [set(self.get_aa_at_pos(positions_list[r][0], name_seq))])
             else:
                 list_of_aa.append(
                     self.get_aa_in_range(name_seq, positions_list[r][0], positions_list[r][1]))
