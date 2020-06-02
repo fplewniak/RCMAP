@@ -44,5 +44,19 @@ class MyTestCase(unittest.TestCase):
     def test_get_category_list(self):
         assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_category_list([[1,2],[None,3]]) == [[{"M"},{"I","V","L","F","Y","W","H","M","K","T","G","A","C","P","S","N","D","E","Q","R"}],[{"M"},{"I","V","L","F","Y","W","H","M","K","T","G","A","C","P","S","N","D","E","Q","R"},{"D","E","K","R","H"}]]
 
-    def test_get_category_list(self):
+    def test_get_category_list1(self):
         assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_category_list([[1, 2], [None, 3]],"Q969Z2") == [["M","A"],["M","A","-"]]
+
+    def test_get_category_list_bis(self):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_category_list_bis([[1, 2], [None, 3]]) == [
+            [{"M"},
+             {"I", "V", "L", "F", "Y", "W", "H", "M", "K", "T", "G", "A", "C", "P", "S", "N", "D", "E", "Q", "R"}],
+            [{"M"},
+             {"I", "V", "L", "F", "Y", "W", "H", "M", "K", "T", "G", "A", "C", "P", "S", "N", "D", "E", "Q", "R"},
+             {"D", "E", "K", "R", "H"}]]
+
+    def test_get_category_list_bis1(self):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_category_list_bis([[1, 2], [None, 3]],
+                                                                                               "Q969Z2") == [["M", "A"],
+                                                                                                             ["M", "A",
+                                                                                                              "-"]]
