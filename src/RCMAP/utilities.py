@@ -1,4 +1,5 @@
 from RCMAP.Alignment import Alignments
+from RCMAP.Classification_AA import AAcategories
 
 def get_positions_list(positions):
     """
@@ -20,6 +21,13 @@ def get_positions_list(positions):
                 l.append(None)
             positions_list.append(l)
         else:
-            positions_list.append([int(positions[k])])
+            positions_list.append([int(positions[k]),int(positions[k])])
     return positions_list
 
+def find_key(ens):
+    if len(ens) == 1 :
+        return ens
+    for name, val in AAcategories().categories.items():
+        if ens == val:
+            return name
+    return 'Any'

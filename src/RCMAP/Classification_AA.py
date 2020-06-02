@@ -11,6 +11,7 @@ class AAcategories:
             'Small' : set("ASCGPNDTV"),
             'Hydrophobic' : set("IVLFYWHMKTGAC")
         }
+
     def sort_categories(self):
         return ['Negative', 'Positive', 'Aliphatic', 'Tiny', 'Aromatic', 'Charged', 'Small', 'Polar', 'Hydrophobic']
 

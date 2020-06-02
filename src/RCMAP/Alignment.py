@@ -14,7 +14,8 @@ class Alignments:
         self.seqrefs = MultipleSeqAlignment(
             [s for s in self.alignment if s.id not in seqs_to_evaluate])
         self.aa_ref_counts = self.count_aa_ref()
-        self.list_of_categories = self.determine_ref_categories()
+        self.list_of_categories = self.determine_ref_categories()[0]
+        self.list_of_aa_ref = self.determine_ref_categories()[1]
 
     def count_aa_ref(self):
         """
@@ -34,10 +35,12 @@ class Alignments:
         :return: the list of categories of amino acids at every position in seqrefs
         """
         self.list_of_categories = [set() for sub in range(len(self.seqrefs[0]))]
+        self.list_of_aa_ref = [set() for sub in range(len(self.seqrefs[0]))]
         for pos in range(len(self.count_aa_ref())):
             self.list_of_categories[pos] = AAcategories().find_category(
                 {AA for AA in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][AA] > 0})
-        return self.list_of_categories
+            self.list_of_aa_ref[pos] = {AA for AA in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][AA] > 0}
+        return self.list_of_categories, self.list_of_aa_ref
 
     def get_alignments(self):
         return self.seqrefs, self.seqeval
@@ -72,7 +75,7 @@ class Alignments:
             pos2 = len(self.seqrefs[0])
         # if pos1 > len(self.seqrefs[0]) or pos2 > len(self.seqrefs[0]):
         #    return "Error"
-        return self.determine_ref_categories()[pos1 - 1:pos2]
+        return self.list_of_categories[pos1 - 1:pos2]
 
     def get_aa_in_range(self, name_seq, pos1=None, pos2=None):
         """
@@ -98,7 +101,7 @@ class Alignments:
         list_of_categories = []
         for pos in range(len(positions_list)):
             if len(positions_list[pos]) == 1:
-                list_of_categories.append([self.determine_ref_categories()[pos - 1]])
+                list_of_categories.append([self.list_of_categories[pos - 1]])
             else:
                 list_of_categories.append(
                     self.get_cat_in_range(positions_list[pos][0], positions_list[pos][1]))
