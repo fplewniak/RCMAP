@@ -15,7 +15,7 @@ print(list_of_categories)
 list_compatibility_all = []
 
 for s in seqeval:
-    list_of_aa_in_seqeval = alignments.get_aa_list_in_seqeval(s.id,list_of_positions)
+    list_of_aa_in_seqeval = alignments.get_category_list(list_of_positions,s.id)
     print(s.id,list_of_aa_in_seqeval)
     list_compatibility = []
     for k in range(len(list_of_categories)):
