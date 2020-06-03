@@ -24,12 +24,12 @@ def get_positions_list(positions):
             positions_list.append([int(positions[k]),int(positions[k])])
     return positions_list
 
-def find_key(ens):
-    if len(ens) == 1 :
-        return ens
-    for name, val in AAcategories().categories.items():
-        if ens == val:
-            return name
-    return 'Any'
+#def find_key(ens):
+#    if len(ens) == 1 :
+#        return ens
+#    for name, val in AAcategories().categories.items():
+#        if ens == val:
+#
+#    return 'Any'
 
 

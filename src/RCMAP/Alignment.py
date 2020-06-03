@@ -15,7 +15,8 @@ class Alignments:
             [s for s in self.alignment if s.id not in seqs_to_evaluate])
         self.aa_ref_counts = self.count_aa_ref()
         self.list_of_categories = self.determine_ref_categories()[0]
-        self.list_of_aa_ref = self.determine_ref_categories()[1]
+        self.list_of_cat_sets = self.determine_ref_categories()[1]
+        self.list_of_aa_ref = self.determine_ref_categories()[2]
 
     def count_aa_ref(self):
         """
@@ -35,15 +36,43 @@ class Alignments:
         :return: the list of categories of amino acids at every position in seqrefs
         """
         self.list_of_categories = [set() for sub in range(len(self.seqrefs[0]))]
+        self.list_of_cat_sets = [set() for sub in range(len(self.seqrefs[0]))]
         self.list_of_aa_ref = [set() for sub in range(len(self.seqrefs[0]))]
         for pos in range(len(self.count_aa_ref())):
-            self.list_of_categories[pos] = AAcategories().find_category(
-                {AA for AA in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][AA] > 0})
-            self.list_of_aa_ref[pos] = {AA for AA in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][AA] > 0}
-        return self.list_of_categories, self.list_of_aa_ref
+            self.list_of_categories[pos] = AAcategories().find_category({aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0})
+            if len(self.list_of_categories[pos]) == 1:
+                self.list_of_cat_sets[pos] = self.list_of_categories[pos]
+            for name, val in AAcategories().categories.items():
+                if self.list_of_categories[pos] == val:
+                    self.list_of_cat_sets[pos] = name
+                else:
+                    self.list_of_cat_sets[pos] = 'Any'
+            self.list_of_aa_ref[pos] = {aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0}
+        return self.list_of_categories, self.list_of_cat_sets, self.list_of_aa_ref
 
     def get_alignments(self):
         return self.seqrefs, self.seqeval
+
+    def get_cat_set_at_pos(self,pos):
+        """
+        :param pos: position of the amino acid in seqrefs
+        :return: the name of the category of amino acids observed in seqrefs
+        """
+        return self.list_of_cat_sets[pos-1]
+
+    def get_cat_at_pos(self,pos):
+        """
+        :param pos: position of the amino acid in seqrefs
+        :return: the category (set) of amino acids observed in seqrefs
+        """
+        return self.list_of_categories[pos-1]
+
+    def get_aa_observed_at_pos(self,pos):
+        """
+        :param pos:  position of the amino acids in seqrefs
+        :return: all the amino acids observed in seqrefs at this position
+        """
+        return self.list_of_aa_ref[pos-1]
 
     def get_aa_at_pos(self, pos, name_seq):
         """
