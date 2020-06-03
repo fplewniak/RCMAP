@@ -4,7 +4,7 @@ from RCMAP.Classification_AA import AAcategories
 def get_positions_list(positions):
     """
     :param positions:  #like ['3:10', '8:25' ,'32', '45:']
-    :return: #like [[3,10], [8,25], [32], [45,None]]
+    :return: #like [[3,10], [8,25], [32,32], [45,None]]
     """
     positions_list = []
     for k in range(len(positions)):
@@ -31,3 +31,5 @@ def find_key(ens):
         if ens == val:
             return name
     return 'Any'
+
+

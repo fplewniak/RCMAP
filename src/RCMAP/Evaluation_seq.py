@@ -23,14 +23,14 @@ for s in range(len(sequences_to_evaluate)):
             pos += 1
 
 # Nouvelle version
-for s in range(len(sequences_to_evaluate)):
-    print(sequences_to_evaluate[s])
+for s in sequences_to_evaluate:
+    print(s)
     for k in range(len(list_of_positions)):
         category = alignments.list_of_categories[
                    list_of_positions[k][0] - 1:list_of_positions[k][1]]
         pos = 0
         for i in range(list_of_positions[k][0], list_of_positions[k][1] + 1):
-            aa = alignments.get_aa_at_pos(i, sequences_to_evaluate[s])
+            aa = alignments.get_aa_at_pos(i, s)
             print(i, " : ", aa, " ; Compatibility : ",
                   AAcategories().compatibility(set(aa), category[pos]), " ; ",
                   find_key(category[pos]), alignments.list_of_aa_ref[i-1])
