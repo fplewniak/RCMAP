@@ -16,7 +16,7 @@ class AAcategories:
         return ['Negative', 'Positive', 'Aliphatic', 'Tiny', 'Aromatic', 'Charged', 'Small', 'Polar', 'Hydrophobic']
 
     def find_category(self,ens):
-        """This function returns the smallest category in which the set is included"""
+        """This function returns the smallest category in which the set is included, and its name"""
         if "-" in ens :
             ens.remove("-")
         if "B" in ens :
@@ -28,12 +28,12 @@ class AAcategories:
             ens.add("Q")
             ens.add("E")
         if len(ens) <= 1 :
-            return(ens)
+            return ens, ens
         List = self.sort_categories()
         for k in range(len(self.categories)):
             if ens.issubset(self.categories[List[k]]):
-                return(self.categories[List[k]])
-        return(set("IVLFYWHMKTGACPSNDEQR"))
+                return self.categories[List[k]], List[k]
+        return set("IVLFYWHMKTGACPSNDEQR"), 'Any'
 
     def compatibility(self,AA,category):
         if "B" in AA :
