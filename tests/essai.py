@@ -17,3 +17,9 @@ def get_preserved_area(list_pos):
 
 list_pos = [2, 4, 5, 20, 28, 30, 31, 32, 33, 80]
 print(get_preserved_area(list_pos))
+
+
+def frequence_aa(self, aa, pos):
+    if self.count_aa_ref()[pos - 1][aa] == 0:
+        return 0
+    return self.count_aa_ref()[pos - 1][aa] / len(self.seqrefs)

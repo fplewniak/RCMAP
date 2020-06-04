@@ -2,7 +2,7 @@ import unittest
 from RCMAP.alignment import Alignments
 from Bio.Align import MultipleSeqAlignment
 from Bio import AlignIO
-
+from math import *
 
 class MyTestCase(unittest.TestCase):
 
@@ -29,7 +29,10 @@ class MyTestCase(unittest.TestCase):
     def test_determine_ref_categories(self):
         assert Alignments("ArsM_aln_part1.faa",
                           ["WP_045226361.1", "Q969Z2"]).determine_ref_categories() == ([{'M'}, set(
-            "IVLFYWHMKTGACPSNDEQR"), set("DEKRH")], [{'M'}, 'Any', 'Charged'], [{'M'}, {'P', 'H', 'D', 'S', 'G'}, {'-', 'K', 'D'}])
+            "IVLFYWHMKTGACPSNDEQR"), set("DEKRH")], [{'M'}, 'Any', 'Charged'], [{'M'},
+                                                                                {'P', 'H', 'D', 'S',
+                                                                                 'G'},
+                                                                                {'-', 'K', 'D'}])
 
     def test_get_aa_at_pos(self):
         assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_at_pos(37,
@@ -84,8 +87,16 @@ class MyTestCase(unittest.TestCase):
                                                                                    "Q", "R"},
                                                                                   {"D", "E", "K",
                                                                                    "R", "H"}]]
-        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_category_list([[1]]) == [[{"A"}]]
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_category_list(
+            [[1]]) == [[{"A"}]]
 
     def test_get_aa_list(self):
         assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_list(
             [[1, 2], [None, 3]], "Q969Z2") == [[{'M'}, {'A'}], [{'M'}, {'A'}, {'-'}]]
+
+    def test_entropy_pos_aa(self):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_aa(1,
+                                                                                            'M') == 0
+    def test_entropy_pos_aa1(self):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_aa(3,
+                                                                                            'D') == - 1/6 * log(1/6)
