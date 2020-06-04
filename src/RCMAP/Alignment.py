@@ -39,14 +39,7 @@ class Alignments:
         self.list_of_cat_sets = [set() for sub in range(len(self.seqrefs[0]))]
         self.list_of_aa_ref = [set() for sub in range(len(self.seqrefs[0]))]
         for pos in range(len(self.count_aa_ref())):
-            self.list_of_categories[pos] = AAcategories().find_category({aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0})
-            if len(self.list_of_categories[pos]) == 1:
-                self.list_of_cat_sets[pos] = self.list_of_categories[pos]
-            for name, val in AAcategories().categories.items():
-                if self.list_of_categories[pos] == val:
-                    self.list_of_cat_sets[pos] = name
-                else:
-                    self.list_of_cat_sets[pos] = 'Any'
+            self.list_of_categories[pos], self.list_of_cat_sets[pos] = AAcategories().find_category({aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0})
             self.list_of_aa_ref[pos] = {aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0}
         return self.list_of_categories, self.list_of_cat_sets, self.list_of_aa_ref
 
