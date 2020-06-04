@@ -142,3 +142,8 @@ class Alignments:
                 list_of_aa.append(
                     self.get_aa_in_range(name_seq, positions_list[r][0], positions_list[r][1]))
         return list_of_aa
+
+
+
+
+
