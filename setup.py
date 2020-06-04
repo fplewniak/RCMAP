@@ -24,7 +24,7 @@ setup(
     python_requires='>=3.6', install_requires=['biopython'],
     entry_points={
         "console_scripts": [
-            "evaluate_seq = RCMAP.Evaluation_seq:main"
+            "evaluate_seq = RCMAP.evaluation_seq:main"
             ]
         }
     )
