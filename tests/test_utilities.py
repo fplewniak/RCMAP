@@ -1,5 +1,5 @@
 import unittest
-from RCMAP.Utilities import get_positions_list
+from RCMAP.utilities import get_positions_list
 
 class MyTestCase(unittest.TestCase):
 

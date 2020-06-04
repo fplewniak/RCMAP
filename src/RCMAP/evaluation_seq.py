@@ -1,8 +1,8 @@
 import argparse
 import sys
-from RCMAP.Alignment import Alignments
-from RCMAP.Utilities import get_positions_list
-from RCMAP.Classification_AA import AAcategories
+from RCMAP.alignment import Alignments
+from RCMAP.utilities import get_positions_list
+from RCMAP.classification_aa import AAcategories
 
 
 def get_params(argv):

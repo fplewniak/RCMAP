@@ -1,7 +1,7 @@
 from Bio import AlignIO
 from Bio.Align import MultipleSeqAlignment
 
-from RCMAP.Classification_AA import AAcategories
+from RCMAP.classification_aa import AAcategories
 
 
 class Alignments:
