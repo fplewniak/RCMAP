@@ -1,7 +1,7 @@
 import unittest
 import pytest
 
-from RCMAP.Classification_AA import AAcategories
+from RCMAP.classification_aa import AAcategories
 
 class MyTestCase(unittest.TestCase):
 
@@ -10,25 +10,25 @@ class MyTestCase(unittest.TestCase):
 
 
     def test_find_category1(self):
-        assert AAcategories().find_category({"A"}) == {"A"}
+        assert AAcategories().find_category({"A"}) == ({"A"}, {"A"})
 
     def test_find_category2(self):
-        assert AAcategories().find_category({}) == {}
+        assert AAcategories().find_category({}) == ({}, {})
 
     def test_find_category3(self):
-        assert AAcategories().find_category({"I","V","A","R"}) == set("IVLFYWHMKTGACPSNDEQR")
+        assert AAcategories().find_category({"I","V","A","R"}) == (set("IVLFYWHMKTGACPSNDEQR"), 'Any')
 
     def test_find_category4(self):
-        assert AAcategories().find_category({"-","-"}) == set()
+        assert AAcategories().find_category({"-","-"}) == (set(), set())
 
     def test_find_category5(self):
-        assert AAcategories().find_category({"R","H"}) == {"R","K","H"}
+        assert AAcategories().find_category({"R","H"}) == ({'R', 'H', 'K'}, 'Positive')
 
     def test_find_category6(self):
-        assert AAcategories().find_category({"B"}) == set("ASCGPNDTV")
+        assert AAcategories().find_category({"B"}) == ({'P', 'S', 'N', 'D', 'T', 'V', 'G', 'C', 'A'}, 'Small')
 
     def test_find_category7(self):
-        assert AAcategories().find_category({"Z"}) == set("DEKRHQNSCTYW")
+        assert AAcategories().find_category({"Z"}) == ({'Q', 'S', 'D', 'T', 'W', 'R', 'H', 'K', 'Y', 'C', 'N', 'E'}, 'Polar')
 
 
     def test_compatibility(self):

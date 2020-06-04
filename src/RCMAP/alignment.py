@@ -1,7 +1,7 @@
 from Bio import AlignIO
 from Bio.Align import MultipleSeqAlignment
 
-from RCMAP.Classification_AA import AAcategories
+from RCMAP.classification_aa import AAcategories
 
 
 class Alignments:
@@ -14,7 +14,8 @@ class Alignments:
         self.seqrefs = MultipleSeqAlignment(
             [s for s in self.alignment if s.id not in seqs_to_evaluate])
         self.aa_ref_counts = self.count_aa_ref()
-        self.list_of_categories, self.list_of_cat_sets, self.list_of_aa_ref = self.determine_ref_categories()
+        self.list_of_categories, self.list_of_cat_sets, self.list_of_aa_ref =\
+            self.determine_ref_categories()
 
     def count_aa_ref(self):
         """

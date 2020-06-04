@@ -1,5 +1,5 @@
 import unittest
-from RCMAP.Alignment import Alignments
+from RCMAP.alignment import Alignments
 from Bio.Align import MultipleSeqAlignment
 from Bio import AlignIO
 
@@ -29,7 +29,7 @@ class MyTestCase(unittest.TestCase):
     def test_determine_ref_categories(self):
         assert Alignments("ArsM_aln_part1.faa",
                           ["WP_045226361.1", "Q969Z2"]).determine_ref_categories() == ([{'M'}, set(
-            "IVLFYWHMKTGACPSNDEQR"), set("DEKRH")], [{'M'}, {'P', 'H', 'D', 'S', 'G'}, {'-', 'K', 'D'}])
+            "IVLFYWHMKTGACPSNDEQR"), set("DEKRH")], [{'M'}, 'Any', 'Charged'], [{'M'}, {'P', 'H', 'D', 'S', 'G'}, {'-', 'K', 'D'}])
 
     def test_get_aa_at_pos(self):
         assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_at_pos(37,
