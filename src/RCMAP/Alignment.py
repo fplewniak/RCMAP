@@ -14,9 +14,7 @@ class Alignments:
         self.seqrefs = MultipleSeqAlignment(
             [s for s in self.alignment if s.id not in seqs_to_evaluate])
         self.aa_ref_counts = self.count_aa_ref()
-        self.list_of_categories = self.determine_ref_categories()[0]
-        self.list_of_cat_sets = self.determine_ref_categories()[1]
-        self.list_of_aa_ref = self.determine_ref_categories()[2]
+        self.list_of_categories, self.list_of_cat_sets, self.list_of_aa_ref = self.determine_ref_categories()
 
     def count_aa_ref(self):
         """
