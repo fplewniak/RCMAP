@@ -94,9 +94,9 @@ class MyTestCase(unittest.TestCase):
         assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_list(
             [[1, 2], [None, 3]], "Q969Z2") == [[{'M'}, {'A'}], [{'M'}, {'A'}, {'-'}]]
 
-    def test_entropy_pos_aa(self):
-        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_aa(1,
-                                                                                            'M') == 0
-    def test_entropy_pos_aa1(self):
-        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_aa(3,
-                                                                                            'D') == - 1/6 * log(1/6)
+    def test_entropy_pos_obs(self):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_obs(1) == 0
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_obs(3) == (1/6 * log(1/6,2))*2 + 2/3 * log(2/3,2)
+
+    def test_entropy_pos_base(self):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_base(1/23,3) == 1/23 * log(1/23,2)

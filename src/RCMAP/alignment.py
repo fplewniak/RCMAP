@@ -147,6 +147,17 @@ class Alignments:
                     self.get_aa_in_range(name_seq, positions_list[r][0], positions_list[r][1]))
         return list_of_aa
 
-    def entropy_pos_aa(self, pos, aa):
-        return entropy(self.count_aa_ref()[pos-1][aa])
+    def entropy_pos_obs(self, pos):
+        entropy_pos = 0
+        for r in self.aa_ref_counts[pos-1]:
+            entropy_pos += entropy(self.count_aa_ref()[pos - 1][r], base=2)
+        return - entropy_pos
 
+    def entropy_pos_base(self, frq, pos):
+        entropy_base = 0
+        for r in self.list_of_aa_ref[pos-1]:
+            entropy_base += entropy(frq, base=2)
+        return - entropy_base
+
+    def entropy_pos(self,pos,freq):
+        return self.entropy_pos_base - self.entropy_pos_obs
