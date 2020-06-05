@@ -4,6 +4,7 @@ from Bio.Align import MultipleSeqAlignment
 from Bio import AlignIO
 from math import *
 
+
 class MyTestCase(unittest.TestCase):
 
     def test_get_alignments(self):
@@ -96,7 +97,15 @@ class MyTestCase(unittest.TestCase):
 
     def test_entropy_pos_obs(self):
         assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_obs(1) == 0
-        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_obs(3) == (1/6 * log(1/6,2))*2 + 2/3 * log(2/3,2)
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_obs(
+            3) == - ((1 / 6 * log(1 / 6, 2)) * 2 + 4 / 6 * log(4 / 6, 2))
 
-    def test_entropy_pos_base(self):
-        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_base(1/23,3) == 1/23 * log(1/23,2)
+    def test_entropy_pos_background(self):
+        assert Alignments("ArsM_aln_part.faa",
+                          ["WP_045226361.1", "Q969Z2"]).entropy_pos_background() == - (
+                9.26 * log(9.26, 2) + 3.75 * log(3.75, 2) + 9.91 * log(9.91, 2) + 6.63 * log(6.63,
+                                                                                             2) + 5.8 * log(
+            5.8, 2) + 6.16 * log(6.16, 2) + 4.88 * log(4.88, 2) + 5.55 * log(5.55, 2) + 3.8 * log(
+            3.8, 2) + 7.36 * log(7.36, 2) + 2.36 * log(2.36, 2) + 1.31 * log(1.31, 2) + 5.49 * log(
+            5.49, 2) + 2.19 * log(2.19, 2) + 3.91 * log(3.91, 2) + 2.9 * log(2.9, 2) + 1.18 * log(
+            1.18, 2) + 5.64 * log(5.64, 2) + 4.88 * log(4.88, 2) + 6.93 * log(6.93, 2))

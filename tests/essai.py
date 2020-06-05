@@ -23,3 +23,9 @@ def frequence_aa(self, aa, pos):
     if self.count_aa_ref()[pos - 1][aa] == 0:
         return 0
     return self.count_aa_ref()[pos - 1][aa] / len(self.seqrefs)
+
+
+
+
+
+

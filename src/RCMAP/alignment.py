@@ -14,7 +14,7 @@ class Alignments:
         self.seqrefs = MultipleSeqAlignment(
             [s for s in self.alignment if s.id not in seqs_to_evaluate])
         self.aa_ref_counts = self.count_aa_ref()
-        self.list_of_categories, self.list_of_cat_sets, self.list_of_aa_ref = \
+        self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref = \
             self.determine_ref_categories()
 
     def count_aa_ref(self):
@@ -36,14 +36,14 @@ class Alignments:
         """
         self.list_of_categories = [set() for sub in range(len(self.seqrefs[0]))]
         self.list_of_cat_sets = [set() for sub in range(len(self.seqrefs[0]))]
-        self.list_of_aa_ref = [set() for sub in range(len(self.seqrefs[0]))]
+        self.set_of_aa_ref = [set() for sub in range(len(self.seqrefs[0]))]
         for pos in range(len(self.count_aa_ref())):
             self.list_of_categories[pos], self.list_of_cat_sets[pos] = \
                 AAcategories().find_category(
                     {aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0})
-            self.list_of_aa_ref[pos] = {aa for aa in self.aa_ref_counts[pos] if
+            self.set_of_aa_ref[pos] = {aa for aa in self.aa_ref_counts[pos] if
                                         self.aa_ref_counts[pos][aa] > 0}
-        return self.list_of_categories, self.list_of_cat_sets, self.list_of_aa_ref
+        return self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref
 
     def get_alignments(self):
         return self.seqrefs, self.seqeval
@@ -67,7 +67,7 @@ class Alignments:
         :param pos:  position of the amino acids in seqrefs
         :return: all the amino acids observed in seqrefs at this position
         """
-        return self.list_of_aa_ref[pos - 1]
+        return self.set_of_aa_ref[pos - 1]
 
     def get_aa_at_pos(self, pos, name_seq):
         """
@@ -147,17 +147,15 @@ class Alignments:
                     self.get_aa_in_range(name_seq, positions_list[r][0], positions_list[r][1]))
         return list_of_aa
 
+
     def entropy_pos_obs(self, pos):
-        entropy_pos = 0
-        for r in self.aa_ref_counts[pos-1]:
-            entropy_pos += entropy(self.count_aa_ref()[pos - 1][r], base=2)
-        return - entropy_pos
+        return entropy(pk = [v for v in self.aa_ref_counts[pos - 1].values()],qk=None, base=2)
 
-    def entropy_pos_base(self, frq, pos):
-        entropy_base = 0
-        for r in self.list_of_aa_ref[pos-1]:
-            entropy_base += entropy(frq, base=2)
-        return - entropy_base
+    def entropy_pos_background (self):
+        ref_frq = {"A": 9.26, "Q": 3.75, "L": 9.91, "S": 6.63, "R": 5.80, "E": 6.16, "K": 4.88,
+                "T": 5.55, "N": 3.80, "G": 7.36, "M": 2.36, "W": 1.31, "D": 5.49, "H": 2.19,
+                "F": 3.91, "Y": 2.90, "C": 1.18, "I": 5.64, "P": 4.88, "V": 6.93}
+        return entropy(pk = [v for v in ref_frq.values()],qk=None, base=2)
 
-    def entropy_pos(self,pos,freq):
-        return self.entropy_pos_base - self.entropy_pos_obs
+    def information_pos(self, pos):
+        return self.entropy_pos_background() - self.entropy_pos_obs()
