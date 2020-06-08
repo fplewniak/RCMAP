@@ -42,7 +42,7 @@ class Alignments:
                 AAcategories().find_category(
                     {aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0})
             self.set_of_aa_ref[pos] = {aa for aa in self.aa_ref_counts[pos] if
-                                        self.aa_ref_counts[pos][aa] > 0}
+                                       self.aa_ref_counts[pos][aa] > 0}
         return self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref
 
     def get_alignments(self):
@@ -147,15 +147,42 @@ class Alignments:
                     self.get_aa_in_range(name_seq, positions_list[r][0], positions_list[r][1]))
         return list_of_aa
 
-
     def entropy_pos_obs(self, pos):
-        return entropy(pk = [v for v in self.aa_ref_counts[pos - 1].values()],qk=None, base=2)
+        return entropy(pk=[v for v in self.aa_ref_counts[pos - 1].values()], qk=None, base=2)
 
-    def entropy_pos_background (self):
-        ref_frq = {"A": 9.26, "Q": 3.75, "L": 9.91, "S": 6.63, "R": 5.80, "E": 6.16, "K": 4.88,
-                "T": 5.55, "N": 3.80, "G": 7.36, "M": 2.36, "W": 1.31, "D": 5.49, "H": 2.19,
-                "F": 3.91, "Y": 2.90, "C": 1.18, "I": 5.64, "P": 4.88, "V": 6.93}
-        return entropy(pk = [v for v in ref_frq.values()],qk=None, base=2)
+    def entropy_background(self, method, gaps):
+        if method == 'frq_database':
+            ref_frq = {"A": 9.26, "Q": 3.75, "L": 9.91, "S": 6.63, "R": 5.80, "E": 6.16, "K": 4.88,
+                       "T": 5.55, "N": 3.80, "G": 7.36, "M": 2.36, "W": 1.31, "D": 5.49, "H": 2.19,
+                       "F": 3.91, "Y": 2.90, "C": 1.18, "I": 5.64, "P": 4.88, "V": 6.93}
+            if gaps == True:
+                count_gaps = {"-": 0}
+                for k in range(len(self.aa_ref_counts)):
+                    count_gaps['-'] += self.aa_ref_counts[k]['-']
+                ref_frq.update(count_gaps)
+            return entropy(pk=[v for v in ref_frq.values()], qk=None, base=2)
+        if method == 'frq_alignment_ref':
+            list_aa = ["A", "R", "N", "D", "B", "C", "E", "Q", "Z", "G", "H", "I", "L", "K", "M",
+                       "F", "P", "S", "T", "W", "Y", "V"]
+            count_all = {"A": 0, "R": 0, "N": 0, "D": 0, "B": 0, "C": 0, "E": 0, "Q": 0, "Z": 0,
+                         "G": 0, "H": 0, "I": 0, "L": 0, "K": 0, "M": 0, "F": 0, "P": 0, "S": 0,
+                         "T": 0, "W": 0, "Y": 0, "V": 0}
+            if gaps == True:
+                list_aa.append("-")
+                count_all["-"] = 0
+            for k in range(len(self.aa_ref_counts)):
+                for aa in list_aa:
+                    count_all[aa] += self.aa_ref_counts[k][aa]
+            return entropy(pk=[v for v in count_all.values()], qk=None, base=2)
+        else:
+            if gaps == False:
+                a = 22
+            else:
+                a = 23
+            ref_frq = []
+            for i in range(0, a):
+                ref_frq.append(1 / a)
+            return entropy(pk=[v for v in ref_frq], qk=None, base=2)
 
-    def information_pos(self, pos):
-        return self.entropy_pos_background() - self.entropy_pos_obs()
+    def information_pos(self, pos, method, gaps):
+        return self.entropy_background(method, gaps) - self.entropy_pos_obs(pos)

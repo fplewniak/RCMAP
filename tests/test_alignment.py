@@ -100,12 +100,34 @@ class MyTestCase(unittest.TestCase):
         assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_obs(
             3) == - ((1 / 6 * log(1 / 6, 2)) * 2 + 4 / 6 * log(4 / 6, 2))
 
-    def test_entropy_pos_background(self):
+    def test_entropy_background(self):
+        # assert Alignments("ArsM_aln_part.faa",
+        #                   ["WP_045226361.1", "Q969Z2"]).entropy_background('frq_database', False) == - (
+        #         0.0926 * log2(0.0926) + 0.0375 * log2(0.0375) + 0.0991 * log2(
+        #     0.0991) + 0.0663 * log2(0.0663) + 0.058 * log2(
+        #     0.058) + 0.0616 * log2(0.0616) + 0.0488 * log2(0.0488) + 0.0555 * log2(
+        #     0.0555) + 0.038 * log2(
+        #     0.038) + 0.0736 * log2(0.0736) + 0.0236 * log2(0.0236) + 0.0131 * log2(
+        #     0.0131) + 0.0549 * log2(
+        #     0.0549) + 0.0219 * log2(0.0219) + 0.0391 * log2(0.0391) + 0.029 * log2(
+        #     0.029) + 0.0118 * log2(
+        #     0.0118) + 0.0564 * log2(0.0564) + 0.0488 * log2(0.0488) + 0.0693 * log2(0.0693))
         assert Alignments("ArsM_aln_part.faa",
-                          ["WP_045226361.1", "Q969Z2"]).entropy_pos_background() == - (
-                9.26 * log(9.26, 2) + 3.75 * log(3.75, 2) + 9.91 * log(9.91, 2) + 6.63 * log(6.63,
-                                                                                             2) + 5.8 * log(
-            5.8, 2) + 6.16 * log(6.16, 2) + 4.88 * log(4.88, 2) + 5.55 * log(5.55, 2) + 3.8 * log(
-            3.8, 2) + 7.36 * log(7.36, 2) + 2.36 * log(2.36, 2) + 1.31 * log(1.31, 2) + 5.49 * log(
-            5.49, 2) + 2.19 * log(2.19, 2) + 3.91 * log(3.91, 2) + 2.9 * log(2.9, 2) + 1.18 * log(
-            1.18, 2) + 5.64 * log(5.64, 2) + 4.88 * log(4.88, 2) + 6.93 * log(6.93, 2))
+                          ["WP_045226361.1", "Q969Z2"]).entropy_background('frq_equiprobable', False) == - (
+                    1 / 22 * log2(1 / 22)) * 22
+        assert Alignments("ArsM_aln_part1.faa",
+                          ["WP_045226361.1", "Q969Z2"]).entropy_background('frq_equiprobable',
+                                                                           True) == - (
+                    1 / 23 * log2(1 / 23)) * 23
+        assert Alignments("ArsM_aln_part1.faa",
+                          ["WP_045226361.1", "Q969Z2"]).entropy_background('frq_alignment_ref', False ) == - ((2/14 * log2(2/14))*2 + (1/14 * log2(1/14))*4 + 6/14 * log2(6/14))
+        assert Alignments("ArsM_aln_part1.faa",
+                          ["WP_045226361.1", "Q969Z2"]).entropy_background('frq_alignment_ref',
+                                                                           True) == - (
+                    (2 / 18 * log2(2 / 18)) * 2 + (1 / 18 * log2(1 / 18)) * 4 + 4 / 18 * log2(4 / 18) + 6 / 18 * log2(6 / 18))
+
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_background('frq_database', True) == 3.917383157368821
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_background(
+            'frq_database', False) == 4.155053586840176
+
+
