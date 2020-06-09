@@ -2,6 +2,8 @@ import unittest
 from RCMAP.alignment import Alignments
 from Bio.Align import MultipleSeqAlignment
 from Bio import AlignIO
+from math import *
+from scipy.stats import entropy
 
 
 class MyTestCase(unittest.TestCase):
@@ -29,7 +31,10 @@ class MyTestCase(unittest.TestCase):
     def test_determine_ref_categories(self):
         assert Alignments("ArsM_aln_part1.faa",
                           ["WP_045226361.1", "Q969Z2"]).determine_ref_categories() == ([{'M'}, set(
-            "IVLFYWHMKTGACPSNDEQR"), set("DEKRH")], [{'M'}, 'Any', 'Charged'], [{'M'}, {'P', 'H', 'D', 'S', 'G'}, {'-', 'K', 'D'}])
+            "IVLFYWHMKTGACPSNDEQR"), set("DEKRH")], [{'M'}, 'Any', 'Charged'], [{'M'},
+                                                                                {'P', 'H', 'D', 'S',
+                                                                                 'G'},
+                                                                                {'-', 'K', 'D'}])
 
     def test_get_aa_at_pos(self):
         assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_at_pos(37,
@@ -84,8 +89,45 @@ class MyTestCase(unittest.TestCase):
                                                                                    "Q", "R"},
                                                                                   {"D", "E", "K",
                                                                                    "R", "H"}]]
-        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_category_list([[1]]) == [[{"A"}]]
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_category_list(
+            [[1]]) == [[{"A"}]]
 
     def test_get_aa_list(self):
         assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_list(
             [[1, 2], [None, 3]], "Q969Z2") == [[{'M'}, {'A'}], [{'M'}, {'A'}, {'-'}]]
+
+    def test_entropy_pos_obs(self):
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_obs(1) == 0
+        assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_obs(
+            3) == - ((1 / 6 * log(1 / 6, 2)) * 2 + 4 / 6 * log(4 / 6, 2))
+
+    def test_entropy_background(self):
+        assert Alignments("ArsM_aln_part.faa",
+                          ["WP_045226361.1", "Q969Z2"]).entropy_background('database',
+                                                                           True) == entropy(
+            pk=[9.26, 3.75, 9.91, 6.63, 5.80, 6.16, 4.88,
+                5.55, 3.80, 7.36, 2.36, 1.31, 5.49, 2.19,
+                3.91, 2.90, 1.18, 5.64, 4.88, 6.93, 34], qk=None, base=2)
+        assert Alignments("ArsM_aln_part.faa",
+                          ["WP_045226361.1", "Q969Z2"]).entropy_background('database',
+                                                                           False) == entropy(
+            pk=[9.26, 3.75, 9.91, 6.63, 5.80, 6.16, 4.88,
+             5.55, 3.80, 7.36, 2.36, 1.31, 5.49, 2.19,
+             3.91, 2.90, 1.18, 5.64, 4.88, 6.93], qk=None, base=2)
+        assert round(Alignments("ArsM_aln_part.faa",
+                          ["WP_045226361.1", "Q969Z2"]).entropy_background('equiprobable',
+                                                                           False), 6) == round(- (
+                1 / 20 * log2(1 / 20)) * 20, 6)
+        assert round(Alignments("ArsM_aln_part1.faa",
+                          ["WP_045226361.1", "Q969Z2"]).entropy_background('equiprobable',
+                                                                           True), 6) == round(- (
+                1 / 21 * log2(1 / 21)) * 21, 6)
+        assert round(Alignments("ArsM_aln_part1.faa",
+                          ["WP_045226361.1", "Q969Z2"]).entropy_background('ref', False), 6) == round(- (
+                (2 / 14 * log2(2 / 14)) * 2 + (1 / 14 * log2(1 / 14)) * 4 + 6 / 14 * log2(
+            6 / 14)), 6)
+        assert round(Alignments("ArsM_aln_part1.faa",
+                          ["WP_045226361.1", "Q969Z2"]).entropy_background('ref',
+                                                                           True), 6) == round(- (
+                (2 / 18 * log2(2 / 18)) * 2 + (1 / 18 * log2(1 / 18)) * 4 + 4 / 18 * log2(
+            4 / 18) + 6 / 18 * log2(6 / 18)), 6)
