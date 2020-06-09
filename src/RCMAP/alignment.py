@@ -14,7 +14,7 @@ class Alignments:
         self.seqrefs = MultipleSeqAlignment(
             [s for s in self.alignment if s.id not in seqs_to_evaluate])
         self.aa_ref_counts = self.count_aa_ref()
-        self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref, self.count_aa_pos = \
+        self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref = \
             self.determine_ref_categories()
 
     def count_aa_ref(self):
@@ -36,17 +36,14 @@ class Alignments:
         """
         self.list_of_categories = [set() for sub in range(len(self.seqrefs[0]))]
         self.list_of_cat_sets = [set() for sub in range(len(self.seqrefs[0]))]
-        self.set_of_aa_ref = []
-        self.count_aa_pos = []
+        self.set_of_aa_ref = [set() for sub in range(len(self.seqrefs[0]))]
         for pos in range(len(self.count_aa_ref())):
             self.list_of_categories[pos], self.list_of_cat_sets[pos] = \
                 AAcategories().find_category(
                     {aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0})
-            self.set_of_aa_ref.append([aa for aa in self.aa_ref_counts[pos] if
-                                       self.aa_ref_counts[pos][aa] > 0])
-            self.count_aa_pos.append([self.aa_ref_counts[pos][aa] for aa in self.aa_ref_counts[pos] if
-            self.aa_ref_counts[pos][aa] > 0])
-        return self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref, self.count_aa_pos
+            self.set_of_aa_ref[pos] = {aa for aa in self.aa_ref_counts[pos] if
+                                       self.aa_ref_counts[pos][aa] > 0}
+        return self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref
 
     def get_alignments(self):
         """
@@ -68,38 +65,17 @@ class Alignments:
         """
         return self.list_of_categories[pos - 1]
 
-    def get_aa_observed_at_pos1(self, pos):
+    def get_aa_observed_at_pos(self, pos):
         """
         :param pos:  position of the amino acids in seqrefs
         :return: all the amino acids observed in seqrefs at this position
         """
-        aa_obs_count = []
-        for k in range(len(self.set_of_aa_ref[pos - 1])):
-            aa_obs_count.append(self.set_of_aa_ref[pos-1][k])
-            aa_obs_count.append(self.count_aa_pos[pos-1][k])
-        return aa_obs_count
-
-    def get_aa_observed_at_pos2(self, pos):
-        """
-        :param pos:  position of the amino acids in seqrefs
-        :return: all the amino acids observed in seqrefs at this position
-        """
-        aa_obs_count = []
-        L = self.set_of_aa_ref[pos - 1]
-        i = self.count_aa_pos[pos - 1][0]
-        pos = 0
-        for k in range(1,len(L)+1):
-            if self.count_aa_pos[pos - 1][k] > i :
-                i = self.count_aa_pos[pos - 1][k]
-                a = k
-        aa_obs_count.append(self.set_of_aa_ref[pos-1][a])
-        aa_obs_count.append(i)
-        return aa_obs_count
+        return self.set_of_aa_ref[pos - 1]
 
     def get_aa_at_pos(self, pos, name_seq):
         """
         :param pos: position of the amino acid in seqref or seqeval
-        :return:the amino acid at this position in this sequence
+        :return:
         """
         AA_at_pos = set()
         for s in self.alignment:
@@ -202,8 +178,6 @@ class Alignments:
         if method == 'equiprobable':
             a = 21 if gaps else 20
             pk = [1 / a] * a
-            ref_frq = [1 / a] * a
-            pk = [v for v in ref_frq]
         return entropy(pk, qk=None, base=2)
 
     def information_pos(self, pos, method, gaps):

@@ -50,3 +50,5 @@ usage: evaluate_seq [-h] --file File --seqeval string [string ...] [--positions 
                             range will end at the last position of the alignment. 
                             If no range is specified the whole alignment will be examined.
 ```
+**Example:** `evaluate_seq --file ArsM_aln.faa --seqeval WP_045226361.1 Q969Z2 --positions 50:70 115:125 200:210 --gaps
+`
