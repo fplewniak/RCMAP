@@ -21,7 +21,7 @@ def get_params(argv):
                         choices=['equiprobable', 'database', 'ref'], help='Calculation method of '
                                                                           'the background entropy'
                                                                           ' for the information',
-                        default=['equiprobable'])
+                        default='equiprobable')
     parser.add_argument('--gaps', help='True if you want to consider the gaps', action='store_true')
     a = parser.parse_args()
     return a
@@ -43,7 +43,7 @@ def main():
                     test=str(AAcategories().compatibility(set(alignments.get_aa_at_pos(i, s)),
                                                       alignments.get_cat_at_pos(i))).rjust(6),
                     cat=str(alignments.get_cat_set_at_pos(i)).center(10),
-                    obs=alignments.get_aa_observed_at_pos(i),
+                    obs=alignments.get_aa_observed_at_pos1(i),
                     info=str(round(alignments.information_pos(i, a.method, a.gaps),2)).center(8)))
 
 
