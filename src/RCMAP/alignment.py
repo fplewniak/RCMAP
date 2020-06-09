@@ -176,12 +176,8 @@ class Alignments:
                     count_all[aa] += self.aa_ref_counts[pos][aa]
             pk = [v for v in count_all.values()]
         if method == 'equiprobable':
-            if gaps:
-                a = 21
-            else:
-                a = 20
-            ref_frq = [1 / a] * a
-            pk = [v for v in ref_frq]
+            a = 21 if gaps else 20
+            pk = [1 / a] * a
         return entropy(pk, qk=None, base=2)
 
     def information_pos(self, pos, method, gaps):
