@@ -5,7 +5,9 @@ from scipy.stats import entropy
 
 
 class Alignments:
+    """
 
+    """
     def __init__(self, file, seqs_to_evaluate):
         self.file = file
         self.seqs_to_evaluate = seqs_to_evaluate
@@ -74,8 +76,9 @@ class Alignments:
 
     def get_aa_at_pos(self, pos, name_seq):
         """
-        :param pos: position of the amino acid in seqref or seqeval
-        :return:
+        :param name_seq: sequence name
+        :param pos: position in sequence
+        :return: a set with the observed amino acid at pos in the sequence
         """
         AA_at_pos = set()
         for s in self.alignment:
@@ -99,7 +102,7 @@ class Alignments:
 
     def get_aa_in_range(self, name_seq, pos1=None, pos2=None):
         """
-        :param name_seq_eval: name of the sequence
+        :param name_seq: name of the sequence
         :param pos1: beginning of the interval
         :param pos2: end of the interval
         :return: list of all the amino acids from the sequence in the interval of positions
@@ -165,7 +168,7 @@ class Alignments:
                 for pos in range(len(self.aa_ref_counts)):
                     ref_frq["-"] += self.aa_ref_counts[pos]["-"]
             pk = [v for v in ref_frq.values()]
-        if method == 'ref':
+        elif method == 'ref':
             count_all = {"A": 0, "R": 0, "N": 0, "D": 0, "C": 0, "E": 0, "Q": 0,
                          "G": 0, "H": 0, "I": 0, "L": 0, "K": 0, "M": 0, "F": 0, "P": 0, "S": 0,
                          "T": 0, "W": 0, "Y": 0, "V": 0}
@@ -175,7 +178,7 @@ class Alignments:
                 for aa in count_all.keys():
                     count_all[aa] += self.aa_ref_counts[pos][aa]
             pk = [v for v in count_all.values()]
-        if method == 'equiprobable':
+        else:
             a = 21 if gaps else 20
             pk = [1 / a] * a
         return entropy(pk, qk=None, base=2)

@@ -1,39 +1,43 @@
 class AAcategories:
+    """
+
+    """
 
     # Initializer / Instance Attributes
     def __init__(self):
         self.categories = {
-            'Negative' : set("DE") ,'Polar' : set("DEKRHQNSCTYW"),'Tiny' : set("ASCG") ,
-            'Positive' : set("RKH") ,
-            'Aliphatic' : set("IVL") ,
-            'Aromatic' : set("FYWH"),
-            'Charged' : set("DEKRH"),
-            'Small' : set("ASCGPNDTV"),
-            'Hydrophobic' : set("IVLFYWHMKTGAC")
-        }
+            'Negative': set("DE"), 'Polar': set("DEKRHQNSCTYW"), 'Tiny': set("ASCG"),
+            'Positive': set("RKH"),
+            'Aliphatic': set("IVL"),
+            'Aromatic': set("FYWH"),
+            'Charged': set("DEKRH"),
+            'Small': set("ASCGPNDTV"),
+            'Hydrophobic': set("IVLFYWHMKTGAC")
+            }
 
     def sort_categories(self):
         """
         :return: the list of the categories
         """
-        return ['Negative', 'Positive', 'Aliphatic', 'Tiny', 'Aromatic', 'Charged', 'Small', 'Polar', 'Hydrophobic']
+        return ['Negative', 'Positive', 'Aliphatic', 'Tiny', 'Aromatic', 'Charged', 'Small',
+                'Polar', 'Hydrophobic']
 
-    def find_category(self,ens):
+    def find_category(self, ens):
         """
         :param ens: set
         :return: the smallest category in which the set is included, and its name
         """
-        if "-" in ens :
+        if "-" in ens:
             ens.remove("-")
-        if "B" in ens :
+        if "B" in ens:
             ens.remove("B")
             ens.add("D")
             ens.add("N")
-        if "Z" in ens :
+        if "Z" in ens:
             ens.remove("Z")
             ens.add("Q")
             ens.add("E")
-        if len(ens) <= 1 :
+        if len(ens) <= 1:
             return ens, ens
         List = self.sort_categories()
         for k in range(len(self.categories)):
@@ -41,20 +45,18 @@ class AAcategories:
                 return self.categories[List[k]], List[k]
         return set("IVLFYWHMKTGACPSNDEQR"), 'Any'
 
-    def compatibility(self,AA,category):
+    def compatibility(self, AA, category):
         """
         :param AA: set of amino acids
         :param category: a category (set)
         :return: True if the set of amino acids is included in the category, False if not
         """
-        if "B" in AA :
-            AA = {"D","N"}
-        if "Z" in AA :
-            AA = {"Q","E"}
-        if "-" in AA :
+        if "B" in AA:
+            AA = {"D", "N"}
+        if "Z" in AA:
+            AA = {"Q", "E"}
+        if "-" in AA:
             return False
         if AA <= category:
             return True
         return False
-
-
