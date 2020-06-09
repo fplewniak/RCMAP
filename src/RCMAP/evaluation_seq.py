@@ -21,7 +21,7 @@ def get_params(argv):
                         choices=['equiprobable', 'database', 'ref'], help='Calculation method of '
                                                                           'the background entropy'
                                                                           ' for the information',
-                        default=['equiprobable'])
+                        default='equiprobable')
     parser.add_argument('--gaps', help='True if you want to consider the gaps', action='store_true')
     a = parser.parse_args()
     return a
