@@ -1,7 +1,7 @@
 def get_positions_list(positions):
     """
-    :param positions:  #like ['3:10', '8:25' ,'32', '45:']
-    :return: #like [[3,10], [8,25], [32], [45,None]]
+    :param positions:  positions like ['3:10', '8:25' ,'32', '45:']
+    :return: positions like [[3,10], [8,25], [32], [45,None]]
     """
     positions_list = []
     for k in range(len(positions)):

@@ -13,10 +13,16 @@ class AAcategories:
         }
 
     def sort_categories(self):
+        """
+        :return: the list of the categories
+        """
         return ['Negative', 'Positive', 'Aliphatic', 'Tiny', 'Aromatic', 'Charged', 'Small', 'Polar', 'Hydrophobic']
 
     def find_category(self,ens):
-        """This function returns the smallest category in which the set is included, and its name"""
+        """
+        :param ens: set
+        :return: the smallest category in which the set is included, and its name
+        """
         if "-" in ens :
             ens.remove("-")
         if "B" in ens :
@@ -36,6 +42,11 @@ class AAcategories:
         return set("IVLFYWHMKTGACPSNDEQR"), 'Any'
 
     def compatibility(self,AA,category):
+        """
+        :param AA: set of amino acids
+        :param category: a category (set)
+        :return: True if the set of amino acids is included in the category, False if not
+        """
         if "B" in AA :
             AA = {"D","N"}
         if "Z" in AA :
