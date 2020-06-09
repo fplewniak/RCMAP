@@ -1,7 +1,7 @@
 import argparse
 import sys
 from RCMAP.alignment import Alignments
-from RCMAP.utilities import get_positions_list
+from RCMAP.utilities import get_positions_list, summary_info
 from RCMAP.classification_aa import AAcategories
 
 
@@ -34,6 +34,8 @@ def main():
     list_of_categories = alignments.get_category_list(list_of_positions)
     for s in a.seqeval:
         print('\n')
+        List_compatibility = []
+        List_info = []
         for start, end in list_of_positions:
             for i in range(1 if start is None else start,
                            len(alignments.seqeval[0]) if end is None else end + 1):
@@ -41,10 +43,22 @@ def main():
                     name_seq=s.rjust(0), pos=str(i).rjust(4),
                     aa=alignments.get_aa_at_pos(i, s),
                     test=str(AAcategories().compatibility(set(alignments.get_aa_at_pos(i, s)),
-                                                      alignments.get_cat_at_pos(i))).rjust(6),
+                                                          alignments.get_cat_at_pos(i))).rjust(6),
                     cat=str(alignments.get_cat_set_at_pos(i)).center(10),
-                    obs=alignments.get_aa_observed_at_pos(i),
-                    info=round(alignments.information_pos(i, a.method, a.gaps),2)))
+                    obs=alignments.get_aa_observed_at_pos1(i),
+                    info=round(alignments.information_pos(i, a.method, a.gaps), 2)))
+
+                List_compatibility.append(
+                    AAcategories().compatibility(set(alignments.get_aa_at_pos(i, s)),
+                                                 alignments.get_cat_at_pos(i)))
+                List_info.append(alignments.information_pos(i, a.method, a.gaps))
+
+        print('\n', s, '\n', 'Number of True '.rjust(0),
+              summary_info(List_compatibility, List_info)[0],
+              ' : Information True ', summary_info(List_compatibility, List_info)[1], '\n'
+                                                                                      'Number of False '.rjust(
+                0), summary_info(List_compatibility, List_info)[2],
+              ' : Information False ', summary_info(List_compatibility, List_info)[3])
 
 
 if __name__ == '__main__':

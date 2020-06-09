@@ -14,7 +14,7 @@ class Alignments:
         self.seqrefs = MultipleSeqAlignment(
             [s for s in self.alignment if s.id not in seqs_to_evaluate])
         self.aa_ref_counts = self.count_aa_ref()
-        self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref = \
+        self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref, self.count_aa_pos = \
             self.determine_ref_categories()
 
     def count_aa_ref(self):
@@ -36,14 +36,17 @@ class Alignments:
         """
         self.list_of_categories = [set() for sub in range(len(self.seqrefs[0]))]
         self.list_of_cat_sets = [set() for sub in range(len(self.seqrefs[0]))]
-        self.set_of_aa_ref = [set() for sub in range(len(self.seqrefs[0]))]
+        self.set_of_aa_ref = []
+        self.count_aa_pos = []
         for pos in range(len(self.count_aa_ref())):
             self.list_of_categories[pos], self.list_of_cat_sets[pos] = \
                 AAcategories().find_category(
                     {aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0})
-            self.set_of_aa_ref[pos] = {aa for aa in self.aa_ref_counts[pos] if
-                                       self.aa_ref_counts[pos][aa] > 0}
-        return self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref
+            self.set_of_aa_ref.append([aa for aa in self.aa_ref_counts[pos] if
+                                       self.aa_ref_counts[pos][aa] > 0])
+            self.count_aa_pos.append([self.aa_ref_counts[pos][aa] for aa in self.aa_ref_counts[pos] if
+                                       self.aa_ref_counts[pos][aa] > 0])
+        return self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref, self.count_aa_pos
 
     def get_alignments(self):
         """
@@ -65,12 +68,35 @@ class Alignments:
         """
         return self.list_of_categories[pos - 1]
 
-    def get_aa_observed_at_pos(self, pos):
+    def get_aa_observed_at_pos1(self, pos):
         """
         :param pos:  position of the amino acids in seqrefs
         :return: all the amino acids observed in seqrefs at this position
         """
-        return self.set_of_aa_ref[pos - 1]
+        aa_obs_count = []
+        Laa, Lcount = self.tri_insertion(self.set_of_aa_ref[pos-1], self.count_aa_pos[pos-1])
+        for k in range(len(Laa)):
+            aa_obs_count.append(Laa[k])
+            aa_obs_count.append(Lcount[k])
+        return aa_obs_count
+
+    def tri_insertion(self, Laa, Lcount):
+        """
+        :param L: list of amino acids at a position and list of the count of this amino acids
+        :return: sorted list
+        """
+        N = len(Lcount)
+        for n in range(1, N):
+            a = Lcount[n]
+            b = Laa[n]
+            j = n - 1
+            while j >= 0 and Lcount[j] < a:
+                Lcount[j + 1] = Lcount[j]
+                Laa[j+1] = Laa[j]
+                j = j - 1
+            Lcount[j + 1] = a
+            Laa[j+1] = b
+        return Laa, Lcount
 
     def get_aa_at_pos(self, pos, name_seq):
         """
