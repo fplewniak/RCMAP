@@ -45,7 +45,12 @@ def test_determine_ref_categories():
                                                                                    [[6],
                                                                                     [1, 1, 1, 2,
                                                                                      1],
-                                                                                    [1, 1, 4]])
+                                                                                    [1, 1, 4]],
+                                                                                   [{'M'},
+                                                                                    {'S', 'P', 'G',
+                                                                                     'H', 'D'},
+                                                                                    {'-', 'K',
+                                                                                     'D'}])
 
 
 def test_get_aa_at_pos():
@@ -131,6 +136,33 @@ def test_get_aa_list():
     """
     assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_list(
         [[1, 2], [None, 3]], "Q969Z2") == [[{'M'}, {'A'}], [{'M'}, {'A'}, {'-'}]]
+
+
+def test_compatibility():
+    """
+    test the compatibility of different amino acid with categories
+    """
+    assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).compatibility({"B"}, set(
+        "ASCGPNDTV"), False) is True
+    assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).compatibility({"Z"}, set(
+        "DEKRHQNSCTYW"), False) is True
+    assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).compatibility({"-"},
+                                                                                       set("IVL"),
+                                                                                       False) is False
+    assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).compatibility({"-"},
+                                                                                       set("IVL"),
+                                                                                       True) is False
+    assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).compatibility({"-"},
+                                                                                       set("-VL"),
+                                                                                       True) is True
+    assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).compatibility({"G"},
+                                                                                       set("RKH"),
+                                                                                       True) is False
+    assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).compatibility({"G"}, set(
+        "ASCGPNDTV"), False) is True
+    assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).compatibility({"G"},
+                                                                                       set("RKH"),
+                                                                                       False) is False
 
 
 def test_entropy_pos_obs():

@@ -17,8 +17,8 @@ class Alignments:
         self.seqrefs = MultipleSeqAlignment(
             [s for s in self.alignment if s.id not in seqs_to_evaluate])
         self.aa_ref_counts = self.count_aa_ref()
-        self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref, self.count_aa_pos = \
-            self.determine_ref_categories()
+        self.list_of_categories, self.list_of_cat_sets, self.list_of_aa_ref, self.count_aa_pos, \
+        self.set_of_aa_ref = self.determine_ref_categories()
 
     def count_aa_ref(self):
         """
@@ -39,18 +39,22 @@ class Alignments:
         """
         self.list_of_categories = [set() for sub in range(len(self.seqrefs[0]))]
         self.list_of_cat_sets = [set() for sub in range(len(self.seqrefs[0]))]
-        self.set_of_aa_ref = []
+        self.list_of_aa_ref = []
         self.count_aa_pos = []
+        self.set_of_aa_ref = []
         for pos in range(len(self.count_aa_ref())):
             self.list_of_categories[pos], self.list_of_cat_sets[pos] = \
                 AAcategories().find_category(
                     {aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0})
-            self.set_of_aa_ref.append([aa for aa in self.aa_ref_counts[pos] if
-                                       self.aa_ref_counts[pos][aa] > 0])
+            self.list_of_aa_ref.append([aa for aa in self.aa_ref_counts[pos] if
+                                        self.aa_ref_counts[pos][aa] > 0])
+            self.set_of_aa_ref.append({aa for aa in self.aa_ref_counts[pos] if
+                                   self.aa_ref_counts[pos][aa] > 0})
             self.count_aa_pos.append(
                 [self.aa_ref_counts[pos][aa] for aa in self.aa_ref_counts[pos] if
                  self.aa_ref_counts[pos][aa] > 0])
-        return self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref, self.count_aa_pos
+        return self.list_of_categories, self.list_of_cat_sets, self.list_of_aa_ref, \
+               self.count_aa_pos, self.set_of_aa_ref
 
     def get_alignments(self):
         """
@@ -65,11 +69,14 @@ class Alignments:
         """
         return self.list_of_cat_sets[pos - 1]
 
-    def get_cat_at_pos(self, pos):
+    def get_cat_at_pos(self, pos, strict):
         """
+        :param strict: if True, the category is only the amino acids observed
         :param pos: position of the amino acid in seqrefs
         :return: the category (set) of amino acids observed in seqrefs
         """
+        if strict:
+            return self.set_of_aa_ref[pos-1]
         return self.list_of_categories[pos - 1]
 
     def get_aa_observed_at_pos(self, pos):
@@ -78,11 +85,11 @@ class Alignments:
         :return: all the amino acids observed in seqrefs at this position and the count of this
         amino acids
         """
-        list_aa, list_count = self.set_of_aa_ref[pos - 1], self.count_aa_pos[pos - 1]
+        list_aa, list_count = self.list_of_aa_ref[pos - 1], self.count_aa_pos[pos - 1]
         aa_observed = dict()
         for i in range(len(list_aa)):
             aa_observed[list_aa[i]] = list_count[i]
-        return sorted(aa_observed.items(), key=lambda item: item[1])
+        return sorted(aa_observed.items(), key=lambda item: item[1], reverse=True)
 
     def get_aa_at_pos(self, pos, name_seq):
         """
@@ -153,6 +160,24 @@ class Alignments:
                 list_of_aa.append(
                     self.get_aa_in_range(name_seq, pos[0], pos[1]))
         return list_of_aa
+
+    def compatibility(self, amino_acid, category, gaps, pos):
+        """
+        :param gaps: consider gaps if gaps is True
+        :param amino_acid: set of amino acids
+        :param category: a category (set)
+        :return: True if the set of amino acids is included in the category, False if not
+        """
+        if "B" in amino_acid:
+            amino_acid = {"D", "N"}
+        if "Z" in amino_acid:
+            amino_acid = {"Q", "E"}
+        if "-" in amino_acid:
+            if gaps and "-" in self.set_of_aa_ref[pos]:
+                return True
+        if amino_acid <= category:
+            return True
+        return False
 
     def entropy_pos_obs(self, pos):
         """

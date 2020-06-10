@@ -1,26 +1,10 @@
+
 def sort_categories():
     """
     :return: the list of the categories
     """
     return ['Negative', 'Positive', 'Aliphatic', 'Tiny', 'Aromatic', 'Charged', 'Small', 'Polar',
             'Hydrophobic']
-
-
-def compatibility(amino_acid, category):
-    """
-    :param amino_acid: set of amino acids
-    :param category: a category (set)
-    :return: True if the set of amino acids is included in the category, False if not
-    """
-    if "B" in amino_acid:
-        amino_acid = {"D", "N"}
-    if "Z" in amino_acid:
-        amino_acid = {"Q", "E"}
-    if "-" in amino_acid:
-        return False
-    if amino_acid <= category:
-        return True
-    return False
 
 
 def get_positions_list(positions):

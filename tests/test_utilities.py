@@ -19,17 +19,6 @@ def test_sort_categories():
                                  'Hydrophobic']
 
 
-def test_compatibility():
-    """
-    test the compatibility of different amino acid with categories
-    """
-    assert compatibility({"B"}, set("ASCGPNDTV")) is True
-    assert compatibility({"Z"}, set("DEKRHQNSCTYW")) is True
-    assert compatibility({"-"}, set("IVL")) is False
-    assert compatibility({"G"}, set("ASCGPNDTV")) is True
-    assert compatibility({"G"}, set("RKH")) is False
-
-
 def test_summary_info():
     """
     test the number of true in the list and the information associated (same for false)

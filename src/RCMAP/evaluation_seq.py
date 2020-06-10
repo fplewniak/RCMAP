@@ -1,6 +1,6 @@
 import argparse
 from RCMAP.alignment import Alignments
-from RCMAP.utilities import get_positions_list, summary_info, compatibility
+from RCMAP.utilities import get_positions_list, summary_info
 
 
 def get_params():
@@ -20,6 +20,9 @@ def get_params():
                                                                           ' for the information',
                         default='equiprobable')
     parser.add_argument('--gaps', help='True if you want to consider the gaps', action='store_true')
+    parser.add_argument('--strict', help='True if you want to compare the amino acid in the '
+                                         'evaluated sequence only with the amino acids observed '
+                                         'in the reference sequences', action='store_true')
     params = parser.parse_args()
     return params
 
@@ -45,15 +48,17 @@ def main():
                 print('{name_seq} : {pos} : {aa} : {test} : {info:.2f} : {cat} {obs}'.format(
                     name_seq=seq.rjust(0), pos=str(i).rjust(4),
                     aa=alignments.get_aa_at_pos(i, seq),
-                    test=str(compatibility(set(alignments.get_aa_at_pos(i, seq)),
-                                           alignments.get_cat_at_pos(i))).rjust(6),
+                    test=str(alignments.compatibility(set(alignments.get_aa_at_pos(i, seq)),
+                                                      alignments.get_cat_at_pos(i, params.strict),
+                                                      params.gaps, i)).rjust(6),
                     cat=str(alignments.get_cat_set_at_pos(i)).center(10),
                     obs=alignments.get_aa_observed_at_pos(i),
                     info=round(alignments.information_pos(i, params.method, params.gaps), 2)))
 
                 list_compatibility.append(
-                    compatibility(set(alignments.get_aa_at_pos(i, seq)),
-                                  alignments.get_cat_at_pos(i)))
+                    alignments.compatibility(set(alignments.get_aa_at_pos(i, seq)),
+                                             alignments.get_cat_at_pos(i, params.strict),
+                                             params.gaps, i))
                 list_info.append(alignments.information_pos(i, params.method, params.gaps))
 
         print('\n', seq, '\n', 'Number of True '.rjust(0),
