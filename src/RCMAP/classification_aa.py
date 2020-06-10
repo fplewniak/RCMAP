@@ -1,6 +1,9 @@
+from RCMAP.utilities import sort_categories
+
+
 class AAcategories:
     """
-
+    AAcategories is used to define the categories and test if an amino acid belongs to a category
     """
 
     # Initializer / Instance Attributes
@@ -13,14 +16,7 @@ class AAcategories:
             'Charged': set("DEKRH"),
             'Small': set("ASCGPNDTV"),
             'Hydrophobic': set("IVLFYWHMKTGAC")
-            }
-
-    def sort_categories(self):
-        """
-        :return: the list of the categories
-        """
-        return ['Negative', 'Positive', 'Aliphatic', 'Tiny', 'Aromatic', 'Charged', 'Small',
-                'Polar', 'Hydrophobic']
+        }
 
     def find_category(self, ens):
         """
@@ -39,24 +35,8 @@ class AAcategories:
             ens.add("E")
         if len(ens) <= 1:
             return ens, ens
-        List = self.sort_categories()
+        list_cat = sort_categories()
         for k in range(len(self.categories)):
-            if ens.issubset(self.categories[List[k]]):
-                return self.categories[List[k]], List[k]
+            if ens.issubset(self.categories[list_cat[k]]):
+                return self.categories[list_cat[k]], list_cat[k]
         return set("IVLFYWHMKTGACPSNDEQR"), 'Any'
-
-    def compatibility(self, AA, category):
-        """
-        :param AA: set of amino acids
-        :param category: a category (set)
-        :return: True if the set of amino acids is included in the category, False if not
-        """
-        if "B" in AA:
-            AA = {"D", "N"}
-        if "Z" in AA:
-            AA = {"Q", "E"}
-        if "-" in AA:
-            return False
-        if AA <= category:
-            return True
-        return False
