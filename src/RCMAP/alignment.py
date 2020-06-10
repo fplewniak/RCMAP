@@ -5,6 +5,9 @@ from scipy.stats import entropy
 
 
 class Alignments:
+    """
+    Alignment is used to open the file and process the alignment of sequences
+    """
 
     def __init__(self, file, seqs_to_evaluate):
         self.file = file
@@ -25,9 +28,9 @@ class Alignments:
             {"A": 0, "R": 0, "N": 0, "D": 0, "B": 0, "C": 0, "E": 0, "Q": 0, "Z": 0, "G": 0, "H": 0,
              "I": 0, "L": 0, "K": 0, "M": 0, "F": 0, "P": 0, "S": 0, "T": 0, "W": 0, "Y": 0, "V": 0,
              "-": 0} for sub in range(len(self.seqrefs[0]))]
-        for s in self.seqrefs:
+        for seq in self.seqrefs:
             for pos in range(len(self.seqrefs[0])):
-                self.aa_ref_counts[pos][self.get_aa_at_pos(pos + 1, s.id)] += 1
+                self.aa_ref_counts[pos][self.get_aa_at_pos(pos + 1, seq.id)] += 1
         return self.aa_ref_counts
 
     def determine_ref_categories(self):
@@ -44,8 +47,9 @@ class Alignments:
                     {aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0})
             self.set_of_aa_ref.append([aa for aa in self.aa_ref_counts[pos] if
                                        self.aa_ref_counts[pos][aa] > 0])
-            self.count_aa_pos.append([self.aa_ref_counts[pos][aa] for aa in self.aa_ref_counts[pos] if
-                                       self.aa_ref_counts[pos][aa] > 0])
+            self.count_aa_pos.append(
+                [self.aa_ref_counts[pos][aa] for aa in self.aa_ref_counts[pos] if
+                 self.aa_ref_counts[pos][aa] > 0])
         return self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref, self.count_aa_pos
 
     def get_alignments(self):
@@ -68,46 +72,29 @@ class Alignments:
         """
         return self.list_of_categories[pos - 1]
 
-    def get_aa_observed_at_pos1(self, pos):
+    def get_aa_observed_at_pos(self, pos):
         """
         :param pos:  position of the amino acids in seqrefs
-        :return: all the amino acids observed in seqrefs at this position
+        :return: all the amino acids observed in seqrefs at this position and the count of this
+        amino acids
         """
-        aa_obs_count = []
-        Laa, Lcount = self.tri_insertion(self.set_of_aa_ref[pos-1], self.count_aa_pos[pos-1])
-        for k in range(len(Laa)):
-            aa_obs_count.append(Laa[k])
-            aa_obs_count.append(Lcount[k])
-        return aa_obs_count
-
-    def tri_insertion(self, Laa, Lcount):
-        """
-        :param L: list of amino acids at a position and list of the count of this amino acids
-        :return: sorted list
-        """
-        N = len(Lcount)
-        for n in range(1, N):
-            a = Lcount[n]
-            b = Laa[n]
-            j = n - 1
-            while j >= 0 and Lcount[j] < a:
-                Lcount[j + 1] = Lcount[j]
-                Laa[j+1] = Laa[j]
-                j = j - 1
-            Lcount[j + 1] = a
-            Laa[j+1] = b
-        return Laa, Lcount
+        list_aa, list_count = self.set_of_aa_ref[pos - 1], self.count_aa_pos[pos - 1]
+        aa_observed = dict()
+        for i in range(len(list_aa)):
+            aa_observed[list_aa[i]] = list_count[i]
+        return sorted(aa_observed.items(), key=lambda item: item[1])
 
     def get_aa_at_pos(self, pos, name_seq):
         """
         :param pos: position of the amino acid in seqref or seqeval
-        :return:
+        :param name_seq: name of the sequence in seqref or seqeval
+        :return: the amino acid at this position in the sequence
         """
-        AA_at_pos = set()
-        for s in self.alignment:
-            if s.id == name_seq:
-                AA_at_pos = s[pos - 1]
-        return AA_at_pos
+        aa_at_pos = set()
+        for seq in self.alignment:
+            if seq.id == name_seq:
+                aa_at_pos = seq[pos - 1]
+        return aa_at_pos
 
     def get_cat_in_range(self, pos1=None, pos2=None):
         """
@@ -119,22 +106,20 @@ class Alignments:
             pos1 = 1
         if pos2 is None:
             pos2 = len(self.seqrefs[0])
-        # if pos1 > len(self.seqrefs[0]) or pos2 > len(self.seqrefs[0]):
-        #    return "Error"
         return self.list_of_categories[pos1 - 1:pos2]
 
     def get_aa_in_range(self, name_seq, pos1=None, pos2=None):
         """
-        :param name_seq_eval: name of the sequence
+        :param name_seq: name of the sequence
         :param pos1: beginning of the interval
         :param pos2: end of the interval
         :return: list of all the amino acids from the sequence in the interval of positions
         """
-        aa_in_range = []
         if pos1 is None:
             pos1 = 1
         if pos2 is None:
             pos2 = len(self.seqeval[0])
+        aa_in_range = []
         for pos in range(pos1, pos2 + 1):
             aa_in_range.append(set(self.get_aa_at_pos(pos, name_seq)))
         return aa_in_range
@@ -160,13 +145,13 @@ class Alignments:
         :return: list of amino acids associated to the intervals of positions
         """
         list_of_aa = []
-        for r in range(len(positions_list)):
-            if len(positions_list[r]) == 1:
+        for pos in positions_list:
+            if len(pos) == 1:
                 list_of_aa.append(
-                    [set(self.get_aa_at_pos(positions_list[r][0], name_seq))])
+                    [set(self.get_aa_at_pos(pos[0], name_seq))])
             else:
                 list_of_aa.append(
-                    self.get_aa_in_range(name_seq, positions_list[r][0], positions_list[r][1]))
+                    self.get_aa_in_range(name_seq, pos[0], pos[1]))
         return list_of_aa
 
     def entropy_pos_obs(self, pos):
@@ -174,7 +159,7 @@ class Alignments:
         :param pos: position in the alignment
         :return: the entropy associated to the position
         """
-        return entropy(pk=[v for v in self.aa_ref_counts[pos - 1].values()], qk=None, base=2)
+        return entropy(pk=[v for v in self.aa_ref_counts[pos - 1].values()], base=2)
 
     def entropy_background(self, method, gaps):
         """
@@ -188,23 +173,23 @@ class Alignments:
                        "F": 3.91, "Y": 2.90, "C": 1.18, "I": 5.64, "P": 4.88, "V": 6.93}
             if gaps:
                 ref_frq["-"] = 0
-                for pos in range(len(self.aa_ref_counts)):
-                    ref_frq["-"] += self.aa_ref_counts[pos]["-"]
+                for pos in self.aa_ref_counts:
+                    ref_frq["-"] += pos["-"]
             pk = [v for v in ref_frq.values()]
-        if method == 'ref':
+        elif method == 'ref':
             count_all = {"A": 0, "R": 0, "N": 0, "D": 0, "C": 0, "E": 0, "Q": 0,
                          "G": 0, "H": 0, "I": 0, "L": 0, "K": 0, "M": 0, "F": 0, "P": 0, "S": 0,
                          "T": 0, "W": 0, "Y": 0, "V": 0}
             if gaps:
                 count_all["-"] = 0
-            for pos in range(len(self.aa_ref_counts)):
-                for aa in count_all.keys():
-                    count_all[aa] += self.aa_ref_counts[pos][aa]
+            for pos in self.aa_ref_counts:
+                for i in count_all.keys():
+                    count_all[i] += pos[i]
             pk = [v for v in count_all.values()]
-        if method == 'equiprobable':
-            a = 21 if gaps else 20
-            pk = [1 / a] * a
-        return entropy(pk, qk=None, base=2)
+        else:
+            j = 21 if gaps else 20
+            pk = [1 / j] * j
+        return entropy(pk, base=2)
 
     def information_pos(self, pos, method, gaps):
         """
