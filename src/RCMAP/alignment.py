@@ -12,8 +12,21 @@ class Alignments:
     def __init__(self, file, seqs_to_evaluate):
         self.file = file
         self.seqs_to_evaluate = seqs_to_evaluate
-        self.alignment = AlignIO.read(file, "fasta")
-        self.seqeval = MultipleSeqAlignment([s for s in self.alignment if s.id in seqs_to_evaluate])
+        try:
+            self.alignment = AlignIO.read(file, "fasta")
+        except FileNotFoundError:
+            print('File {fichier} not found'.format(fichier=file))
+            exit(1)
+        for seq in seqs_to_evaluate:
+            k = 0
+            for i in self.alignment:
+                if i.id == seq:
+                    k += 1
+            if k == 0:
+                print('Sequence to evaluate : {seq} not found'.format(seq=seq))
+                exit(1)
+        self.seqeval = MultipleSeqAlignment(
+            [seq for seq in self.alignment if seq.id in seqs_to_evaluate])
         self.seqrefs = MultipleSeqAlignment(
             [s for s in self.alignment if s.id not in seqs_to_evaluate])
         self.aa_ref_counts = self.count_aa_ref()
@@ -49,7 +62,7 @@ class Alignments:
             self.list_of_aa_ref.append([aa for aa in self.aa_ref_counts[pos] if
                                         self.aa_ref_counts[pos][aa] > 0])
             self.set_of_aa_ref.append({aa for aa in self.aa_ref_counts[pos] if
-                                   self.aa_ref_counts[pos][aa] > 0})
+                                       self.aa_ref_counts[pos][aa] > 0})
             self.count_aa_pos.append(
                 [self.aa_ref_counts[pos][aa] for aa in self.aa_ref_counts[pos] if
                  self.aa_ref_counts[pos][aa] > 0])
@@ -76,7 +89,7 @@ class Alignments:
         :return: the category (set) of amino acids observed in seqrefs
         """
         if strict:
-            return self.set_of_aa_ref[pos-1]
+            return self.set_of_aa_ref[pos - 1]
         return self.list_of_categories[pos - 1]
 
     def get_aa_observed_at_pos(self, pos):
@@ -89,7 +102,7 @@ class Alignments:
         aa_observed = dict()
         for i in range(len(list_aa)):
             aa_observed[list_aa[i]] = list_count[i]
-        return sorted(aa_observed.items(), key=lambda item: item[1], reverse=True)
+        return dict(sorted(aa_observed.items(), key=lambda item: item[1], reverse=True))
 
     def get_aa_at_pos(self, pos, name_seq):
         """
@@ -98,9 +111,13 @@ class Alignments:
         :return: the amino acid at this position in the sequence
         """
         aa_at_pos = set()
-        for seq in self.alignment:
-            if seq.id == name_seq:
-                aa_at_pos = seq[pos - 1]
+        try:
+            for seq in self.alignment:
+                if seq.id == name_seq:
+                    aa_at_pos = seq[pos - 1]
+        except IndexError:
+            print('The position {pos} is outside the sequence'.format(pos=pos))
+            exit(1)
         return aa_at_pos
 
     def get_cat_in_range(self, pos1=None, pos2=None):
@@ -160,24 +177,6 @@ class Alignments:
                 list_of_aa.append(
                     self.get_aa_in_range(name_seq, pos[0], pos[1]))
         return list_of_aa
-
-    def compatibility(self, amino_acid, category, gaps, pos):
-        """
-        :param gaps: consider gaps if gaps is True
-        :param amino_acid: set of amino acids
-        :param category: a category (set)
-        :return: True if the set of amino acids is included in the category, False if not
-        """
-        if "B" in amino_acid:
-            amino_acid = {"D", "N"}
-        if "Z" in amino_acid:
-            amino_acid = {"Q", "E"}
-        if "-" in amino_acid:
-            if gaps and "-" in self.set_of_aa_ref[pos]:
-                return True
-        if amino_acid <= category:
-            return True
-        return False
 
     def entropy_pos_obs(self, pos):
         """

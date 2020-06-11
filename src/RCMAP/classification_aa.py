@@ -40,3 +40,4 @@ class AAcategories:
             if ens.issubset(self.categories[list_cat[k]]):
                 return self.categories[list_cat[k]], list_cat[k]
         return set("IVLFYWHMKTGACPSNDEQR"), 'Any'
+

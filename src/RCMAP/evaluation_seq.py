@@ -1,6 +1,6 @@
 import argparse
 from RCMAP.alignment import Alignments
-from RCMAP.utilities import get_positions_list, summary_info
+from RCMAP.utilities import get_positions_list, summary_info, compatibility
 
 
 def get_params():
@@ -10,7 +10,7 @@ def get_params():
     """
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('--file', metavar='File', help='Alignment file', required=True)
-    parser.add_argument('--seqeval', metavar='string', nargs='+', help='Sequences to evaluate',
+    parser.add_argument('--seqeval', metavar='String', nargs='+', help='Sequences to evaluate',
                         required=True)
     parser.add_argument('--positions', nargs='+', help='List of positions to evaluate',
                         default=[':'])
@@ -23,6 +23,9 @@ def get_params():
     parser.add_argument('--strict', help='True if you want to compare the amino acid in the '
                                          'evaluated sequence only with the amino acids observed '
                                          'in the reference sequences', action='store_true')
+    parser.add_argument('--min_info',
+                        help='Minimum of information required for display (The maximum of '
+                             'information is 4.39 if you consider gaps, 4.32 if not', default=0)
     params = parser.parse_args()
     return params
 
@@ -38,28 +41,30 @@ def main():
     """
     params = get_params()
     alignments = Alignments(params.file, params.seqeval)
-    list_of_positions = get_positions_list(params.positions)
+    list_of_positions = get_positions_list(params.positions, len(alignments.seqeval[0]))
     for seq in params.seqeval:
         print('\n')
         list_compatibility, list_info = [], []
         for start, end in list_of_positions:
-            for i in range(1 if start is None else start,
-                           len(alignments.seqeval[0]) if end is None else end + 1):
-                print('{name_seq} : {pos} : {aa} : {test} : {info:.2f} : {cat} {obs}'.format(
-                    name_seq=seq.rjust(0), pos=str(i).rjust(4),
-                    aa=alignments.get_aa_at_pos(i, seq),
-                    test=str(alignments.compatibility(set(alignments.get_aa_at_pos(i, seq)),
-                                                      alignments.get_cat_at_pos(i, params.strict),
-                                                      params.gaps, i)).rjust(6),
-                    cat=str(alignments.get_cat_set_at_pos(i)).center(10),
-                    obs=alignments.get_aa_observed_at_pos(i),
-                    info=round(alignments.information_pos(i, params.method, params.gaps), 2)))
+            for i in range(start, end + 1):
+                info = round(alignments.information_pos(i, params.method, params.gaps), 2)
+                if info >= float(params.min_info):
+                    print('{name_seq} : {pos} : {aa} : {test} : {info:.2f} : {cat} {obs}'.format(
+                        name_seq=seq.rjust(0), pos=str(i).rjust(4),
+                        aa=alignments.get_aa_at_pos(i, seq),
+                        test=str(compatibility(set(alignments.get_aa_at_pos(i, seq)),
+                                               alignments.get_cat_at_pos(i, params.strict),
+                                               params.gaps & ('-' in alignments.set_of_aa_ref[
+                                                   i - 1]))).rjust(6),
+                        cat=str(alignments.get_cat_set_at_pos(i)).center(10),
+                        obs=alignments.get_aa_observed_at_pos(i),
+                        info=info))
 
-                list_compatibility.append(
-                    alignments.compatibility(set(alignments.get_aa_at_pos(i, seq)),
-                                             alignments.get_cat_at_pos(i, params.strict),
-                                             params.gaps, i))
-                list_info.append(alignments.information_pos(i, params.method, params.gaps))
+                    list_compatibility.append(
+                        compatibility(set(alignments.get_aa_at_pos(i, seq)),
+                                      alignments.get_cat_at_pos(i, params.strict),
+                                      params.gaps & ('-' in alignments.set_of_aa_ref[i - 1])))
+                    list_info.append(alignments.information_pos(i, params.method, params.gaps))
 
         print('\n', seq, '\n', 'Number of True '.rjust(0),
               summary_info(list_compatibility, list_info)[0],
