@@ -24,8 +24,7 @@ def get_params():
                                          'evaluated sequence only with the amino acids observed '
                                          'in the reference sequences', action='store_true')
     parser.add_argument('--min_info',
-                        help='Minimum of information required for display (The maximum of '
-                             'information is 4.39 if you consider gaps, 4.32 if not', default=0)
+                        help='Minimum of information required for display', default=0)
     params = parser.parse_args()
     return params
 
