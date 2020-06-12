@@ -45,7 +45,21 @@ def test_determine_ref_categories():
                                                                                    [[6],
                                                                                     [1, 1, 1, 2,
                                                                                      1],
-                                                                                    [1, 1, 4]])
+                                                                                    [1, 1, 4]],
+                                                                                   [{'M'},
+                                                                                    {'S', 'P', 'G',
+                                                                                     'H', 'D'},
+                                                                                    {'-', 'K',
+                                                                                     'D'}])
+
+
+def test_get_aa_observed_at_pos():
+    """
+    """
+    assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_observed_at_pos(1) == {
+        'M': 6}
+    assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_observed_at_pos(3) == {
+        '-': 4, 'D': 1, 'K': 1}
 
 
 def test_get_aa_at_pos():
@@ -53,9 +67,12 @@ def test_get_aa_at_pos():
     test the amino acid at a position in the sequence
     """
     assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_at_pos(37,
-                                                                                  "WP_045226361.1") == 'M'
+                                                                                  "WP_045226361.1") \
+           == 'M'
     assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_at_pos(16,
-                                                                                  "emb|SMG66974.1") == 'G'
+                                                                                  "emb|SMG66974.1") \
+           == 'G'
+
 
 
 def test_get_cat_in_range():

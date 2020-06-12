@@ -12,13 +12,26 @@ class Alignments:
     def __init__(self, file, seqs_to_evaluate):
         self.file = file
         self.seqs_to_evaluate = seqs_to_evaluate
-        self.alignment = AlignIO.read(file, "fasta")
-        self.seqeval = MultipleSeqAlignment([s for s in self.alignment if s.id in seqs_to_evaluate])
+        try:
+            self.alignment = AlignIO.read(file, "fasta")
+        except FileNotFoundError:
+            print('File {fichier} not found'.format(fichier=file))
+            exit(1)
+        for seq in seqs_to_evaluate:
+            k = 0
+            for i in self.alignment:
+                if i.id == seq:
+                    k += 1
+            if k == 0:
+                print('Sequence to evaluate : {seq} not found'.format(seq=seq))
+                exit(1)
+        self.seqeval = MultipleSeqAlignment(
+            [seq for seq in self.alignment if seq.id in seqs_to_evaluate])
         self.seqrefs = MultipleSeqAlignment(
             [s for s in self.alignment if s.id not in seqs_to_evaluate])
         self.aa_ref_counts = self.count_aa_ref()
-        self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref, self.count_aa_pos = \
-            self.determine_ref_categories()
+        self.list_of_categories, self.list_of_cat_sets, self.list_of_aa_ref, self.count_aa_pos, \
+        self.set_of_aa_ref = self.determine_ref_categories()
 
     def count_aa_ref(self):
         """
@@ -39,18 +52,22 @@ class Alignments:
         """
         self.list_of_categories = [set() for sub in range(len(self.seqrefs[0]))]
         self.list_of_cat_sets = [set() for sub in range(len(self.seqrefs[0]))]
-        self.set_of_aa_ref = []
+        self.list_of_aa_ref = []
         self.count_aa_pos = []
+        self.set_of_aa_ref = []
         for pos in range(len(self.count_aa_ref())):
             self.list_of_categories[pos], self.list_of_cat_sets[pos] = \
                 AAcategories().find_category(
                     {aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0})
-            self.set_of_aa_ref.append([aa for aa in self.aa_ref_counts[pos] if
-                                       self.aa_ref_counts[pos][aa] > 0])
+            self.list_of_aa_ref.append([aa for aa in self.aa_ref_counts[pos] if
+                                        self.aa_ref_counts[pos][aa] > 0])
+            self.set_of_aa_ref.append({aa for aa in self.aa_ref_counts[pos] if
+                                       self.aa_ref_counts[pos][aa] > 0})
             self.count_aa_pos.append(
                 [self.aa_ref_counts[pos][aa] for aa in self.aa_ref_counts[pos] if
                  self.aa_ref_counts[pos][aa] > 0])
-        return self.list_of_categories, self.list_of_cat_sets, self.set_of_aa_ref, self.count_aa_pos
+        return self.list_of_categories, self.list_of_cat_sets, self.list_of_aa_ref, \
+               self.count_aa_pos, self.set_of_aa_ref
 
     def get_alignments(self):
         """
@@ -65,11 +82,14 @@ class Alignments:
         """
         return self.list_of_cat_sets[pos - 1]
 
-    def get_cat_at_pos(self, pos):
+    def get_cat_at_pos(self, pos, strict):
         """
+        :param strict: if True, the category is only the amino acids observed
         :param pos: position of the amino acid in seqrefs
         :return: the category (set) of amino acids observed in seqrefs
         """
+        if strict:
+            return self.set_of_aa_ref[pos - 1]
         return self.list_of_categories[pos - 1]
 
     def get_aa_observed_at_pos(self, pos):
@@ -78,11 +98,11 @@ class Alignments:
         :return: all the amino acids observed in seqrefs at this position and the count of this
         amino acids
         """
-        list_aa, list_count = self.set_of_aa_ref[pos - 1], self.count_aa_pos[pos - 1]
+        list_aa, list_count = self.list_of_aa_ref[pos - 1], self.count_aa_pos[pos - 1]
         aa_observed = dict()
         for i in range(len(list_aa)):
             aa_observed[list_aa[i]] = list_count[i]
-        return sorted(aa_observed.items(), key=lambda item: item[1])
+        return dict(sorted(aa_observed.items(), key=lambda item: item[1], reverse=True))
 
     def get_aa_at_pos(self, pos, name_seq):
         """
@@ -91,9 +111,13 @@ class Alignments:
         :return: the amino acid at this position in the sequence
         """
         aa_at_pos = set()
-        for seq in self.alignment:
-            if seq.id == name_seq:
-                aa_at_pos = seq[pos - 1]
+        try:
+            for seq in self.alignment:
+                if seq.id == name_seq:
+                    aa_at_pos = seq[pos - 1]
+        except IndexError:
+            print('The position {pos} is outside the sequence'.format(pos=pos))
+            exit(1)
         return aa_at_pos
 
     def get_cat_in_range(self, pos1=None, pos2=None):
