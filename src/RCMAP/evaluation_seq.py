@@ -28,12 +28,20 @@ def get_params():
     parser.add_argument('--window', type=int,
                         help='Number of positions to calculate the average of '
                              'information, must be odd', default=1)
+    parser.add_argument('--window_method', type=str,
+                        choices=['blackman', 'bartlett', 'hamming', 'hanning', 'flat'],
+                        help='Calculation method of the information of a position, using a window',
+                        default='flat')
+
     params = parser.parse_args()
     if params.window % 2 == 0:
         print('Window must be odd, {window} is not'.format(window=params.window))
         exit(1)
     if params.window <= 0:
         print('Window must be positive, {window} is not'.format(window=params.window))
+        exit(1)
+    if not params.window_method in ['flat', 'hanning', 'hamming', 'bartlett', 'blackman']:
+        print("Window is on of 'flat', 'hanning', 'hamming', 'bartlett', 'blackman'")
         exit(1)
     return params
 
@@ -56,7 +64,8 @@ def main():
         for start, end in list_of_positions:
             for i in range(start, end + 1):
                 info = round(
-                    alignments.information_pos(i, params.method, params.gaps, params.window), 2)
+                    alignments.information_pos(i, params.method, params.gaps, params.window,
+                                               params.window_method), 2)
                 if info >= params.min_info:
                     print('{name_seq} : {pos} : {aa} : {test} : {info:.2f} : {cat} {obs}'.format(
                         name_seq=seq.rjust(0), pos=str(i).rjust(4),
@@ -74,7 +83,8 @@ def main():
                                       alignments.get_cat_at_pos(i, params.strict),
                                       params.gaps & ('-' in alignments.set_of_aa_ref[i - 1])))
                     list_info.append(
-                        alignments.information_pos(i, params.method, params.gaps, params.window))
+                        alignments.information_pos(i, params.method, params.gaps, params.window,
+                                                   params.window_method))
 
         print('\n', seq, '\n', 'Number of True '.rjust(0),
               summary_info(list_compatibility, list_info)[0],

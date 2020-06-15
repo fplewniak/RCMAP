@@ -2,7 +2,7 @@ from Bio import AlignIO
 from Bio.Align import MultipleSeqAlignment
 from RCMAP.classification_aa import AAcategories
 from scipy.stats import entropy
-import Bio
+from RCMAP.utilities import get_weight
 
 class Alignments:
     """
@@ -207,8 +207,9 @@ class Alignments:
             pk = [1 / j] * j
         return entropy(pk, base=2)
 
-    def information_pos(self, pos, method, gaps, window):
+    def information_pos(self, pos, method, gaps, window, window_method):
         """
+        :param window_method: Calculation method of the weights at every position in the window
         :param window: Number of positions to calculate the average of information, should be odd
         :param pos: position in the alignment
         :param method: calculation method
@@ -217,9 +218,15 @@ class Alignments:
         """
         if window == 1:
             return self.entropy_background(method, gaps) - self.entropy_pos_obs(pos)
+        weights = get_weight(window, window_method)
         w, info = int(window/2), 0
+        if pos-w < 1:
+            k = - (pos - w) + 1
+        else:
+            k = 0
         for i in range(max(pos-w, 1), min(pos+w, self.alignment.get_alignment_length())+1):
-            info += self.entropy_background(method, gaps) - self.entropy_pos_obs(i)
-        return info/(min(pos+w, self.alignment.get_alignment_length())-max(pos-w, 1)+1)
+            info += (self.entropy_background(method, gaps) - self.entropy_pos_obs(i)) * weights[k]
+            k += 1
+        return info/sum(weights)
 
 

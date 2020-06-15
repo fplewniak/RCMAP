@@ -74,7 +74,6 @@ def test_get_aa_at_pos():
            == 'G'
 
 
-
 def test_get_cat_in_range():
     """
     test the categories of the amino acids in the reference sequences in the given interval
@@ -104,25 +103,25 @@ def test_get_category_list():
     """
     assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_category_list(
         [[1, 2], [1, 3]]) == [[{"M"},
-                                  {"I", "V", "L", "F", "Y", "W", "H", "M", "K", "T", "G",
-                                   "A",
-                                   "C", "P", "S", "N", "D", "E", "Q", "R"}], [{"M"},
-                                                                              {"I", "V",
-                                                                               "L",
-                                                                               "F", "Y",
-                                                                               "W",
-                                                                               "H", "M",
-                                                                               "K",
-                                                                               "T", "G",
-                                                                               "A",
-                                                                               "C", "P",
-                                                                               "S",
-                                                                               "N", "D",
-                                                                               "E",
-                                                                               "Q", "R"},
-                                                                              {"D", "E",
-                                                                               "K",
-                                                                               "R", "H"}]]
+                               {"I", "V", "L", "F", "Y", "W", "H", "M", "K", "T", "G",
+                                "A",
+                                "C", "P", "S", "N", "D", "E", "Q", "R"}], [{"M"},
+                                                                           {"I", "V",
+                                                                            "L",
+                                                                            "F", "Y",
+                                                                            "W",
+                                                                            "H", "M",
+                                                                            "K",
+                                                                            "T", "G",
+                                                                            "A",
+                                                                            "C", "P",
+                                                                            "S",
+                                                                            "N", "D",
+                                                                            "E",
+                                                                            "Q", "R"},
+                                                                           {"D", "E",
+                                                                            "K",
+                                                                            "R", "H"}]]
     assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_category_list(
         [[1]]) == [[{"A"}]]
 
@@ -183,8 +182,15 @@ def test_entropy_background():
             (2 / 18 * log2(2 / 18)) * 2 + (1 / 18 * log2(1 / 18)) * 4 + 4 / 18 * log2(
         4 / 18) + 6 / 18 * log2(6 / 18)), 6)
 
+
 def test_information_pos():
-    assert round(Alignments("ArsM_aln_part1.faa",
-                            ["WP_045226361.1", "Q969Z2"]).information_pos(2, 'database', False, 5), 2) == 2.99
-    assert round(Alignments("ArsM_aln_part1.faa",
-                            ["WP_045226361.1", "Q969Z2"]).information_pos(2, 'database', False, 1), 2) == 1.9
+    assert round(Alignments("ArsM_aln_part.faa",
+                            ["WP_045226361.1", "Q969Z2"]).information_pos(5, 'database', False, 1,
+                                                                          'flat'), 2) == 3.51
+    assert round(Alignments("ArsM_aln_part.faa",
+                            ["WP_045226361.1", "Q969Z2"]).information_pos(3, 'database', False, 3,
+                                                                          'flat'), 2) == 2.77
+    assert round(Alignments("ArsM_aln_part.faa",
+                            ["WP_045226361.1", "Q969Z2"]).information_pos(3, 'database', False, 3,
+                                                                          'hamming'),
+                 1) == round((1.9 * 0.08 + 2.9 * 1 + 3.51 * 0.08) / sum([0.08, 1, 0.08]), 1)

@@ -1,3 +1,5 @@
+import numpy
+
 def sort_categories():
     """
     :return: the list of the categories
@@ -74,3 +76,20 @@ def summary_info(list_compatibility, list_info):
             count_false += 1
             info_false += list_info[k]
     return count_true, round(info_true, 2), count_false, round(info_false, 2)
+
+def get_weight(window, window_method):
+    """
+    * The Bartlett window is defined as : w(n) = 2/(M-1) * ((M-1)/2 - abs(n-(M-1)/2))
+    * The Hamming window is defined as : w(n) = 0.54 - 0.46 * cos((2*pi*n)/(M-1))  0 <= n <= M-1
+    * The Hanning window is defined as : w(n) = 0.5 - 0.5 * cos((2*pi*n)/(M-1))  0 <= n <= M-1
+    * The flat window is defined as : w(n) = 1
+    :param window_method: Calculation method of the weights at every position in the window
+    :return: the list of weights
+    """
+    if window_method == 'flat':
+        w = numpy.ones(window)
+    else:
+        w = eval('numpy.' + window_method + '(window)')
+    return w
+
+
