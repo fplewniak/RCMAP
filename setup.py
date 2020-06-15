@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setup(
     name='RCMAP',
-    version='1.0.0',
+    version='1.3.0',
     packages=['RCMAP'],
     package_dir={'': 'src'},
     url='https://github.com/fplewniak/RCMAP',
@@ -20,11 +20,11 @@ setup(
         'License :: OSI Approved :: CEA CNRS Inria Logiciel Libre License, version 2.1 (CeCILL-2.1)',
         'Topic :: Scientific/Engineering :: Bio-Informatics',
         'Development Status :: 4 - Beta'
-    ],
+        ],
     python_requires='>=3.6', install_requires=['biopython', 'scipy'],
     entry_points={
         "console_scripts": [
             "evaluate_seq = RCMAP.evaluation_seq:main"
-        ]
-    }
-)
+            ]
+        }
+    )

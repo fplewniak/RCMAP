@@ -26,7 +26,7 @@ def compatibility(amino_acid, category, gaps=False):
 
 def get_positions_list(positions, posmax):
     """
-    :param posmax: len(alignments.seqeval[0]) : length of the sequence
+    :param posmax: maximal authorized value for a position (length of the sequence)
     :param positions:  positions like ['3:10', '8:25' ,'32', '45:', ':5']
     :return: positions like [[3,10], [8,25], [32,32], [45,posmax], [1:5]]
     """
