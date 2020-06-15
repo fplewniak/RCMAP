@@ -88,16 +88,6 @@ def test_get_cat_in_range():
     assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range(4,
                                                                                           4) == [
                {'T'}]
-    assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range(
-        None,
-        2) == [
-               {"M"},
-               {"I", "V", "L", "F", "Y", "W", "H", "M", "K", "T", "G", "A", "C", "P", "S",
-                "N",
-                "D", "E", "Q", "R"}]
-    assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_in_range(4,
-                                                                                          None) == [
-               {"T"}, {"P"}, {"S"}, {"T"}, {"T"}, {"A"}]
 
 
 def test_get_aa_in_range():
@@ -106,11 +96,6 @@ def test_get_aa_in_range():
     """
     assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_in_range(
         "Q969Z2", 1, 3) == [{"M"}, {"A"}, {"-"}]
-    assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_in_range(
-        "Q969Z2", None, 2) == [{"M"}, {"A"}]
-    assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_in_range(
-        "Q969Z2", 4,
-        None) == [{"-"}, {"-"}, {"-"}, {"-"}, {"-"}, {"-"}]
 
 
 def test_get_category_list():
@@ -118,7 +103,7 @@ def test_get_category_list():
     test the list of the categories in the reference sequences in the intervals given
     """
     assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_category_list(
-        [[1, 2], [None, 3]]) == [[{"M"},
+        [[1, 2], [1, 3]]) == [[{"M"},
                                   {"I", "V", "L", "F", "Y", "W", "H", "M", "K", "T", "G",
                                    "A",
                                    "C", "P", "S", "N", "D", "E", "Q", "R"}], [{"M"},
@@ -147,7 +132,7 @@ def test_get_aa_list():
     test list of the amino acids in the given sequence in the interval given
     """
     assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_list(
-        [[1, 2], [None, 3]], "Q969Z2") == [[{'M'}, {'A'}], [{'M'}, {'A'}, {'-'}]]
+        [[1, 2], [1, 3]], "Q969Z2") == [[{'M'}, {'A'}], [{'M'}, {'A'}, {'-'}]]
 
 
 def test_entropy_pos_obs():
@@ -197,3 +182,9 @@ def test_entropy_background():
                  6) == round(- (
             (2 / 18 * log2(2 / 18)) * 2 + (1 / 18 * log2(1 / 18)) * 4 + 4 / 18 * log2(
         4 / 18) + 6 / 18 * log2(6 / 18)), 6)
+
+def test_information_pos():
+    assert round(Alignments("ArsM_aln_part1.faa",
+                            ["WP_045226361.1", "Q969Z2"]).information_pos(2, 'database', False, 5), 2) == 2.99
+    assert round(Alignments("ArsM_aln_part1.faa",
+                            ["WP_045226361.1", "Q969Z2"]).information_pos(2, 'database', False, 1), 2) == 1.9

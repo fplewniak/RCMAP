@@ -23,9 +23,18 @@ def get_params():
     parser.add_argument('--strict', help='True if you want to compare the amino acid in the '
                                          'evaluated sequence only with the amino acids observed '
                                          'in the reference sequences', action='store_true')
-    parser.add_argument('--min_info',
+    parser.add_argument('--min_info', type=float,
                         help='Minimum of information required for display', default=0)
+    parser.add_argument('--window', type=int,
+                        help='Number of positions to calculate the average of '
+                             'information, must be odd', default=1)
     params = parser.parse_args()
+    if params.window % 2 == 0:
+        print('Window must be odd, {window} is not'.format(window=params.window))
+        exit(1)
+    if params.window <= 0:
+        print('Window must be positive, {window} is not'.format(window=params.window))
+        exit(1)
     return params
 
 
@@ -46,8 +55,9 @@ def main():
         list_compatibility, list_info = [], []
         for start, end in list_of_positions:
             for i in range(start, end + 1):
-                info = round(alignments.information_pos(i, params.method, params.gaps), 2)
-                if info >= float(params.min_info):
+                info = round(
+                    alignments.information_pos(i, params.method, params.gaps, params.window), 2)
+                if info >= params.min_info:
                     print('{name_seq} : {pos} : {aa} : {test} : {info:.2f} : {cat} {obs}'.format(
                         name_seq=seq.rjust(0), pos=str(i).rjust(4),
                         aa=alignments.get_aa_at_pos(i, seq),
@@ -63,7 +73,8 @@ def main():
                         compatibility(set(alignments.get_aa_at_pos(i, seq)),
                                       alignments.get_cat_at_pos(i, params.strict),
                                       params.gaps & ('-' in alignments.set_of_aa_ref[i - 1])))
-                    list_info.append(alignments.information_pos(i, params.method, params.gaps))
+                    list_info.append(
+                        alignments.information_pos(i, params.method, params.gaps, params.window))
 
         print('\n', seq, '\n', 'Number of True '.rjust(0),
               summary_info(list_compatibility, list_info)[0],

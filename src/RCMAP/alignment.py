@@ -2,7 +2,7 @@ from Bio import AlignIO
 from Bio.Align import MultipleSeqAlignment
 from RCMAP.classification_aa import AAcategories
 from scipy.stats import entropy
-
+import Bio
 
 class Alignments:
     """
@@ -40,18 +40,18 @@ class Alignments:
         self.aa_ref_counts = [
             {"A": 0, "R": 0, "N": 0, "D": 0, "B": 0, "C": 0, "E": 0, "Q": 0, "Z": 0, "G": 0, "H": 0,
              "I": 0, "L": 0, "K": 0, "M": 0, "F": 0, "P": 0, "S": 0, "T": 0, "W": 0, "Y": 0, "V": 0,
-             "-": 0} for sub in range(len(self.seqrefs[0]))]
-        for seq in self.seqrefs:
-            for pos in range(len(self.seqrefs[0])):
-                self.aa_ref_counts[pos][self.get_aa_at_pos(pos + 1, seq.id)] += 1
+             "-": 0} for sub in range(self.alignment.get_alignment_length())]
+        for pos in range(self.alignment.get_alignment_length()):
+            for aa in self.aa_ref_counts[pos]:
+                self.aa_ref_counts[pos][aa] = self.seqrefs[:, pos].count(aa)
         return self.aa_ref_counts
 
     def determine_ref_categories(self):
         """
         :return: the list of categories of amino acids at every position in seqrefs
         """
-        self.list_of_categories = [set() for sub in range(len(self.seqrefs[0]))]
-        self.list_of_cat_sets = [set() for sub in range(len(self.seqrefs[0]))]
+        self.list_of_categories = [set() for sub in range(self.alignment.get_alignment_length())]
+        self.list_of_cat_sets = [set() for sub in range(self.alignment.get_alignment_length())]
         self.list_of_aa_ref = []
         self.count_aa_pos = []
         self.set_of_aa_ref = []
@@ -126,10 +126,6 @@ class Alignments:
         :param pos2: end position #from 1 until end
         :return: list of the categories of amino acid at every position between pos1 and pos2
         """
-        if pos1 is None:
-            pos1 = 1
-        if pos2 is None:
-            pos2 = len(self.seqrefs[0])
         return self.list_of_categories[pos1 - 1:pos2]
 
     def get_aa_in_range(self, name_seq, pos1=None, pos2=None):
@@ -139,10 +135,6 @@ class Alignments:
         :param pos2: end of the interval
         :return: list of all the amino acids from the sequence in the interval of positions
         """
-        if pos1 is None:
-            pos1 = 1
-        if pos2 is None:
-            pos2 = len(self.seqeval[0])
         aa_in_range = []
         for pos in range(pos1, pos2 + 1):
             aa_in_range.append(set(self.get_aa_at_pos(pos, name_seq)))
@@ -215,11 +207,19 @@ class Alignments:
             pk = [1 / j] * j
         return entropy(pk, base=2)
 
-    def information_pos(self, pos, method, gaps):
+    def information_pos(self, pos, method, gaps, window):
         """
+        :param window: Number of positions to calculate the average of information, should be odd
         :param pos: position in the alignment
         :param method: calculation method
         :param gaps: True if you want to consider gaps, False if not
         :return: the information at the position
         """
-        return self.entropy_background(method, gaps) - self.entropy_pos_obs(pos)
+        if window == 1:
+            return self.entropy_background(method, gaps) - self.entropy_pos_obs(pos)
+        w, info = int(window/2), 0
+        for i in range(max(pos-w, 1), min(pos+w, self.alignment.get_alignment_length())+1):
+            info += self.entropy_background(method, gaps) - self.entropy_pos_obs(i)
+        return info/(min(pos+w, self.alignment.get_alignment_length())-max(pos-w, 1)+1)
+
+
