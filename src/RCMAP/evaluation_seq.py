@@ -5,7 +5,25 @@ from RCMAP.utilities import get_positions_list, summary_info, compatibility
 
 def get_params():
     """
-    Get parameters from command line
+    Get parameters from command line :
+    * file : the file which contains the alignments of the reference sequences and the sequences to
+      evaluate
+    * seqeval : the name of the sequences to evaluate
+    * positions : the positions or interval on which the analysis must be made, begins at 1
+    * method : the calculation method of the frequencies of the amino acids in the background
+      entropy
+    * gaps : True or false. It depends if the user want to consider gaps. If gaps = True, when there
+      is a gap in the evaluated sequence and a gap in the amino acids observed in the reference
+      sequences, the compatibility is evaluated as True. Otherwise not
+    * strict : True or False. True if you want to compare the amino acid in the evaluated sequence
+      only with the amino acids observed in the reference sequences and not with the associated
+      category
+    * min_info : Minimum of information required by the user for display
+    * window : Number of positions around the evaluated position to calculate the average of its
+      information. It must be odd. Used to consider the environment of a position to calculate the
+      information carried
+    * window_method : Calculation method of the weights of the positions around the position which
+    information is evaluated using a window
     return: parameters
     """
     parser = argparse.ArgumentParser(description='')
@@ -30,7 +48,8 @@ def get_params():
                              'information, must be odd', default=1)
     parser.add_argument('--window_method', type=str,
                         choices=['bartlett', 'hamming', 'hanning', 'flat'],
-                        help='Calculation method of the information of a position, using a window',
+                        help='Calculation method of the weights of positions to calculate the '
+                             'information of a position, using a window',
                         default='flat')
 
     params = parser.parse_args()
@@ -39,9 +58,6 @@ def get_params():
         exit(1)
     if params.window <= 0:
         print('Window must be positive, {window} is not'.format(window=params.window))
-        exit(1)
-    if not params.window_method in ['flat', 'hanning', 'hamming', 'bartlett']:
-        print("Window is on of 'flat', 'hanning', 'hamming', 'bartlett'")
         exit(1)
     return params
 
@@ -74,7 +90,7 @@ def main():
                                                alignments.get_cat_at_pos(i, params.strict),
                                                params.gaps & ('-' in alignments.set_of_aa_ref[
                                                    i - 1]))).rjust(6),
-                        cat=str(alignments.get_cat_set_at_pos(i)).center(10),
+                        cat=str(alignments.get_cat_name_at_pos(i)).center(10),
                         obs=alignments.get_aa_observed_at_pos(i),
                         info=info))
 

@@ -21,7 +21,7 @@ setup(
         'Topic :: Scientific/Engineering :: Bio-Informatics',
         'Development Status :: 4 - Beta'
         ],
-    python_requires='>=3.6', install_requires=['biopython', 'scipy'],
+    python_requires='>=3.6', install_requires=['biopython', 'scipy', 'numpy', 'pytest'],
     entry_points={
         "console_scripts": [
             "evaluate_seq = RCMAP.evaluation_seq:main"

@@ -4,6 +4,7 @@ from RCMAP.classification_aa import AAcategories
 from scipy.stats import entropy
 from RCMAP.utilities import get_weight
 
+
 class Alignments:
     """
     Alignment is used to open the file and process the alignment of sequences
@@ -15,7 +16,7 @@ class Alignments:
         try:
             self.alignment = AlignIO.read(file, "fasta")
         except FileNotFoundError:
-            print('File {fichier} not found'.format(fichier=file))
+            print('File {file} not found'.format(file=file))
             exit(1)
         for seq in seqs_to_evaluate:
             k = 0
@@ -30,11 +31,13 @@ class Alignments:
         self.seqrefs = MultipleSeqAlignment(
             [s for s in self.alignment if s.id not in seqs_to_evaluate])
         self.aa_ref_counts = self.count_aa_ref()
-        self.list_of_categories, self.list_of_cat_sets, self.list_of_aa_ref, self.count_aa_pos, \
+        self.list_of_categories, self.list_of_cat_names, self.list_of_aa_ref, self.count_aa_pos, \
         self.set_of_aa_ref = self.determine_ref_categories()
 
     def count_aa_ref(self):
         """
+        This function aims to count the number of every amino acids at every positions in the
+        reference sequences, and list them in a dictionary
         :return: the count of amino acids at every position in all reference sequences
         """
         self.aa_ref_counts = [
@@ -48,15 +51,20 @@ class Alignments:
 
     def determine_ref_categories(self):
         """
-        :return: the list of categories of amino acids at every position in seqrefs
+        This function aims to recover information about every positions in the reference sequences.
+        :return: the list of categories of amino acids at every position in the reference sequences,
+         list of the names of the categories, the list of the amino acids observed at very position
+         in reference sequences in lists,  the list of the number of every amino acid present at the
+         position for every positions and the list of the amino acids observed at very position
+         in reference sequences in sets
         """
         self.list_of_categories = [set() for sub in range(self.alignment.get_alignment_length())]
-        self.list_of_cat_sets = [set() for sub in range(self.alignment.get_alignment_length())]
+        self.list_of_cat_names = [set() for sub in range(self.alignment.get_alignment_length())]
         self.list_of_aa_ref = []
         self.count_aa_pos = []
         self.set_of_aa_ref = []
         for pos in range(len(self.count_aa_ref())):
-            self.list_of_categories[pos], self.list_of_cat_sets[pos] = \
+            self.list_of_categories[pos], self.list_of_cat_names[pos] = \
                 AAcategories().find_category(
                     {aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0})
             self.list_of_aa_ref.append([aa for aa in self.aa_ref_counts[pos] if
@@ -66,24 +74,24 @@ class Alignments:
             self.count_aa_pos.append(
                 [self.aa_ref_counts[pos][aa] for aa in self.aa_ref_counts[pos] if
                  self.aa_ref_counts[pos][aa] > 0])
-        return self.list_of_categories, self.list_of_cat_sets, self.list_of_aa_ref, \
+        return self.list_of_categories, self.list_of_cat_names, self.list_of_aa_ref, \
                self.count_aa_pos, self.set_of_aa_ref
 
-    def get_alignments(self):
+    def get_cat_name_at_pos(self, pos):
         """
-        :return: alignment of the reference sequences, alignment of the evaluated sequences
-        """
-        return self.seqrefs, self.seqeval
-
-    def get_cat_set_at_pos(self, pos):
-        """
+        This function recovers the name of the category of amino acids observed at a position in the
+        reference sequences. It recovers the position -1 because the user counts from 1 and python
+        from 0
         :param pos: position of the amino acid in seqrefs
         :return: the name of the category of amino acids observed in seqrefs
         """
-        return self.list_of_cat_sets[pos - 1]
+        return self.list_of_cat_names[pos - 1]
 
     def get_cat_at_pos(self, pos, strict):
         """
+        This function recovers the category (set of amino acids) of amino acids observed at a
+        position in the reference sequences. It recovers the position -1 because the user counts
+        from 1 and python from 0
         :param strict: if True, the category is only the amino acids observed
         :param pos: position of the amino acid in seqrefs
         :return: the category (set) of amino acids observed in seqrefs
@@ -94,9 +102,13 @@ class Alignments:
 
     def get_aa_observed_at_pos(self, pos):
         """
+        This function recovers the amino acids observed at a position in the reference sequences and
+        the count of these amino acids. The data are in a dictionary sorted from the amino acid the
+        most present to the least present at this position.
+        It recovers the position -1 because the user counts from 1 and python from 0
         :param pos:  position of the amino acids in seqrefs
         :return: all the amino acids observed in seqrefs at this position and the count of this
-        amino acids
+        amino acids in a  sorted dictionary
         """
         list_aa, list_count = self.list_of_aa_ref[pos - 1], self.count_aa_pos[pos - 1]
         aa_observed = dict()
@@ -106,6 +118,7 @@ class Alignments:
 
     def get_aa_at_pos(self, pos, name_seq):
         """
+        This function recovers the amino acid present at this position in the given sequence
         :param pos: position of the amino acid in seqref or seqeval
         :param name_seq: name of the sequence in seqref or seqeval
         :return: the amino acid at this position in the sequence
@@ -120,58 +133,12 @@ class Alignments:
             exit(1)
         return aa_at_pos
 
-    def get_cat_in_range(self, pos1=None, pos2=None):
-        """
-        :param pos1: start position #from 1 until end
-        :param pos2: end position #from 1 until end
-        :return: list of the categories of amino acid at every position between pos1 and pos2
-        """
-        return self.list_of_categories[pos1 - 1:pos2]
-
-    def get_aa_in_range(self, name_seq, pos1=None, pos2=None):
-        """
-        :param name_seq: name of the sequence
-        :param pos1: beginning of the interval
-        :param pos2: end of the interval
-        :return: list of all the amino acids from the sequence in the interval of positions
-        """
-        aa_in_range = []
-        for pos in range(pos1, pos2 + 1):
-            aa_in_range.append(set(self.get_aa_at_pos(pos, name_seq)))
-        return aa_in_range
-
-    def get_category_list(self, positions_list):
-        """
-        :param positions_list: list of the intervals of positions
-        :return: list of the categories associated to the intervals of positions
-        """
-        list_of_categories = []
-        for pos in range(len(positions_list)):
-            if len(positions_list[pos]) == 1:
-                list_of_categories.append([self.list_of_categories[pos - 1]])
-            else:
-                list_of_categories.append(
-                    self.get_cat_in_range(positions_list[pos][0], positions_list[pos][1]))
-        return list_of_categories
-
-    def get_aa_list(self, positions_list, name_seq):
-        """
-        :param positions_list: list of the intervals of positions
-        :param name_seq: name of the sequence
-        :return: list of amino acids associated to the intervals of positions
-        """
-        list_of_aa = []
-        for pos in positions_list:
-            if len(pos) == 1:
-                list_of_aa.append(
-                    [set(self.get_aa_at_pos(pos[0], name_seq))])
-            else:
-                list_of_aa.append(
-                    self.get_aa_in_range(name_seq, pos[0], pos[1]))
-        return list_of_aa
-
     def entropy_pos_obs(self, pos):
         """
+        This function calculate the entropy from the frequencies of the amino acids observed at a
+        position
+        NB : the entropy function can take in parameter the accounts of amino acids or frequencies
+        directly
         :param pos: position in the alignment
         :return: the entropy associated to the position
         """
@@ -179,6 +146,16 @@ class Alignments:
 
     def entropy_background(self, method, gaps):
         """
+        This function calculate the background entropy from the frequencies of the amino acids given
+        by th method. It can take into account the gaps in the frequencies if gaps = True.
+        There is three methods :
+        * database : the frequencies of the amino acids come from the bank UniprotKB,TrEMBL
+          april 2020
+        * ref : the frequencies of the amino acids come from the average of the counts in the
+          reference sequences
+        * equiprobable : the frequencies of the amino acids are all the same
+        NB : the entropy function can take in parameter the accounts of amino acids or frequencies
+        directly
         :param method: calculation method
         :param gaps: True if you want to consider gaps, False if not
         :return: the background entropy in the reference alignment
@@ -209,24 +186,25 @@ class Alignments:
 
     def information_pos(self, pos, method, gaps, window, window_method):
         """
+        This function calculate the information carried by a position. It can use a window which is
+        used to consider the environment of a position to calculate the information carried.
         :param window_method: Calculation method of the weights at every position in the window
         :param window: Number of positions to calculate the average of information, should be odd
         :param pos: position in the alignment
-        :param method: calculation method
+        :param method: calculation method of the frequencies in the background entropy
         :param gaps: True if you want to consider gaps, False if not
-        :return: the information at the position
+        :return: the information of the position
         """
         if window == 1:
             return self.entropy_background(method, gaps) - self.entropy_pos_obs(pos)
         weights = get_weight(window, window_method)
-        w, info = int(window/2), 0
-        if pos-w < 1:
-            k = - (pos - w) + 1
+        w, info = int(window / 2), 0
+        if pos - w < 1:
+            k = - (pos - w) + 1  # To take into account the good weights associated with the
+            # positions if max(pos - w, 1) = 1
         else:
             k = 0
-        for i in range(max(pos-w, 1), min(pos+w, self.alignment.get_alignment_length())+1):
+        for i in range(max(pos - w, 1), min(pos + w, self.alignment.get_alignment_length()) + 1):
             info += (self.entropy_background(method, gaps) - self.entropy_pos_obs(i)) * weights[k]
             k += 1
-        return info/sum(weights)
-
-
+        return info / sum(weights)

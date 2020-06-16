@@ -6,8 +6,8 @@ from RCMAP.utilities import get_positions_list, compatibility, sort_categories, 
 
 def test_get_positions_list():
     """
-    test : positions like ['3:10', '8:25' ,'32', '45:'] -> positions like [[3,10], [8,25], [32],
-    [45,None]]
+    test : positions like ['3:10', '8:25' ,'32', '45:'] -> positions like [[3, 10], [8, 25],
+    [32, 32], [45, pos_max]]
     """
     assert get_positions_list(['3:10', '8:25'], 100) == [[3, 10], [8, 25]]
     assert get_positions_list([':25', '32', '45:'], 100) == [[1, 25], [32, 32], [45, 100]]
@@ -20,7 +20,7 @@ def test_get_positions_list():
 
 def test_compatibility():
     """
-    test the compatibility of different amino acid with categories
+    tests the compatibility of different amino acid with categories
     """
     assert compatibility({"B"}, set("ASCGPNDTV"), False) is True
     assert compatibility({"Z"}, set("DEKRHQNSCTYW"), False) is True
@@ -34,7 +34,7 @@ def test_compatibility():
 
 def test_sort_categories():
     """
-    test that the sorted list of categories is the good one
+    tests that the sorted list of categories is the good one
     """
     assert sort_categories() == ['Negative', 'Positive', 'Aliphatic', 'Tiny',
                                  'Aromatic', 'Charged', 'Small', 'Polar',
@@ -43,14 +43,14 @@ def test_sort_categories():
 
 def test_summary_info():
     """
-    test the number of true in the list and the information associated (same for false)
+    tests the number of true in the list and the information associated (same for false)
     """
     assert summary_info([False, True, True, False], [2, 1, 5, 3]) == (2, 6, 2, 5)
 
 
 def test_get_weight():
     """
-    test the list of weights associated to the different methods
+    tests the list of weights associated to the different methods
     """
     assert [w for w in get_weight(5, 'flat')] == [1., 1., 1., 1., 1.]
     assert [w for w in get_weight(3, 'bartlett')] == [
