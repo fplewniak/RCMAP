@@ -29,7 +29,7 @@ def get_params():
                         help='Number of positions to calculate the average of '
                              'information, must be odd', default=1)
     parser.add_argument('--window_method', type=str,
-                        choices=['blackman', 'bartlett', 'hamming', 'hanning', 'flat'],
+                        choices=['bartlett', 'hamming', 'hanning', 'flat'],
                         help='Calculation method of the information of a position, using a window',
                         default='flat')
 
@@ -40,8 +40,8 @@ def get_params():
     if params.window <= 0:
         print('Window must be positive, {window} is not'.format(window=params.window))
         exit(1)
-    if not params.window_method in ['flat', 'hanning', 'hamming', 'bartlett', 'blackman']:
-        print("Window is on of 'flat', 'hanning', 'hamming', 'bartlett', 'blackman'")
+    if not params.window_method in ['flat', 'hanning', 'hamming', 'bartlett']:
+        print("Window is on of 'flat', 'hanning', 'hamming', 'bartlett'")
         exit(1)
     return params
 
