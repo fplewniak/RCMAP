@@ -2,7 +2,7 @@ from Bio import AlignIO
 from Bio.Align import MultipleSeqAlignment
 from RCMAP.classification_aa import AAcategories
 from scipy.stats import entropy
-from RCMAP.utilities import get_weight
+from RCMAP.utilities import get_weight, get_pk
 
 
 class Alignments:
@@ -31,8 +31,8 @@ class Alignments:
         self.seqrefs = MultipleSeqAlignment(
             [s for s in self.alignment if s.id not in seqs_to_evaluate])
         self.aa_ref_counts = self.count_aa_ref()
-        self.list_of_categories, self.list_of_cat_names, self.list_of_aa_ref, self.count_aa_pos, \
-        self.set_of_aa_ref = self.determine_ref_categories()
+        self.list_of_categories, self.list_of_cat_names, self.aa_observed = \
+            self.determine_ref_categories()
 
     def count_aa_ref(self):
         """
@@ -55,29 +55,26 @@ class Alignments:
         Recovers information about every position in the reference sequences
 
         :return: the list of categories of amino acids at every position in the reference sequences,
-         list of the names of the categories, the list of the amino acids observed at every position
-         in reference sequences in lists,  the list of the number of every amino acid present at the
-         position for every position and the list of the amino acids observed at every position
-         in reference sequences in sets
+         the list of the names of the categories and the dictionary of all the amino acids observed
+         at every position and their count
         """
         self.list_of_categories = [set() for sub in range(self.alignment.get_alignment_length())]
         self.list_of_cat_names = [set() for sub in range(self.alignment.get_alignment_length())]
-        self.list_of_aa_ref = []
-        self.count_aa_pos = []
-        self.set_of_aa_ref = []
+        self.aa_observed = [dict() for sub in range(self.alignment.get_alignment_length())]
+        list_of_aa_ref = []
+        count_aa_pos = []
         for pos in range(len(self.count_aa_ref())):
             self.list_of_categories[pos], self.list_of_cat_names[pos] = \
                 AAcategories().find_category(
                     {aa for aa in self.aa_ref_counts[pos] if self.aa_ref_counts[pos][aa] > 0})
-            self.list_of_aa_ref.append([aa for aa in self.aa_ref_counts[pos] if
-                                        self.aa_ref_counts[pos][aa] > 0])
-            self.set_of_aa_ref.append({aa for aa in self.aa_ref_counts[pos] if
-                                       self.aa_ref_counts[pos][aa] > 0})
-            self.count_aa_pos.append(
+            list_of_aa_ref.append([aa for aa in self.aa_ref_counts[pos] if
+                                   self.aa_ref_counts[pos][aa] > 0])
+            count_aa_pos.append(
                 [self.aa_ref_counts[pos][aa] for aa in self.aa_ref_counts[pos] if
                  self.aa_ref_counts[pos][aa] > 0])
-        return self.list_of_categories, self.list_of_cat_names, self.list_of_aa_ref, \
-               self.count_aa_pos, self.set_of_aa_ref
+            for k in range(len(list_of_aa_ref[pos])):
+                self.aa_observed[pos][list_of_aa_ref[pos][k]] = count_aa_pos[pos][k]
+        return self.list_of_categories, self.list_of_cat_names, self.aa_observed
 
     def get_cat_name_at_pos(self, pos):
         """
@@ -100,7 +97,7 @@ class Alignments:
         :return: the category (set) of amino acids observed in seqrefs
         """
         if strict:
-            return self.set_of_aa_ref[pos - 1]
+            return {aa for aa in self.aa_observed[pos-1]}
         return self.list_of_categories[pos - 1]
 
     def get_aa_observed_at_pos(self, pos):
@@ -112,13 +109,9 @@ class Alignments:
 
         :param pos:  position of the amino acids in seqrefs
         :return: all the amino acids observed in seqrefs at this position and the count of this
-        amino acids in a  sorted dictionary
+        amino acids in a sorted dictionary
         """
-        list_aa, list_count = self.list_of_aa_ref[pos - 1], self.count_aa_pos[pos - 1]
-        aa_observed = dict()
-        for i in range(len(list_aa)):
-            aa_observed[list_aa[i]] = list_count[i]
-        return dict(sorted(aa_observed.items(), key=lambda item: item[1], reverse=True))
+        return dict(sorted(self.aa_observed[pos-1].items(), key=lambda item: item[1], reverse=True))
 
     def get_aa_at_pos(self, pos, name_seq):
         """
@@ -186,8 +179,7 @@ class Alignments:
                     count_all[i] += pos[i]
             pk = [v for v in count_all.values()]
         else:
-            j = 21 if gaps else 20
-            pk = [1 / j] * j
+            pk = get_pk(method, gaps)
         return entropy(pk, base=2)
 
     def information_pos(self, pos, method, gaps, window, window_method):
