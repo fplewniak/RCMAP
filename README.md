@@ -61,6 +61,6 @@ usage: evaluate_seq [-h] --file File --seqeval string [string ...] [--positions 
 ```
 **Example:** evaluate_seq --file ArsM_aln.faa --seqeval WP_045226361.1 Q969Z2 --positions 50:70 115:125 200:210 --gaps
 
-**Example:** evaluate_seq --file ArsM_aln.faa --seqeval WP_045226361.1 --positions :10 20 200: --window_method hamming 
+**Example:** evaluate_seq --file ArsM_aln.faa --seqeval WP_045226361.1 Q969Z2 --positions :10 20 200: --window_method hamming 
 --window 5
 ```
