@@ -121,7 +121,7 @@ class Alignments:
         This function recovers the amino acid present at this position in the given sequence
         :param pos: position of the amino acid in seqref or seqeval
         :param name_seq: name of the sequence in seqref or seqeval
-        :return: the amino acid at this position in the sequence
+        :return: set() containing the amino acid at this position in the sequence
         """
         aa_at_pos = set()
         try:
