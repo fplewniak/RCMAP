@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setup(
     name='RCMAP',
-    version='1.3.0',
+    version='1.4.0',
     packages=['RCMAP'],
     package_dir={'': 'src'},
     url='https://github.com/fplewniak/RCMAP',
@@ -21,7 +21,7 @@ setup(
         'Topic :: Scientific/Engineering :: Bio-Informatics',
         'Development Status :: 4 - Beta'
         ],
-    python_requires='>=3.6', install_requires=['biopython', 'scipy'],
+    python_requires='>=3.6', install_requires=['biopython', 'scipy', 'numpy', 'pytest'],
     entry_points={
         "console_scripts": [
             "evaluate_seq = RCMAP.evaluation_seq:main"

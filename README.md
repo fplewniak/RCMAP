@@ -54,6 +54,13 @@ usage: evaluate_seq [-h] --file File --seqeval string [string ...] [--positions 
                             in at least one of the reference sequences
       --min_info FLOAT      the minimum information content at a given position in the reference alignment required
                             to display the position
+      --method              calculation method of the background entropy for the information
+      --window              number of positions to calculate the average of information, must be odd
+      --window_method       calculation method of the weights of positions to calculate the information of a position, 
+                            using a window
 ```
-**Example:** `evaluate_seq --file ArsM_aln.faa --seqeval WP_045226361.1 Q969Z2 --positions 50:70 115:125 200:210 --gaps
-`
+**Example:** evaluate_seq --file ArsM_aln.faa --seqeval WP_045226361.1 Q969Z2 --positions 50:70 115:125 200:210 --gaps
+
+**Example:** evaluate_seq --file ArsM_aln.faa --seqeval WP_045226361.1 Q969Z2 --positions :10 20 200: --window_method hamming 
+--window 5
+```
