@@ -21,8 +21,8 @@ def test_count_aa_ref():
 
 def test_determine_ref_categories():
     """
-    tests the list of categories, the list of categories sets, the set of amino acids and
-     the count of every amino acid in all positions of the reference sequences
+    tests the list of categories, the list of categories sets, the set of amino acids and the count
+    of every amino acid in all positions of the reference sequences
     """
     assert Alignments("ArsM_aln_part1.faa",
                       ["WP_045226361.1", "Q969Z2"]).determine_ref_categories() == ([{'M'}, set(

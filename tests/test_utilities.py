@@ -6,8 +6,8 @@ from RCMAP.utilities import get_positions_list, compatibility, sort_categories, 
 
 def test_get_positions_list():
     """
-    test : positions like ['3:10', '8:25' ,'32', '45:'] -> positions like [[3, 10], [8, 25],
-    [32, 32], [45, pos_max]]
+    tests that positions like : ['3:10', '8:25' ,'32', '45:'] are transformed in positions like :
+    [[3, 10], [8, 25], [32, 32], [45, pos_max]]
     """
     assert get_positions_list(['3:10', '8:25'], 100) == [[3, 10], [8, 25]]
     assert get_positions_list([':25', '32', '45:'], 100) == [[1, 25], [32, 32], [45, 100]]

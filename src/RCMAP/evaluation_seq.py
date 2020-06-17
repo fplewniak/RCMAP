@@ -24,6 +24,7 @@ def get_params():
       information carried
     * window_method : Calculation method of the weights of the positions around the position which
     information is evaluated using a window
+
     return: parameters
     """
     parser = argparse.ArgumentParser(description='')

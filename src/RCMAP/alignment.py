@@ -7,7 +7,7 @@ from RCMAP.utilities import get_weight
 
 class Alignments:
     """
-    Alignment is used to open the file and process the alignment of sequences
+    Opens the file and process the alignment of sequences
     """
 
     def __init__(self, file, seqs_to_evaluate):
@@ -36,8 +36,9 @@ class Alignments:
 
     def count_aa_ref(self):
         """
-        This function aims to count the number of every amino acids at every positions in the
-        reference sequences, and list them in a dictionary
+        Counts the number of every amino acids at every positions in the reference sequences, and
+        lists them in a dictionary
+
         :return: the count of amino acids at every position in all reference sequences
         """
         self.aa_ref_counts = [
@@ -51,7 +52,8 @@ class Alignments:
 
     def determine_ref_categories(self):
         """
-        This function aims to recover information about every positions in the reference sequences.
+        Recovers information about every positions in the reference sequences
+
         :return: the list of categories of amino acids at every position in the reference sequences,
          list of the names of the categories, the list of the amino acids observed at very position
          in reference sequences in lists,  the list of the number of every amino acid present at the
@@ -79,9 +81,9 @@ class Alignments:
 
     def get_cat_name_at_pos(self, pos):
         """
-        This function recovers the name of the category of amino acids observed at a position in the
-        reference sequences. It recovers the position -1 because the user counts from 1 and python
-        from 0
+        Recovers the name of the category of amino acids observed at a position in the reference
+        sequences. Recovers the position -1 because the user counts from 1 and python from 0
+
         :param pos: position of the amino acid in seqrefs
         :return: the name of the category of amino acids observed in seqrefs
         """
@@ -89,9 +91,10 @@ class Alignments:
 
     def get_cat_at_pos(self, pos, strict):
         """
-        This function recovers the category (set of amino acids) of amino acids observed at a
-        position in the reference sequences. It recovers the position -1 because the user counts
-        from 1 and python from 0
+        Recovers the category (set of amino acids) of amino acids observed at a position in the
+        reference sequences. Recovers the position -1 because the user counts from 1 and python
+        from 0
+
         :param strict: if True, the category is only the amino acids observed
         :param pos: position of the amino acid in seqrefs
         :return: the category (set) of amino acids observed in seqrefs
@@ -102,10 +105,11 @@ class Alignments:
 
     def get_aa_observed_at_pos(self, pos):
         """
-        This function recovers the amino acids observed at a position in the reference sequences and
-        the count of these amino acids. The data are in a dictionary sorted from the amino acid the
-        most present to the least present at this position.
-        It recovers the position -1 because the user counts from 1 and python from 0
+        Recovers the amino acids observed at a position in the reference sequences and the count of
+        these amino acids. The data are in a dictionary sorted from the amino acid the most present
+        to the least present at this position.
+        Recovers the position -1 because the user counts from 1 and python from 0
+
         :param pos:  position of the amino acids in seqrefs
         :return: all the amino acids observed in seqrefs at this position and the count of this
         amino acids in a  sorted dictionary
@@ -118,7 +122,8 @@ class Alignments:
 
     def get_aa_at_pos(self, pos, name_seq):
         """
-        This function recovers the amino acid present at this position in the given sequence
+        Recovers the amino acid present at this position in the given sequence
+
         :param pos: position of the amino acid in seqref or seqeval
         :param name_seq: name of the sequence in seqref or seqeval
         :return: set() containing the amino acid at this position in the sequence
@@ -135,10 +140,10 @@ class Alignments:
 
     def entropy_pos_obs(self, pos):
         """
-        This function calculate the entropy from the frequencies of the amino acids observed at a
-        position
+        Calculates the entropy from the frequencies of the amino acids observed at a position
         NB : the entropy function can take in parameter the accounts of amino acids or frequencies
         directly
+
         :param pos: position in the alignment
         :return: the entropy associated to the position
         """
@@ -146,8 +151,8 @@ class Alignments:
 
     def entropy_background(self, method, gaps):
         """
-        This function calculate the background entropy from the frequencies of the amino acids given
-        by th method. It can take into account the gaps in the frequencies if gaps = True.
+        Calculates the background entropy from the frequencies of the amino acids given by the
+        method. Can take into account the gaps in the frequencies if gaps = True.
         There is three methods :
         * database : the frequencies of the amino acids come from the bank UniprotKB,TrEMBL
           april 2020
@@ -156,6 +161,7 @@ class Alignments:
         * equiprobable : the frequencies of the amino acids are all the same
         NB : the entropy function can take in parameter the accounts of amino acids or frequencies
         directly
+
         :param method: calculation method
         :param gaps: True if you want to consider gaps, False if not
         :return: the background entropy in the reference alignment
@@ -186,10 +192,11 @@ class Alignments:
 
     def information_pos(self, pos, method, gaps, window, window_method):
         """
-        This function calculate the information carried by a position. It can use a window which is
-        used to consider the environment of a position to calculate the information carried.
-        :param window_method: Calculation method of the weights at every position in the window
-        :param window: Number of positions to calculate the average of information, should be odd
+        Calculates the information carried by a position. Can consider a window which is used to
+        consider the environment of a position to calculate the information carried.
+
+        :param window_method: calculation method of the weights at every position in the window
+        :param window: number of positions to calculate the average of information, should be odd
         :param pos: position in the alignment
         :param method: calculation method of the frequencies in the background entropy
         :param gaps: True if you want to consider gaps, False if not

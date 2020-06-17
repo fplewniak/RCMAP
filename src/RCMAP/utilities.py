@@ -3,8 +3,8 @@ import numpy
 
 def sort_categories():
     """
-    Function used in classification_aa.py in find_category() which needs the categories sorted
-    by size.
+    Used in classification_aa.py in find_category() which needs the categories sorted by size.
+
     :return: the list of sorted categories, from that which contains the least of amino acids,
     to that which contains the most
     """
@@ -14,13 +14,13 @@ def sort_categories():
 
 def compatibility(amino_acid, category, gaps=False):
     """
-    This function is used to test if a set of amino acid (or a single amino acid) is included in a
-    category. It also treat the amino acids 'B' and 'Z' which are ambiguous. They represent two
-    possibilities of amino acids.
-    If there is a gap in the set to test, the function returns gaps (True or False). The parameter
-    gaps is defined in the main function in evaluation_seq.py. When compatibility() is used,
-    gaps = True when the parameter gaps is defined True by the user AND there is a gap in the set
-    of amino acids observed in the reference sequences.
+    Tests if a set of amino acid (or a single amino acid) is included in a category. Treats the
+    amino acids 'B' and 'Z' which are ambiguous. They represent two possibilities of amino acids.
+    Returns gaps (True or False) if there is a gap in the set to test. The parameter gaps is defined
+    in the main function in evaluation_seq.py. When compatibility() is used, gaps = True when the
+    parameter gaps is defined True by the user AND there is a gap in the set of amino acids observed
+    in the reference sequences.
+
     :param gaps: consider gaps if gaps is True
     :param amino_acid: set of amino acids
     :param category: a category (set)
@@ -39,8 +39,9 @@ def compatibility(amino_acid, category, gaps=False):
 
 def get_positions_list(positions, pos_max):
     """
-    This function is used to transform the positions given by the user in a usable form for the
-    other functions. It replaces non given positions by the beginning or the end of the sequence.
+    Transforms the positions given by the user in a usable form for the other functions. Replaces
+    non given positions by the beginning or the end of the sequence.
+
     :param pos_max: maximal authorized value for a position (length of the sequence)
     :param positions:  positions like ['3:10', '8:25' ,'32', '45:', ':5', ':']
     :return: positions like [[3,10], [8,25], [32,32], [45,pos_max], [1,5], [1,pos_max]]
@@ -74,10 +75,11 @@ def get_positions_list(positions, pos_max):
 
 def summary_info(list_compatibility, list_info):
     """
-    This function is used to resume the global information of a sequence. It resume the total
-    number of 'True' positions (which means the amino acid of the evaluated sequence is compatible
-    with the category observed in the reference sequences) and the total of information associated.
-    In the same way for 'False' positions.
+    Resumes the global information of a sequence : the total number of 'True' positions (which means
+    the amino acid of the evaluated sequence is compatible with the category observed in the
+    reference sequences) and the total of information associated. In the same way for 'False'
+    positions.
+
     :param list_compatibility: list of compatibility True or False at every position
     :param list_info: list of information at every position
     :return: number of True, sum of information for True positions, number of False, sum of
@@ -97,12 +99,13 @@ def summary_info(list_compatibility, list_info):
 
 def get_weight(window, window_method):
     """
-    This function aims to define the weights of positions in a window on the information of a
-    position whose information is evaluated. These weights can be calculated with different method:
+    Defines the weights of positions in a window on the information of a position whose information
+    is evaluated. These weights can be calculated with different method:
     * The Bartlett window is defined as : w(n) = 2/(M-1) * ((M-1)/2 - abs(n-(M-1)/2))
     * The Hamming window is defined as : w(n) = 0.54 - 0.46 * cos((2*pi*n)/(M-1))  0 <= n <= M-1
     * The Hanning window is defined as : w(n) = 0.5 - 0.5 * cos((2*pi*n)/(M-1))  0 <= n <= M-1
     * The flat window is defined as : w(n) = 1
+
     :param window: length of the window
     :param window_method: Calculation method of the weights at every position in the window
     :return: the list of weights
