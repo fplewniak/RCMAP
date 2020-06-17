@@ -36,7 +36,7 @@ class Alignments:
 
     def count_aa_ref(self):
         """
-        Counts the number of every amino acids at every positions in the reference sequences, and
+        Counts the number of every amino acids at every position in the reference sequences, and
         lists them in a dictionary
 
         :return: the count of amino acids at every position in all reference sequences
@@ -52,7 +52,7 @@ class Alignments:
 
     def determine_ref_categories(self):
         """
-        Recovers information about every positions in the reference sequences
+        Recovers information about every position in the reference sequences
 
         :return: the list of categories of amino acids at every position in the reference sequences,
          list of the names of the categories, the list of the amino acids observed at every position
