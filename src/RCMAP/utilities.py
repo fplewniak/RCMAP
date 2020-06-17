@@ -14,12 +14,13 @@ def sort_categories():
 
 def compatibility(amino_acid, category, gaps=False):
     """
-    Tests if a set of amino acid (or a single amino acid) is included in a category. Treats the
-    amino acids 'B' and 'Z' which are ambiguous. They represent two possibilities of amino acids.
-    Returns gaps (True or False) if there is a gap in the set to test. The parameter gaps is defined
-    in the main function in evaluation_seq.py. When compatibility() is used, gaps = True when the
-    parameter gaps is defined True by the user AND there is a gap in the set of amino acids observed
-    in the reference sequences.
+    Tests if a set of amino acids (or a single amino acid) is included in a category. Treats the
+    amino acids 'B' and 'Z' which are ambiguous:'B' represents the amino acids 'D' or 'N', 'Z'
+    represents the amino acids 'Q' or 'E'.
+    Returns gaps (True or False) if there is a gap in the set to test. If the parameter gaps =
+    False, gaps are not taken into account. When the parameter gaps is defined True by the user,
+    gaps are taken into account. In this case, if there is a gap in the set of amino acids observed
+    in the reference sequences, compatibility returns True.
 
     :param gaps: consider gaps if gaps is True
     :param amino_acid: set of amino acids
@@ -75,7 +76,7 @@ def get_positions_list(positions, pos_max):
 
 def summary_info(list_compatibility, list_info):
     """
-    Resumes the global information of a sequence : the total number of 'True' positions (which means
+    Summarises the global information of a sequence: the total number of 'True' positions (which means
     the amino acid of the evaluated sequence is compatible with the category observed in the
     reference sequences) and the total of information associated. In the same way for 'False'
     positions.
@@ -99,7 +100,7 @@ def summary_info(list_compatibility, list_info):
 
 def get_weight(window, window_method):
     """
-    Defines the weights of positions in a window on the information of a position whose information
+    Defines the weights for a sliding weighted window.
     is evaluated. These weights can be calculated with different method:
     * The Bartlett window is defined as : w(n) = 2/(M-1) * ((M-1)/2 - abs(n-(M-1)/2))
     * The Hamming window is defined as : w(n) = 0.54 - 0.46 * cos((2*pi*n)/(M-1))  0 <= n <= M-1

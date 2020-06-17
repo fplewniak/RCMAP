@@ -7,7 +7,7 @@ from RCMAP.utilities import get_weight
 
 class Alignments:
     """
-    Opens the file and process the alignment of sequences
+    Opens the file and processes the alignment of sequences
     """
 
     def __init__(self, file, seqs_to_evaluate):
@@ -55,9 +55,9 @@ class Alignments:
         Recovers information about every positions in the reference sequences
 
         :return: the list of categories of amino acids at every position in the reference sequences,
-         list of the names of the categories, the list of the amino acids observed at very position
+         list of the names of the categories, the list of the amino acids observed at every position
          in reference sequences in lists,  the list of the number of every amino acid present at the
-         position for every positions and the list of the amino acids observed at very position
+         position for every position and the list of the amino acids observed at every position
          in reference sequences in sets
         """
         self.list_of_categories = [set() for sub in range(self.alignment.get_alignment_length())]
@@ -82,7 +82,7 @@ class Alignments:
     def get_cat_name_at_pos(self, pos):
         """
         Recovers the name of the category of amino acids observed at a position in the reference
-        sequences. Recovers the position -1 because the user counts from 1 and python from 0
+        sequences. Uses the position -1 because the user counts from 1 and python from 0
 
         :param pos: position of the amino acid in seqrefs
         :return: the name of the category of amino acids observed in seqrefs
@@ -92,7 +92,7 @@ class Alignments:
     def get_cat_at_pos(self, pos, strict):
         """
         Recovers the category (set of amino acids) of amino acids observed at a position in the
-        reference sequences. Recovers the position -1 because the user counts from 1 and python
+        reference sequences. Uses the position -1 because the user counts from 1 and python
         from 0
 
         :param strict: if True, the category is only the amino acids observed
@@ -108,7 +108,7 @@ class Alignments:
         Recovers the amino acids observed at a position in the reference sequences and the count of
         these amino acids. The data are in a dictionary sorted from the amino acid the most present
         to the least present at this position.
-        Recovers the position -1 because the user counts from 1 and python from 0
+        Uses the position -1 because the user counts from 1 and python from 0
 
         :param pos:  position of the amino acids in seqrefs
         :return: all the amino acids observed in seqrefs at this position and the count of this
@@ -192,8 +192,8 @@ class Alignments:
 
     def information_pos(self, pos, method, gaps, window, window_method):
         """
-        Calculates the information carried by a position. Can consider a window which is used to
-        consider the environment of a position to calculate the information carried.
+        Calculates the information carried by a position. The running window can be used to
+        consider the environment of a position and smooth its information.
 
         :param window_method: calculation method of the weights at every position in the window
         :param window: number of positions to calculate the average of information, should be odd
