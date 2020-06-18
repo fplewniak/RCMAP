@@ -89,8 +89,9 @@ def main():
                         aa=alignments.get_aa_at_pos(i, seq),
                         test=str(compatibility(set(alignments.get_aa_at_pos(i, seq)),
                                                alignments.get_cat_at_pos(i, params.strict),
-                                               params.gaps & ('-' in alignments.set_of_aa_ref[
-                                                   i - 1]))).rjust(6),
+                                               params.gaps & ('-' in {aa for aa in
+                                                                      alignments.aa_observed[
+                                                                          i - 1]}))).rjust(6),
                         cat=str(alignments.get_cat_name_at_pos(i)).center(10),
                         obs=alignments.get_aa_observed_at_pos(i),
                         info=info))
@@ -98,7 +99,8 @@ def main():
                     list_compatibility.append(
                         compatibility(set(alignments.get_aa_at_pos(i, seq)),
                                       alignments.get_cat_at_pos(i, params.strict),
-                                      params.gaps & ('-' in alignments.set_of_aa_ref[i - 1])))
+                                      params.gaps & ('-' in {aa for aa in
+                                                             alignments.aa_observed[i - 1]})))
                     list_info.append(
                         alignments.information_pos(i, params.method, params.gaps, params.window,
                                                    params.window_method))

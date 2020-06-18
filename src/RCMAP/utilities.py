@@ -116,3 +116,10 @@ def get_weight(window, window_method):
     else:
         w = eval('numpy.' + window_method + '(window)')
     return w
+
+
+def get_pk(method, gaps):
+    if method == 'equiprobable':
+        j = 21 if gaps else 20
+        pk = [1 / j] * j
+    return pk

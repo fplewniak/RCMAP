@@ -26,19 +26,15 @@ def test_determine_ref_categories():
     """
     assert Alignments("ArsM_aln_part1.faa",
                       ["WP_045226361.1", "Q969Z2"]).determine_ref_categories() == ([{'M'}, set(
-        "IVLFYWHMKTGACPSNDEQR"), set("DEKRH")], [{'M'}, 'Any', 'Charged'], [['M'],
-                                                                            ['D', 'G', 'H', 'P',
-                                                                             'S'],
-                                                                            ['D', 'K', '-']],
-                                                                                   [[6],
-                                                                                    [1, 1, 1, 2,
-                                                                                     1],
-                                                                                    [1, 1, 4]],
-                                                                                   [{'M'},
-                                                                                    {'S', 'P', 'G',
-                                                                                     'H', 'D'},
-                                                                                    {'-', 'K',
-                                                                                     'D'}])
+        "IVLFYWHMKTGACPSNDEQR"), set("DEKRH")], [{'M'}, 'Any', 'Charged'], [{'M': 6},
+                                                                            {'D': 1,
+                                                                             'G': 1,
+                                                                             'H': 1,
+                                                                             'P': 2,
+                                                                             'S': 1},
+                                                                            {'-': 4,
+                                                                             'D': 1,
+                                                                             'K': 1}])
 
 
 def test_get_cat_name_at_pos():
@@ -57,6 +53,7 @@ def test_get_cat_at_pos():
     assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_at_pos(3, True) == {'-',
                                                                                                 'K',
                                                                                                 'D'}
+
 
 def test_get_aa_observed_at_pos():
     """
