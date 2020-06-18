@@ -112,7 +112,7 @@ class Alignments:
 
         :param pos:  position of the amino acids in seqrefs
         :return: all the amino acids observed in seqrefs at this position and the count of this
-        amino acids in a  sorted dictionary
+         amino acids in a  sorted dictionary
         """
         list_aa, list_count = self.list_of_aa_ref[pos - 1], self.count_aa_pos[pos - 1]
         aa_observed = dict()
@@ -153,12 +153,12 @@ class Alignments:
         """
         Calculates the background entropy from the frequencies of the amino acids given by the
         method. Can take into account the gaps in the frequencies if gaps = True.
-        There is three methods :
-        * database : the frequencies of the amino acids come from the bank UniprotKB,TrEMBL
-          april 2020
-        * ref : the frequencies of the amino acids come from the average of the counts in the
-          reference sequences
+        There are three methods :
+
+        * database : the frequencies of the amino acids come from the bank UniprotKB,TrEMBL april 2020
+        * ref : the frequencies of the amino acids come from the average of the counts in the reference sequences
         * equiprobable : the frequencies of the amino acids are all the same
+
         NB : the entropy function can take in parameter the accounts of amino acids or frequencies
         directly
 
