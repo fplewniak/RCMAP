@@ -10,7 +10,7 @@ Welcome to RCMAP's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   api/index.rst
 
 Indices and tables
 ==================
