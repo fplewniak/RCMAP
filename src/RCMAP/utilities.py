@@ -84,7 +84,7 @@ def summary_info(list_compatibility, list_info):
     :param list_compatibility: list of compatibility True or False at every position
     :param list_info: list of information at every position
     :return: number of True, sum of information for True positions, number of False, sum of
-    information for False positions
+     information for False positions
     """
     count_false, count_true = 0, 0
     info_false, info_true = 0, 0
@@ -102,6 +102,7 @@ def get_weight(window, window_method):
     """
     Defines the weights for a sliding weighted window.
     is evaluated. These weights can be calculated with different method:
+
     * The Bartlett window is defined as : w(n) = 2/(M-1) * ((M-1)/2 - abs(n-(M-1)/2))
     * The Hamming window is defined as : w(n) = 0.54 - 0.46 * cos((2*pi*n)/(M-1))  0 <= n <= M-1
     * The Hanning window is defined as : w(n) = 0.5 - 0.5 * cos((2*pi*n)/(M-1))  0 <= n <= M-1
