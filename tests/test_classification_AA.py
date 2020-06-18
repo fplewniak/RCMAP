@@ -3,7 +3,7 @@ from RCMAP.classification_aa import AAcategories
 
 def test_find_category():
     """
-    tests the category in which a set of amino acids is included.
+    Tests the category in which a set of amino acids is included.
     """
     assert AAcategories().find_category({"A"}) == ({"A"}, {"A"})
     assert AAcategories().find_category({}) == ({}, {})
