@@ -20,13 +20,9 @@ Windows
 
 2. Open the unzipped ``RCMAP-master`` directory in a new window
 
-3. Open a Windows PowerShell in the ``RCMAP-master`` directory:
-In Windows explorer, type ``Ctrl-L`` to select the address bar of
-the ``RCMAP-master`` window then type ``powershell`` and
-validate.
+3. Open a Windows PowerShell in the ``RCMAP-master`` directory. (in Windows explorer, type ``Ctrl-L`` to select the address bar of the ``RCMAP-master`` window then type ``powershell`` and validate)
 
-4. In the PowerShell window, install the RCMAP Python package and its
-requirements with pip::
+4. In the PowerShell window, install the RCMAP Python package and its requirements with pip::
 
     pip install RCMAP-master/.
 
