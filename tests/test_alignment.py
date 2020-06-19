@@ -5,7 +5,7 @@ from scipy.stats import entropy
 
 def test_count_aa_ref():
     """
-    tests the count of the amino acids at all positions
+    Tests the count of the amino acids at all positions.
     """
     assert Alignments("ArsM_aln_part1.faa", ["WP_045226361.1", "Q969Z2"]).count_aa_ref() == [
         {"A": 0, "R": 0, "N": 0, "D": 0, "B": 0, "C": 0, "E": 0, "Q": 0, "Z": 0, "G": 0, "H": 0,
@@ -21,8 +21,8 @@ def test_count_aa_ref():
 
 def test_determine_ref_categories():
     """
-    tests the list of categories, the list of categories sets, the set of amino acids and the count
-    of every amino acid in all positions of the reference sequences
+    Tests the list of categories, the list of categories sets, the set of amino acids and the count
+    of every amino acid in all positions of the reference sequences.
     """
     assert Alignments("ArsM_aln_part1.faa",
                       ["WP_045226361.1", "Q969Z2"]).determine_ref_categories() == ([{'M'}, set(
@@ -39,14 +39,14 @@ def test_determine_ref_categories():
 
 def test_get_cat_name_at_pos():
     """
-    tests the name of the category observed in the reference sequences at a position
+    Tests the name of the category observed in the reference sequences at a position.
     """
     assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_name_at_pos(2) == 'Any'
 
 
 def test_get_cat_at_pos():
     """
-    tests the category of amino acids observed at a position in the reference sequences
+    Tests the category of amino acids observed at a position in the reference sequences.
     """
     assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_cat_at_pos(3, False) == {
         'E', 'K', 'R', 'D', 'H'}
@@ -57,8 +57,8 @@ def test_get_cat_at_pos():
 
 def test_get_aa_observed_at_pos():
     """
-    tests the amino acids observed at a position and their counts. It also tests that the dictionary
-    is sorted from the most present amino acid to the least present
+    Tests the amino acids observed at a position and their counts. It also tests that the dictionary
+    is sorted from the most present amino acid to the least present.
     """
     assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_observed_at_pos(1) == {
         'M': 6}
@@ -68,7 +68,7 @@ def test_get_aa_observed_at_pos():
 
 def test_get_aa_at_pos():
     """
-    tests the amino acid at a position in the sequence
+    Tests the amino acid at a position in the sequence.
     """
     assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_at_pos(37,
                                                                                   "WP_045226361.1") \
@@ -80,7 +80,7 @@ def test_get_aa_at_pos():
 
 def test_entropy_pos_obs():
     """
-    tests the entropy calculated at a position
+    Tests the entropy calculated at a position.
     """
     assert Alignments("ArsM_aln_part.faa", ["WP_045226361.1", "Q969Z2"]).entropy_pos_obs(
         1) == 0
@@ -90,7 +90,7 @@ def test_entropy_pos_obs():
 
 def test_entropy_background():
     """
-    tests the calculation of the background entropy with different methods
+    Tests the calculation of the background entropy with different methods.
     """
     assert Alignments("ArsM_aln_part.faa",
                       ["WP_045226361.1", "Q969Z2"]).entropy_background('database',
@@ -129,7 +129,7 @@ def test_entropy_background():
 
 def test_information_pos():
     """
-    tests the information calculated at a position
+    Tests the information calculated at a position.
     """
     assert round(Alignments("ArsM_aln_part.faa",
                             ["WP_045226361.1", "Q969Z2"]).information_pos(5, 'database', False, 1,
