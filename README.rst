@@ -9,6 +9,8 @@ containing reference sequences and one or more unknown sequences to annotate. It
 whether it is consistent at every user-specified position with the aminoacid conservation profile of the reference
 sequences.
 
+The complete HTML documentation is available at https://fplewniak.github.io/RCMAP/
+
 Installation
 ------------
 Linux
@@ -120,6 +122,7 @@ Raw information content accounting for gaps
 ::
 
     evaluate_seq --file ArsM_aln.faa --seqeval WP_045226361.1 Q969Z2 --positions 50:70 115:125 200:210 --gaps
+
 Displays compatibility at positions from 50 to 70, 115 to 125 and 200 to 210 of sequences WP_045226361.1 and Q969Z2
 with the reference alignment in ArsM_aln.faa. Gaps are taken into account when computing information content.
 
@@ -128,6 +131,7 @@ Smoothed information content without gaps
 ::
 
     evaluate_seq --file ArsM_aln.faa --seqeval WP_045226361.1 Q969Z2 --positions :10 20 200: --window_method hamming --window 5
+    
 Displays compatibility at positions from 1 to 10, at 20 and 200 to end of sequences WP_045226361.1 and Q969Z2
 with the reference alignment in ArsM_aln.faa. Gaps are not taken into account. Information content
 along the aligment is smoothed over a sliding window weighted using the Hamming method.
