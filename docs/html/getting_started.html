@@ -1,0 +1,357 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Getting started &mdash; RCMAP 1.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The RCMAP API reference" href="api/index.html" />
+    <link rel="prev" title="Welcome to RCMAP’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> RCMAP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#linux">Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#basic-example">Basic example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#raw-information-content-accounting-for-gaps">Raw information content accounting for gaps</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#smoothed-information-content-without-gaps">Smoothed information content without gaps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">The RCMAP API reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RCMAP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Getting started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/getting_started.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="linux">
+<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p>Download and unzip master branch zip file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">fplewniak</span><span class="o">/</span><span class="n">RCMAP</span><span class="o">/</span><span class="n">archive</span><span class="o">/</span><span class="n">master</span><span class="o">.</span><span class="n">zip</span>
+<span class="n">unzip</span> <span class="n">master</span><span class="o">.</span><span class="n">zip</span>
+</pre></div>
+</div>
+</li>
+<li><p>Install the RCMAP Python package and requirements with pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">RCMAP</span><span class="o">-</span><span class="n">master</span><span class="o">/.</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p>Download and unzip master branch zip file.</p></li>
+<li><p>Open the unzipped <code class="docutils literal notranslate"><span class="pre">RCMAP-master</span></code> directory in a new window</p></li>
+<li><p>Open a Windows PowerShell in the <code class="docutils literal notranslate"><span class="pre">RCMAP-master</span></code> directory. (in Windows explorer, type <code class="docutils literal notranslate"><span class="pre">Ctrl-L</span></code> to select the address bar of the <code class="docutils literal notranslate"><span class="pre">RCMAP-master</span></code> window then type <code class="docutils literal notranslate"><span class="pre">powershell</span></code> and validate)</p></li>
+<li><p>In the PowerShell window, install the RCMAP Python package and its requirements with pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">RCMAP</span><span class="o">-</span><span class="n">master</span><span class="o">/.</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>Note: python and pip must be in your path</p>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>The RCMAP package provides the <code class="docutils literal notranslate"><span class="pre">evaluate_seq</span></code> command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">evaluate_seq</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">--</span><span class="n">file</span> <span class="n">File</span> <span class="o">--</span><span class="n">seqeval</span> <span class="n">string</span> <span class="p">[</span><span class="n">string</span> <span class="o">...</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">positions</span> <span class="n">POSITIONS</span> <span class="p">[</span><span class="n">POSITIONS</span> <span class="o">...</span><span class="p">]]</span>
+
+    <span class="n">required</span> <span class="n">arguments</span><span class="p">:</span>
+      <span class="o">--</span><span class="n">file</span> <span class="n">File</span>           <span class="nb">input</span> <span class="n">multiple</span> <span class="n">protein</span> <span class="n">sequence</span> <span class="n">alignment</span> <span class="n">file</span> <span class="n">containing</span> <span class="n">reference</span>
+                            <span class="n">sequences</span> <span class="ow">and</span> <span class="n">sequences</span> <span class="n">to</span> <span class="n">evaluate</span>
+      <span class="o">--</span><span class="n">seqeval</span> <span class="n">string</span> <span class="p">[</span><span class="n">string</span> <span class="o">...</span><span class="p">]</span>
+                            <span class="n">names</span> <span class="n">of</span> <span class="n">the</span> <span class="n">sequences</span> <span class="n">to</span> <span class="n">evaluate</span>
+
+    <span class="n">optional</span> <span class="n">arguments</span><span class="p">:</span>
+      <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>            <span class="n">show</span> <span class="n">help</span> <span class="n">message</span> <span class="ow">and</span> <span class="n">exit</span>
+      <span class="o">--</span><span class="n">positions</span> <span class="n">POSITIONS</span> <span class="p">[</span><span class="n">POSITIONS</span> <span class="o">...</span><span class="p">]</span>
+                            <span class="nb">list</span> <span class="n">of</span> <span class="n">position</span> <span class="n">ranges</span> <span class="n">to</span> <span class="n">examine</span> <span class="n">specified</span> <span class="k">as</span> <span class="n">start</span> <span class="ow">and</span> <span class="n">end</span> <span class="n">positions</span>
+                            <span class="n">separated</span> <span class="n">by</span> <span class="n">a</span> <span class="s1">&#39;:&#39;</span><span class="o">.</span> <span class="n">If</span> <span class="n">the</span> <span class="n">start</span> <span class="n">position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">specified</span><span class="p">,</span> <span class="n">then</span> <span class="n">the</span>
+                            <span class="nb">range</span> <span class="n">will</span> <span class="n">start</span> <span class="n">at</span> <span class="mf">1.</span> <span class="n">If</span> <span class="n">the</span> <span class="n">end</span> <span class="n">position</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">specified</span><span class="p">,</span> <span class="n">then</span> <span class="n">the</span>
+                            <span class="nb">range</span> <span class="n">will</span> <span class="n">end</span> <span class="n">at</span> <span class="n">the</span> <span class="n">last</span> <span class="n">position</span> <span class="n">of</span> <span class="n">the</span> <span class="n">alignment</span><span class="o">.</span>
+                            <span class="n">If</span> <span class="n">no</span> <span class="nb">range</span> <span class="ow">is</span> <span class="n">specified</span> <span class="n">the</span> <span class="n">whole</span> <span class="n">alignment</span> <span class="n">will</span> <span class="n">be</span> <span class="n">examined</span><span class="o">.</span>
+      <span class="o">--</span><span class="n">gaps</span>                <span class="n">toggles</span> <span class="n">accounting</span> <span class="k">for</span> <span class="n">gaps</span> <span class="n">when</span> <span class="n">computing</span> <span class="n">information</span> <span class="n">content</span>
+      <span class="o">--</span><span class="n">strict</span>              <span class="n">toggles</span> <span class="n">strict</span> <span class="n">evaluation</span><span class="p">,</span> <span class="n">an</span> <span class="n">aminoacid</span> <span class="ow">is</span> <span class="n">considered</span> <span class="n">compatible</span> <span class="n">only</span> <span class="k">if</span> <span class="n">it</span> <span class="n">has</span> <span class="n">been</span>
+                            <span class="ow">in</span> <span class="n">at</span> <span class="n">least</span> <span class="n">one</span> <span class="n">of</span> <span class="n">the</span> <span class="n">reference</span> <span class="n">sequences</span>
+      <span class="o">--</span><span class="n">min_info</span> <span class="n">FLOAT</span>      <span class="n">the</span> <span class="n">minimum</span> <span class="n">information</span> <span class="n">content</span> <span class="n">at</span> <span class="n">a</span> <span class="n">given</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">reference</span> <span class="n">alignment</span> <span class="n">required</span>
+                            <span class="n">to</span> <span class="n">display</span> <span class="n">the</span> <span class="n">position</span>
+      <span class="o">--</span><span class="n">method</span>              <span class="n">calculation</span> <span class="n">method</span> <span class="n">of</span> <span class="n">the</span> <span class="n">background</span> <span class="n">entropy</span> <span class="k">for</span> <span class="n">the</span> <span class="n">information</span>
+      <span class="o">--</span><span class="n">window</span>              <span class="n">number</span> <span class="n">of</span> <span class="n">positions</span> <span class="n">to</span> <span class="n">calculate</span> <span class="n">the</span> <span class="n">average</span> <span class="n">of</span> <span class="n">information</span><span class="p">,</span> <span class="n">must</span> <span class="n">be</span> <span class="n">odd</span>
+      <span class="o">--</span><span class="n">window_method</span>       <span class="n">calculation</span> <span class="n">method</span> <span class="n">of</span> <span class="n">the</span> <span class="n">weights</span> <span class="n">of</span> <span class="n">positions</span> <span class="n">to</span> <span class="n">calculate</span> <span class="n">the</span> <span class="n">information</span> <span class="n">of</span> <span class="n">a</span> <span class="n">position</span><span class="p">,</span>
+                            <span class="n">using</span> <span class="n">a</span> <span class="n">window</span>
+</pre></div>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="basic-example">
+<h4>Basic example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">evaluate_seq</span> <span class="o">--</span><span class="n">file</span> <span class="n">ArsM_aln</span><span class="o">.</span><span class="n">faa</span> <span class="o">--</span><span class="n">seqeval</span> <span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="n">Q969Z2</span> <span class="o">--</span><span class="n">positions</span> <span class="mi">200</span><span class="p">:</span><span class="mi">210</span> <span class="o">--</span><span class="n">gaps</span>
+
+<span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span>  <span class="mi">200</span> <span class="p">:</span> <span class="n">S</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;S&#39;</span><span class="p">}</span>    <span class="p">{</span><span class="s1">&#39;S&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span>  <span class="mi">201</span> <span class="p">:</span> <span class="n">N</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">}</span>    <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span>  <span class="mi">202</span> <span class="p">:</span> <span class="n">C</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">}</span>    <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span>  <span class="mi">203</span> <span class="p">:</span> <span class="o">-</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="nb">set</span><span class="p">()</span>    <span class="p">{</span><span class="s1">&#39;-&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span>  <span class="mi">204</span> <span class="p">:</span> <span class="o">-</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="nb">set</span><span class="p">()</span>    <span class="p">{</span><span class="s1">&#39;-&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span>  <span class="mi">205</span> <span class="p">:</span> <span class="o">-</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="nb">set</span><span class="p">()</span>    <span class="p">{</span><span class="s1">&#39;-&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span>  <span class="mi">206</span> <span class="p">:</span> <span class="o">-</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="nb">set</span><span class="p">()</span>    <span class="p">{</span><span class="s1">&#39;-&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span>  <span class="mi">207</span> <span class="p">:</span> <span class="n">V</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;V&#39;</span><span class="p">}</span>    <span class="p">{</span><span class="s1">&#39;V&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span>  <span class="mi">208</span> <span class="p">:</span> <span class="n">L</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">3.47</span> <span class="p">:</span> <span class="n">Hydrophobic</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span>  <span class="mi">209</span> <span class="p">:</span> <span class="n">N</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">}</span>    <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="p">:</span>  <span class="mi">210</span> <span class="p">:</span> <span class="n">L</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;L&#39;</span><span class="p">}</span>    <span class="p">{</span><span class="s1">&#39;L&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+
+ <span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span>
+ <span class="n">Number</span> <span class="n">of</span> <span class="kc">True</span>  <span class="mi">11</span>  <span class="p">:</span> <span class="n">Information</span> <span class="kc">True</span>  <span class="mf">47.4</span>
+ <span class="n">Number</span> <span class="n">of</span> <span class="kc">False</span>  <span class="mi">0</span>  <span class="p">:</span> <span class="n">Information</span> <span class="kc">False</span>  <span class="mi">0</span>
+
+
+<span class="n">Q969Z2</span> <span class="p">:</span>  <span class="mi">200</span> <span class="p">:</span> <span class="n">S</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;S&#39;</span><span class="p">}</span>    <span class="p">{</span><span class="s1">&#39;S&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">Q969Z2</span> <span class="p">:</span>  <span class="mi">201</span> <span class="p">:</span> <span class="n">D</span> <span class="p">:</span>  <span class="kc">False</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">}</span>    <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">Q969Z2</span> <span class="p">:</span>  <span class="mi">202</span> <span class="p">:</span> <span class="n">I</span> <span class="p">:</span>  <span class="kc">False</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">}</span>    <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">Q969Z2</span> <span class="p">:</span>  <span class="mi">203</span> <span class="p">:</span> <span class="n">P</span> <span class="p">:</span>  <span class="kc">False</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="nb">set</span><span class="p">()</span>    <span class="p">{</span><span class="s1">&#39;-&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">Q969Z2</span> <span class="p">:</span>  <span class="mi">204</span> <span class="p">:</span> <span class="n">F</span> <span class="p">:</span>  <span class="kc">False</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="nb">set</span><span class="p">()</span>    <span class="p">{</span><span class="s1">&#39;-&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">Q969Z2</span> <span class="p">:</span>  <span class="mi">205</span> <span class="p">:</span> <span class="n">G</span> <span class="p">:</span>  <span class="kc">False</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="nb">set</span><span class="p">()</span>    <span class="p">{</span><span class="s1">&#39;-&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">Q969Z2</span> <span class="p">:</span>  <span class="mi">206</span> <span class="p">:</span> <span class="n">K</span> <span class="p">:</span>  <span class="kc">False</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="nb">set</span><span class="p">()</span>    <span class="p">{</span><span class="s1">&#39;-&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">Q969Z2</span> <span class="p">:</span>  <span class="mi">207</span> <span class="p">:</span> <span class="n">K</span> <span class="p">:</span>  <span class="kc">False</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;V&#39;</span><span class="p">}</span>    <span class="p">{</span><span class="s1">&#39;V&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">Q969Z2</span> <span class="p">:</span>  <span class="mi">208</span> <span class="p">:</span> <span class="n">F</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">3.47</span> <span class="p">:</span> <span class="n">Hydrophobic</span> <span class="p">{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;I&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">Q969Z2</span> <span class="p">:</span>  <span class="mi">209</span> <span class="p">:</span> <span class="n">K</span> <span class="p">:</span>  <span class="kc">False</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">}</span>    <span class="p">{</span><span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+<span class="n">Q969Z2</span> <span class="p">:</span>  <span class="mi">210</span> <span class="p">:</span> <span class="n">L</span> <span class="p">:</span>   <span class="kc">True</span> <span class="p">:</span> <span class="mf">4.39</span> <span class="p">:</span>   <span class="p">{</span><span class="s1">&#39;L&#39;</span><span class="p">}</span>    <span class="p">{</span><span class="s1">&#39;L&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">}</span>
+
+ <span class="n">Q969Z2</span>
+ <span class="n">Number</span> <span class="n">of</span> <span class="kc">True</span>  <span class="mi">3</span>  <span class="p">:</span> <span class="n">Information</span> <span class="kc">True</span>  <span class="mf">12.26</span>
+ <span class="n">Number</span> <span class="n">of</span> <span class="kc">False</span>  <span class="mi">8</span>  <span class="p">:</span> <span class="n">Information</span> <span class="kc">False</span>  <span class="mf">35.14</span>
+</pre></div>
+</div>
+<p>All positions between 200 and 210 in the WP_045226361.1 sequence are consistent with the aminoacid observed in the
+reference sequences shown in the last two columns. On the other hand, a majority of positions are not compatible with
+the reference conservation profile in Q969Z2. Strictly conserved aminoacids at positions 201, 202 207 and 209 are not
+conserved in this sequence, and it has an insertion from 203 to 206.</p>
+</div>
+<div class="section" id="raw-information-content-accounting-for-gaps">
+<h4>Raw information content accounting for gaps<a class="headerlink" href="#raw-information-content-accounting-for-gaps" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">evaluate_seq</span> <span class="o">--</span><span class="n">file</span> <span class="n">ArsM_aln</span><span class="o">.</span><span class="n">faa</span> <span class="o">--</span><span class="n">seqeval</span> <span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="n">Q969Z2</span> <span class="o">--</span><span class="n">positions</span> <span class="mi">50</span><span class="p">:</span><span class="mi">70</span> <span class="mi">115</span><span class="p">:</span><span class="mi">125</span> <span class="mi">200</span><span class="p">:</span><span class="mi">210</span> <span class="o">--</span><span class="n">gaps</span>
+</pre></div>
+</div>
+<p>Displays compatibility at positions from 50 to 70, 115 to 125 and 200 to 210 of sequences WP_045226361.1 and Q969Z2
+with the reference alignment in ArsM_aln.faa. Gaps are taken into account when computing information content.</p>
+</div>
+<div class="section" id="smoothed-information-content-without-gaps">
+<h4>Smoothed information content without gaps<a class="headerlink" href="#smoothed-information-content-without-gaps" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">evaluate_seq</span> <span class="o">--</span><span class="n">file</span> <span class="n">ArsM_aln</span><span class="o">.</span><span class="n">faa</span> <span class="o">--</span><span class="n">seqeval</span> <span class="n">WP_045226361</span><span class="o">.</span><span class="mi">1</span> <span class="n">Q969Z2</span> <span class="o">--</span><span class="n">positions</span> <span class="p">:</span><span class="mi">10</span> <span class="mi">20</span> <span class="mi">200</span><span class="p">:</span> <span class="o">--</span><span class="n">window_method</span> <span class="n">hamming</span> <span class="o">--</span><span class="n">window</span> <span class="mi">5</span>
+</pre></div>
+</div>
+<p>Displays compatibility at positions from 1 to 10, at 20 and 200 to end of sequences WP_045226361.1 and Q969Z2
+with the reference alignment in ArsM_aln.faa. Gaps are not taken into account. Information content
+along the aligment is smoothed over a sliding window weighted using the Hamming method.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api/index.html" class="btn btn-neutral float-right" title="The RCMAP API reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to RCMAP’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, LB FP
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

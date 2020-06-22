@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The RCMAP API reference &mdash; RCMAP 1.4.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Getting started" href="../getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> RCMAP
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">The RCMAP API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-RCMAP.alignment">The “alignment” module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-RCMAP.classification_aa">The “classification_aa” module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-RCMAP.utilities">The “utilities” module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RCMAP</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>The RCMAP API reference</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-RCMAP">
+<span id="the-rcmap-api-reference"></span><h1>The RCMAP API reference<a class="headerlink" href="#module-RCMAP" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-RCMAP.alignment">
+<span id="the-alignment-module"></span><h2>The “alignment” module<a class="headerlink" href="#module-RCMAP.alignment" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="RCMAP.alignment.Alignments">
+<em class="property">class </em><code class="sig-prename descclassname">RCMAP.alignment.</code><code class="sig-name descname">Alignments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">seqs_to_evaluate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens the file and processes the alignment of sequences</p>
+<dl class="py method">
+<dt id="RCMAP.alignment.Alignments.count_aa_ref">
+<code class="sig-name descname">count_aa_ref</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.count_aa_ref" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts the number of every amino acids at every position in the reference sequences, and
+lists them in a dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the count of amino acids at every position in all reference sequences</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RCMAP.alignment.Alignments.determine_ref_categories">
+<code class="sig-name descname">determine_ref_categories</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.determine_ref_categories" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recovers information about every position in the reference sequences</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the list of categories of amino acids at every position in the reference sequences,
+list of the names of the categories, the list of the amino acids observed at every position
+in reference sequences in lists,  the list of the number of every amino acid present at the
+position for every position and the list of the amino acids observed at every position
+in reference sequences in sets</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RCMAP.alignment.Alignments.entropy_background">
+<code class="sig-name descname">entropy_background</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span></em>, <em class="sig-param"><span class="n">gaps</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.entropy_background" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the background entropy from the frequencies of the amino acids given by the
+method. Can take into account the gaps in the frequencies if gaps = True.
+There are three methods :</p>
+<ul class="simple">
+<li><p>database : the frequencies of the amino acids come from the bank UniprotKB,TrEMBL april 2020</p></li>
+<li><p>ref : the frequencies of the amino acids come from the average of the counts in the reference sequences</p></li>
+<li><p>equiprobable : the frequencies of the amino acids are all the same</p></li>
+</ul>
+<p>NB : the entropy function can take in parameter the accounts of amino acids or frequencies
+directly</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> – calculation method</p></li>
+<li><p><strong>gaps</strong> – True if you want to consider gaps, False if not</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the background entropy in the reference alignment</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RCMAP.alignment.Alignments.entropy_pos_obs">
+<code class="sig-name descname">entropy_pos_obs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pos</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.entropy_pos_obs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the entropy from the frequencies of the amino acids observed at a position
+NB : the entropy function can take in parameter the accounts of amino acids or frequencies
+directly</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pos</strong> – position in the alignment</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the entropy associated to the position</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RCMAP.alignment.Alignments.get_aa_at_pos">
+<code class="sig-name descname">get_aa_at_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pos</span></em>, <em class="sig-param"><span class="n">name_seq</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.get_aa_at_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recovers the amino acid present at this position in the given sequence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos</strong> – position of the amino acid in seqref or seqeval</p></li>
+<li><p><strong>name_seq</strong> – name of the sequence in seqref or seqeval</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>set() containing the amino acid at this position in the sequence</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RCMAP.alignment.Alignments.get_aa_observed_at_pos">
+<code class="sig-name descname">get_aa_observed_at_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pos</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.get_aa_observed_at_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recovers the amino acids observed at a position in the reference sequences and the count of
+these amino acids. The data are in a dictionary sorted from the amino acid the most present
+to the least present at this position.
+Uses the position -1 because the user counts from 1 and python from 0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pos</strong> – position of the amino acids in seqrefs</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>all the amino acids observed in seqrefs at this position and the count of this
+amino acids in a  sorted dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RCMAP.alignment.Alignments.get_cat_at_pos">
+<code class="sig-name descname">get_cat_at_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pos</span></em>, <em class="sig-param"><span class="n">strict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.get_cat_at_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recovers the category (set of amino acids) of amino acids observed at a position in the
+reference sequences. Uses the position -1 because the user counts from 1 and python
+from 0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>strict</strong> – if True, the category is only the amino acids observed</p></li>
+<li><p><strong>pos</strong> – position of the amino acid in seqrefs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the category (set) of amino acids observed in seqrefs</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RCMAP.alignment.Alignments.get_cat_name_at_pos">
+<code class="sig-name descname">get_cat_name_at_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pos</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.get_cat_name_at_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recovers the name of the category of amino acids observed at a position in the reference
+sequences. Uses the position -1 because the user counts from 1 and python from 0</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pos</strong> – position of the amino acid in seqrefs</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the name of the category of amino acids observed in seqrefs</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="RCMAP.alignment.Alignments.information_pos">
+<code class="sig-name descname">information_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pos</span></em>, <em class="sig-param"><span class="n">method</span></em>, <em class="sig-param"><span class="n">gaps</span></em>, <em class="sig-param"><span class="n">window</span></em>, <em class="sig-param"><span class="n">window_method</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.information_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the information carried by a position. The running window can be used to
+consider the environment of a position and smooth its information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>window_method</strong> – calculation method of the weights at every position in the window</p></li>
+<li><p><strong>window</strong> – number of positions to calculate the average of information, should be odd</p></li>
+<li><p><strong>pos</strong> – position in the alignment</p></li>
+<li><p><strong>method</strong> – calculation method of the frequencies in the background entropy</p></li>
+<li><p><strong>gaps</strong> – True if you want to consider gaps, False if not</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the information of the position</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-RCMAP.classification_aa">
+<span id="the-classification-aa-module"></span><h2>The “classification_aa” module<a class="headerlink" href="#module-RCMAP.classification_aa" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="RCMAP.classification_aa.AAcategories">
+<em class="property">class </em><code class="sig-prename descclassname">RCMAP.classification_aa.</code><code class="sig-name descname">AAcategories</code><a class="headerlink" href="#RCMAP.classification_aa.AAcategories" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the categories and determines in which category a set belongs to.</p>
+<dl class="py method">
+<dt id="RCMAP.classification_aa.AAcategories.find_category">
+<code class="sig-name descname">find_category</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ens</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.classification_aa.AAcategories.find_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the smallest category in which a set of amino acids (it could
+also be a unique amino acid) is included.
+Removes the gaps in the set and treats the amino acids ‘B’ and ‘Z’ which are ambiguous:
+‘B’ represents the amino acids ‘D’ or ‘N’, ‘Z’ represents the amino acids ‘Q’ or ‘E’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ens</strong> – set</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the smallest category in which the set is included, and its name</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-RCMAP.utilities">
+<span id="the-utilities-module"></span><h2>The “utilities” module<a class="headerlink" href="#module-RCMAP.utilities" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="RCMAP.utilities.compatibility">
+<code class="sig-prename descclassname">RCMAP.utilities.</code><code class="sig-name descname">compatibility</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">amino_acid</span></em>, <em class="sig-param"><span class="n">category</span></em>, <em class="sig-param"><span class="n">gaps</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.utilities.compatibility" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tests if a set of amino acids (or a single amino acid) is included in a category. Treats the
+amino acids ‘B’ and ‘Z’ which are ambiguous:’B’ represents the amino acids ‘D’ or ‘N’, ‘Z’
+represents the amino acids ‘Q’ or ‘E’.
+Returns gaps (True or False) if there is a gap in the set to test. If the parameter gaps =
+False, gaps are not taken into account. When the parameter gaps is defined True by the user,
+gaps are taken into account. In this case, if there is a gap in the set of amino acids observed
+in the reference sequences, compatibility returns True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gaps</strong> – consider gaps if gaps is True</p></li>
+<li><p><strong>amino_acid</strong> – set of amino acids</p></li>
+<li><p><strong>category</strong> – a category (set)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the set of amino acids is included in the category, False if not</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="RCMAP.utilities.get_positions_list">
+<code class="sig-prename descclassname">RCMAP.utilities.</code><code class="sig-name descname">get_positions_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">positions</span></em>, <em class="sig-param"><span class="n">pos_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.utilities.get_positions_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms the positions given by the user in a usable form for the other functions. Replaces
+non given positions by the beginning or the end of the sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pos_max</strong> – maximal authorized value for a position (length of the sequence)</p></li>
+<li><p><strong>positions</strong> – positions like [‘3:10’, ‘8:25’ ,’32’, ‘45:’, ‘:5’, ‘:’]</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>positions like [[3,10], [8,25], [32,32], [45,pos_max], [1,5], [1,pos_max]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="RCMAP.utilities.get_weight">
+<code class="sig-prename descclassname">RCMAP.utilities.</code><code class="sig-name descname">get_weight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em>, <em class="sig-param"><span class="n">window_method</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.utilities.get_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the weights for a sliding weighted window.
+is evaluated. These weights can be calculated with different method:</p>
+<ul class="simple">
+<li><p>The Bartlett window is defined as : w(n) = 2/(M-1) * ((M-1)/2 - abs(n-(M-1)/2))</p></li>
+<li><p>The Hamming window is defined as : w(n) = 0.54 - 0.46 * cos((2*pi*n)/(M-1))  0 &lt;= n &lt;= M-1</p></li>
+<li><p>The Hanning window is defined as : w(n) = 0.5 - 0.5 * cos((2*pi*n)/(M-1))  0 &lt;= n &lt;= M-1</p></li>
+<li><p>The flat window is defined as : w(n) = 1</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>window</strong> – length of the window</p></li>
+<li><p><strong>window_method</strong> – Calculation method of the weights at every position in the window</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the list of weights</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="RCMAP.utilities.sort_categories">
+<code class="sig-prename descclassname">RCMAP.utilities.</code><code class="sig-name descname">sort_categories</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.utilities.sort_categories" title="Permalink to this definition">¶</a></dt>
+<dd><p>Used in classification_aa.py in find_category() which needs the categories sorted by size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the list of sorted categories, from that which contains the least of amino acids,</p>
+</dd>
+</dl>
+<p>to that which contains the most</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="RCMAP.utilities.summary_info">
+<code class="sig-prename descclassname">RCMAP.utilities.</code><code class="sig-name descname">summary_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_compatibility</span></em>, <em class="sig-param"><span class="n">list_info</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.utilities.summary_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summarises the global information of a sequence: the total number of ‘True’ positions (which means
+the amino acid of the evaluated sequence is compatible with the category observed in the
+reference sequences) and the total of information associated. In the same way for ‘False’
+positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list_compatibility</strong> – list of compatibility True or False at every position</p></li>
+<li><p><strong>list_info</strong> – list of information at every position</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>number of True, sum of information for True positions, number of False, sum of
+information for False positions</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../getting_started.html" class="btn btn-neutral float-left" title="Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, LB FP
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
