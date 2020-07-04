@@ -1,6 +1,7 @@
 from RCMAP.alignment import Alignments
 from math import *
 from scipy.stats import entropy
+import pytest
 
 
 def test_count_aa_ref():
@@ -71,11 +72,16 @@ def test_get_aa_at_pos():
     Tests the amino acid at a position in the sequence.
     """
     assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_at_pos(37,
-                                                                                  "WP_045226361.1") \
-           == 'M'
+                                                                                  "WP_045"
+                                                                                  "226361.1") == 'M'
     assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_at_pos(16,
-                                                                                  "emb|SMG66974.1") \
-           == 'G'
+                                                                                  "emb"
+                                                                                  "|SMG66974.1") \
+            == 'G'
+    with pytest.raises(SystemExit):
+        assert Alignments("ArsM_aln.faa", ["WP_045226361.1", "Q969Z2"]).get_aa_at_pos(5000,
+                                                                                      "emb"
+                                                                                      "|SMG66974.1")
 
 
 def test_entropy_pos_obs():

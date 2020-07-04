@@ -7,15 +7,9 @@ class AAcategories:
     """
 
     def __init__(self):
-        self.categories = {
-            'Negative': set("DE"), 'Polar': set("DEKRHQNSCTYW"), 'Tiny': set("ASCG"),
-            'Positive': set("RKH"),
-            'Aliphatic': set("IVL"),
-            'Aromatic': set("FYWH"),
-            'Charged': set("DEKRH"),
-            'Small': set("ASCGPNDTV"),
-            'Hydrophobic': set("IVLFYWHMKTGAC")
-        }
+        self.categories = {'Negative': set("DE"), 'Polar': set("DEKRHQNSCTYW"), 'Tiny': set("ASCG"),
+            'Positive': set("RKH"), 'Aliphatic': set("IVL"), 'Aromatic': set("FYWH"),
+            'Charged': set("DEKRH"), 'Small': set("ASCGPNDTV"),'Hydrophobic': set("IVLFYWHMKTGAC")}
 
     def find_category(self, ens):
         """

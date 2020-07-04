@@ -104,7 +104,7 @@ class Alignments:
 
         :param pos:  position of the amino acids in seqrefs
         :return: all the amino acids observed in seqrefs at this position and the count of this
-        amino acids in a sorted dictionary
+         amino acids in a sorted dictionary
         """
         return dict(sorted(self.aa_observed[pos-1].items(), key=lambda item: item[1], reverse=True))
 

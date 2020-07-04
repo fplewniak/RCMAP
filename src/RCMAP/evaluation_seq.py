@@ -66,10 +66,10 @@ def get_params():
 def main():
     """
     :return: for each evaluated sequence :
-    name of the evaluated sequence, position, amino acid in the evaluated sequence,
-    compatibility of the amino acid with the category observed in reference sequences,
-    information carried by the position,  the category observed in reference sequences,
-    the amino acids really observed in the reference sequences; summary of the information
+     name of the evaluated sequence, position, amino acid in the evaluated sequence,
+     compatibility of the amino acid with the category observed in reference sequences,
+     information carried by the position,  the category observed in reference sequences,
+     the amino acids really observed in the reference sequences; summary of the information
     """
     params = get_params()
     alignments = Alignments(params.file, params.seqeval)

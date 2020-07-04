@@ -7,7 +7,7 @@ def sort_categories():
     Used in classification_aa.py in find_category() which needs the categories sorted by size.
 
     :return: the list of sorted categories, from that which contains the least of amino acids,
-    to that which contains the most
+     to that which contains the most
     """
     return ['Negative', 'Positive', 'Aliphatic', 'Tiny', 'Aromatic', 'Charged', 'Small', 'Polar',
             'Hydrophobic']
@@ -85,7 +85,7 @@ def summary_info(list_compatibility, list_info):
     :param list_compatibility: list of compatibility True or False at every position
     :param list_info: list of information at every position
     :return: number of True, sum of information for True positions, number of False, sum of
-    information for False positions
+     information for False positions
     """
     count_false, count_true = 0, 0
     info_false, info_true = 0, 0
