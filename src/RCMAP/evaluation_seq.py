@@ -7,23 +7,23 @@ def get_params():
     """
     Get parameters from command line :
     * file : the file which contains the alignments of the reference sequences and the sequences to
-      evaluate
-    * seqeval : the name of the sequences to evaluate
-    * positions : the positions or interval on which the analysis must be made, begins at 1
+      evaluate;
+    * seqeval : the name of the sequences to evaluate;
+    * positions : the positions or interval on which the analysis must be made, begins at 1;
     * method : the calculation method of the frequencies of the amino acids in the background
-      entropy
+      entropy;
     * gaps : True or false. It depends if the user want to consider gaps. If gaps = True, when there
       is a gap in the evaluated sequence and a gap in the amino acids observed in the reference
-      sequences, the compatibility is evaluated as True. Otherwise not
+      sequences, the compatibility is evaluated as True. Otherwise not;
     * strict : True or False. True if you want to compare the amino acid in the evaluated sequence
       only with the amino acids observed in the reference sequences and not with the associated
-      category
-    * min_info : Minimum of information required by the user for display
+      category;
+    * min_info : Minimum of information required by the user for display;
     * window : Number of positions around the evaluated position to calculate the average of its
       information. It must be odd. Used to consider the environment of a position to calculate the
-      information carried
+      information carried;
     * window_method : Calculation method of the weights of the positions around the position which
-    information is evaluated using a window
+    information is evaluated using a window.
 
     return: parameters
     """
@@ -66,11 +66,10 @@ def get_params():
 def main():
     """
     :return: for each evaluated sequence :
-    name of the evaluated sequence, position, amino acid in the evaluated sequence,
-    compatibility of the amino acid with the category observed in reference sequences,
-    information carried by the position,  the category observed in reference sequences,
-    the amino acids really observed in the reference sequences.
-    Summary of the information.
+     name of the evaluated sequence, position, amino acid in the evaluated sequence,
+     compatibility of the amino acid with the category observed in reference sequences,
+     information carried by the position,  the category observed in reference sequences,
+     the amino acids really observed in the reference sequences; summary of the information
     """
     params = get_params()
     alignments = Alignments(params.file, params.seqeval)
@@ -89,8 +88,9 @@ def main():
                         aa=alignments.get_aa_at_pos(i, seq),
                         test=str(compatibility(set(alignments.get_aa_at_pos(i, seq)),
                                                alignments.get_cat_at_pos(i, params.strict),
-                                               params.gaps & ('-' in alignments.set_of_aa_ref[
-                                                   i - 1]))).rjust(6),
+                                               params.gaps & ('-' in {aa for aa in
+                                                                      alignments.aa_observed[
+                                                                          i - 1]}))).rjust(6),
                         cat=str(alignments.get_cat_name_at_pos(i)).center(10),
                         obs=alignments.get_aa_observed_at_pos(i),
                         info=info))
@@ -98,7 +98,8 @@ def main():
                     list_compatibility.append(
                         compatibility(set(alignments.get_aa_at_pos(i, seq)),
                                       alignments.get_cat_at_pos(i, params.strict),
-                                      params.gaps & ('-' in alignments.set_of_aa_ref[i - 1])))
+                                      params.gaps & ('-' in {aa for aa in
+                                                             alignments.aa_observed[i - 1]})))
                     list_info.append(
                         alignments.information_pos(i, params.method, params.gaps, params.window,
                                                    params.window_method))
