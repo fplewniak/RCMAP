@@ -141,13 +141,14 @@ class Alignments:
         """
         Calculates the background entropy from the frequencies of the amino acids given by the
         method. Can take into account the gaps in the frequencies if gaps = True.
-        There is three methods :
-        * database : the frequencies of the amino acids come from the bank UniprotKB,TrEMBL
-          april 2020;
-        * ref : the frequencies of the amino acids come from the average of the counts in the
-          reference sequences;
-        * equiprobable : the frequencies of the amino acids are all the same.
-        NB : the entropy function can take in parameter the accounts of amino acids or frequencies
+
+        There are three methods:
+         * database: the frequencies of the amino acids come from the bank UniprotKB,TrEMBL
+           april 2020;
+         * ref: the frequencies of the amino acids come from the average of the counts in the
+           reference sequences;
+         * equiprobable: the frequencies of the amino acids are all the same.
+        NB: the entropy function can take in parameter the accounts of amino acids or frequencies
         directly.
 
         :param method: calculation method

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>The RCMAP API reference &mdash; RCMAP 1.4.0 documentation</title>
+  <title>The RCMAP API reference &mdash; RCMAP 1.4.1 documentation</title>
   
 
   
@@ -162,12 +162,12 @@
 <dl class="py class">
 <dt id="RCMAP.alignment.Alignments">
 <em class="property">class </em><code class="sig-prename descclassname">RCMAP.alignment.</code><code class="sig-name descname">Alignments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file</span></em>, <em class="sig-param"><span class="n">seqs_to_evaluate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments" title="Permalink to this definition">¶</a></dt>
-<dd><p>Opens the file and processes the alignment of sequences</p>
+<dd><p>Opens the file and processes the alignment of sequences.</p>
 <dl class="py method">
 <dt id="RCMAP.alignment.Alignments.count_aa_ref">
 <code class="sig-name descname">count_aa_ref</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.count_aa_ref" title="Permalink to this definition">¶</a></dt>
 <dd><p>Counts the number of every amino acids at every position in the reference sequences, and
-lists them in a dictionary</p>
+lists them in a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the count of amino acids at every position in all reference sequences</p>
@@ -178,14 +178,12 @@ lists them in a dictionary</p>
 <dl class="py method">
 <dt id="RCMAP.alignment.Alignments.determine_ref_categories">
 <code class="sig-name descname">determine_ref_categories</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.determine_ref_categories" title="Permalink to this definition">¶</a></dt>
-<dd><p>Recovers information about every position in the reference sequences</p>
+<dd><p>Recovers information about every position in the reference sequences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the list of categories of amino acids at every position in the reference sequences,
-list of the names of the categories, the list of the amino acids observed at every position
-in reference sequences in lists,  the list of the number of every amino acid present at the
-position for every position and the list of the amino acids observed at every position
-in reference sequences in sets</p>
+the list of the names of the categories and the dictionary of all the amino acids observed
+at every position and their count</p>
 </dd>
 </dl>
 </dd></dl>
@@ -194,15 +192,19 @@ in reference sequences in sets</p>
 <dt id="RCMAP.alignment.Alignments.entropy_background">
 <code class="sig-name descname">entropy_background</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span></em>, <em class="sig-param"><span class="n">gaps</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.entropy_background" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the background entropy from the frequencies of the amino acids given by the
-method. Can take into account the gaps in the frequencies if gaps = True.
-There are three methods :</p>
-<ul class="simple">
-<li><p>database : the frequencies of the amino acids come from the bank UniprotKB,TrEMBL april 2020</p></li>
-<li><p>ref : the frequencies of the amino acids come from the average of the counts in the reference sequences</p></li>
-<li><p>equiprobable : the frequencies of the amino acids are all the same</p></li>
+method. Can take into account the gaps in the frequencies if gaps = True.</p>
+<dl class="simple">
+<dt>There are three methods:</dt><dd><ul class="simple">
+<li><p>database: the frequencies of the amino acids come from the bank UniprotKB,TrEMBL
+april 2020;</p></li>
+<li><p>ref: the frequencies of the amino acids come from the average of the counts in the
+reference sequences;</p></li>
+<li><p>equiprobable: the frequencies of the amino acids are all the same.</p></li>
 </ul>
-<p>NB : the entropy function can take in parameter the accounts of amino acids or frequencies
-directly</p>
+</dd>
+</dl>
+<p>NB: the entropy function can take in parameter the accounts of amino acids or frequencies
+directly.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -219,9 +221,9 @@ directly</p>
 <dl class="py method">
 <dt id="RCMAP.alignment.Alignments.entropy_pos_obs">
 <code class="sig-name descname">entropy_pos_obs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pos</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.entropy_pos_obs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the entropy from the frequencies of the amino acids observed at a position
+<dd><p>Calculates the entropy from the frequencies of the amino acids observed at a position.
 NB : the entropy function can take in parameter the accounts of amino acids or frequencies
-directly</p>
+directly.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>pos</strong> – position in the alignment</p>
@@ -235,7 +237,7 @@ directly</p>
 <dl class="py method">
 <dt id="RCMAP.alignment.Alignments.get_aa_at_pos">
 <code class="sig-name descname">get_aa_at_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pos</span></em>, <em class="sig-param"><span class="n">name_seq</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.get_aa_at_pos" title="Permalink to this definition">¶</a></dt>
-<dd><p>Recovers the amino acid present at this position in the given sequence</p>
+<dd><p>Recovers the amino acid present at this position in the given sequence.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -255,14 +257,14 @@ directly</p>
 <dd><p>Recovers the amino acids observed at a position in the reference sequences and the count of
 these amino acids. The data are in a dictionary sorted from the amino acid the most present
 to the least present at this position.
-Uses the position -1 because the user counts from 1 and python from 0</p>
+Uses the position -1 because the user counts from 1 and python from 0.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>pos</strong> – position of the amino acids in seqrefs</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>all the amino acids observed in seqrefs at this position and the count of this
-amino acids in a  sorted dictionary</p>
+amino acids in a sorted dictionary</p>
 </dd>
 </dl>
 </dd></dl>
@@ -272,7 +274,7 @@ amino acids in a  sorted dictionary</p>
 <code class="sig-name descname">get_cat_at_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pos</span></em>, <em class="sig-param"><span class="n">strict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.get_cat_at_pos" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recovers the category (set of amino acids) of amino acids observed at a position in the
 reference sequences. Uses the position -1 because the user counts from 1 and python
-from 0</p>
+from 0.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -290,7 +292,7 @@ from 0</p>
 <dt id="RCMAP.alignment.Alignments.get_cat_name_at_pos">
 <code class="sig-name descname">get_cat_name_at_pos</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pos</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.alignment.Alignments.get_cat_name_at_pos" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recovers the name of the category of amino acids observed at a position in the reference
-sequences. Uses the position -1 because the user counts from 1 and python from 0</p>
+sequences. Uses the position -1 because the user counts from 1 and python from 0.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>pos</strong> – position of the amino acid in seqrefs</p>
@@ -337,7 +339,7 @@ consider the environment of a position and smooth its information.</p>
 <dd><p>Finds the smallest category in which a set of amino acids (it could
 also be a unique amino acid) is included.
 Removes the gaps in the set and treats the amino acids ‘B’ and ‘Z’ which are ambiguous:
-‘B’ represents the amino acids ‘D’ or ‘N’, ‘Z’ represents the amino acids ‘Q’ or ‘E’</p>
+‘B’ represents the amino acids ‘D’ or ‘N’, ‘Z’ represents the amino acids ‘Q’ or ‘E’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>ens</strong> – set</p>
@@ -378,6 +380,35 @@ in the reference sequences, compatibility returns True.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="RCMAP.utilities.get_entropy_back">
+<code class="sig-prename descclassname">RCMAP.utilities.</code><code class="sig-name descname">get_entropy_back</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span></em>, <em class="sig-param"><span class="n">count_gaps</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.utilities.get_entropy_back" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the background entropy from the frequencies of the amino acids given by the
+method. If gaps are taken into account, count_gaps is equal to the count of the gaps, if not,
+count_gaps is None.</p>
+<dl>
+<dt>There are two methods :</dt><dd><ul class="simple">
+<li><p>database : the frequencies of the amino acids come from the bank UniprotKB,TrEMBL
+april 2020</p></li>
+<li><p>equiprobable : the frequencies of the amino acids are all the same</p></li>
+</ul>
+<p>NB: the entropy function can take in parameter the accounts of amino acids or frequencies
+directly</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> – calculation method</p></li>
+<li><p><strong>count_gaps</strong> – is None if gaps are not taken into account, if not is the count of the gaps</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pk</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="RCMAP.utilities.get_positions_list">
 <code class="sig-prename descclassname">RCMAP.utilities.</code><code class="sig-name descname">get_positions_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">positions</span></em>, <em class="sig-param"><span class="n">pos_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.utilities.get_positions_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transforms the positions given by the user in a usable form for the other functions. Replaces
@@ -399,12 +430,12 @@ non given positions by the beginning or the end of the sequence.</p>
 <dt id="RCMAP.utilities.get_weight">
 <code class="sig-prename descclassname">RCMAP.utilities.</code><code class="sig-name descname">get_weight</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">window</span></em>, <em class="sig-param"><span class="n">window_method</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.utilities.get_weight" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines the weights for a sliding weighted window.
-is evaluated. These weights can be calculated with different method:</p>
+These weights can be calculated with different method:</p>
 <ul class="simple">
-<li><p>The Bartlett window is defined as : w(n) = 2/(M-1) * ((M-1)/2 - abs(n-(M-1)/2))</p></li>
-<li><p>The Hamming window is defined as : w(n) = 0.54 - 0.46 * cos((2*pi*n)/(M-1))  0 &lt;= n &lt;= M-1</p></li>
-<li><p>The Hanning window is defined as : w(n) = 0.5 - 0.5 * cos((2*pi*n)/(M-1))  0 &lt;= n &lt;= M-1</p></li>
-<li><p>The flat window is defined as : w(n) = 1</p></li>
+<li><p>The Bartlett window is defined as: w(n) = 2/(M-1) * ((M-1)/2 - abs(n-(M-1)/2))</p></li>
+<li><p>The Hamming window is defined as: w(n) = 0.54 - 0.46 * cos((2*pi*n)/(M-1))  0 &lt;= n &lt;= M-1</p></li>
+<li><p>The Hanning window is defined as: w(n) = 0.5 - 0.5 * cos((2*pi*n)/(M-1))  0 &lt;= n &lt;= M-1</p></li>
+<li><p>The flat window is defined as: w(n) = 1</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -425,17 +456,17 @@ is evaluated. These weights can be calculated with different method:</p>
 <dd><p>Used in classification_aa.py in find_category() which needs the categories sorted by size.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the list of sorted categories, from that which contains the least of amino acids,</p>
+<dd class="field-odd"><p>the list of sorted categories, from that which contains the least of amino acids,
+to that which contains the most</p>
 </dd>
 </dl>
-<p>to that which contains the most</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="RCMAP.utilities.summary_info">
 <code class="sig-prename descclassname">RCMAP.utilities.</code><code class="sig-name descname">summary_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_compatibility</span></em>, <em class="sig-param"><span class="n">list_info</span></em><span class="sig-paren">)</span><a class="headerlink" href="#RCMAP.utilities.summary_info" title="Permalink to this definition">¶</a></dt>
-<dd><p>Summarises the global information of a sequence: the total number of ‘True’ positions (which means
-the amino acid of the evaluated sequence is compatible with the category observed in the
+<dd><p>Summarises the global information of a sequence: the total number of ‘True’ positions (which
+means the amino acid of the evaluated sequence is compatible with the category observed in the
 reference sequences) and the total of information associated. In the same way for ‘False’
 positions.</p>
 <dl class="field-list simple">
@@ -474,7 +505,7 @@ information for False positions</p>
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, LB FP
+        &copy; Copyright 2020, Laura Boeglin &amp; Frédéric Plewniak
 
     </p>
   </div>

@@ -102,12 +102,12 @@ def summary_info(list_compatibility, list_info):
 def get_weight(window, window_method):
     """
     Defines the weights for a sliding weighted window.
-    is evaluated. These weights can be calculated with different method:
+    These weights can be calculated with different method:
 
-    * The Bartlett window is defined as : w(n) = 2/(M-1) * ((M-1)/2 - abs(n-(M-1)/2))
-    * The Hamming window is defined as : w(n) = 0.54 - 0.46 * cos((2*pi*n)/(M-1))  0 <= n <= M-1
-    * The Hanning window is defined as : w(n) = 0.5 - 0.5 * cos((2*pi*n)/(M-1))  0 <= n <= M-1
-    * The flat window is defined as : w(n) = 1
+    * The Bartlett window is defined as: w(n) = 2/(M-1) * ((M-1)/2 - abs(n-(M-1)/2))
+    * The Hamming window is defined as: w(n) = 0.54 - 0.46 * cos((2*pi*n)/(M-1))  0 <= n <= M-1
+    * The Hanning window is defined as: w(n) = 0.5 - 0.5 * cos((2*pi*n)/(M-1))  0 <= n <= M-1
+    * The flat window is defined as: w(n) = 1
 
     :param window: length of the window
     :param window_method: Calculation method of the weights at every position in the window
@@ -125,11 +125,12 @@ def get_entropy_back(method, count_gaps=None):
     Calculates the background entropy from the frequencies of the amino acids given by the
     method. If gaps are taken into account, count_gaps is equal to the count of the gaps, if not,
     count_gaps is None.
-    There is two methods :
+
+    There are two methods :
         * database : the frequencies of the amino acids come from the bank UniprotKB,TrEMBL
           april 2020
         * equiprobable : the frequencies of the amino acids are all the same
-        NB : the entropy function can take in parameter the accounts of amino acids or frequencies
+        NB: the entropy function can take in parameter the accounts of amino acids or frequencies
         directly
 
     :param method: calculation method
