@@ -1,6 +1,6 @@
 from setuptools import setup
 
-with open('README.md', 'r') as fh:
+with open('README.rst', 'r') as fh:
     long_description = fh.read()
 
 setup(
@@ -12,7 +12,7 @@ setup(
     license='CeCILL FREE SOFTWARE LICENSE AGREEMENT Version 2.1 dated 2013-06-21',
     description='Residue Conservation in Multiple Alignment of Proteins ',
     long_description=long_description,
-    long_description_content_type='text/markdown',
+    long_description_content_type='text/x-rst',
     classifiers=[
         'Programming Language :: Python :: 3',
         'Operating System :: OS Independent',
