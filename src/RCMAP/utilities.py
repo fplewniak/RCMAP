@@ -66,10 +66,19 @@ def get_positions_list(positions, pos_max):
             if new_pos[0] <= 0:
                 print('Error in positions, negative value : {pos}'.format(pos=new_pos[0]))
                 exit(1)
+            if new_pos[1] > pos_max:
+                print('Error in positions, value : {pos} is larger than {posmax}'.format(
+                    pos=new_pos[1], posmax=pos_max))
+                exit(1)
             positions_list.append(new_pos)
         else:
             if int(pos) <= 0:
                 print('Error in positions, negative value : {pos}'.format(pos=int(pos)))
+                exit(1)
+            if int(pos) > pos_max:
+                print(
+                    'Error in positions, value : {pos} is larger than {posmax}'.format(pos=int(pos),
+                                                                                       posmax=pos_max))
                 exit(1)
             positions_list.append([int(pos), int(pos)])
     return positions_list

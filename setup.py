@@ -5,7 +5,7 @@ with open('README.rst', 'r') as fh:
 
 setup(
     name='RCMAP',
-    version='1.4.1',
+    version='1.4.2',
     packages=['RCMAP'],
     package_dir={'': 'src'},
     url='https://github.com/fplewniak/RCMAP',

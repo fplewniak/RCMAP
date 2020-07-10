@@ -17,6 +17,12 @@ def test_get_positions_list():
         assert get_positions_list(['1:-5'], 100)
     with pytest.raises(SystemExit):
         assert get_positions_list(['-10'], 100)
+    with pytest.raises(SystemExit):
+        assert get_positions_list(['200'], 100)
+    with pytest.raises(SystemExit):
+        assert get_positions_list(['10:200'], 100)
+    with pytest.raises(SystemExit):
+        assert get_positions_list(['200:10'], 100)
 
 
 def test_compatibility():
